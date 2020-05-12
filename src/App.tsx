@@ -1,13 +1,13 @@
 import React from 'react';
-
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faCode} from '@fortawesome/free-solid-svg-icons';
 const App = () => {
   return (
     <>
       <nav className="navbar bg-dark">
         <h1>
           <a href="dashboard.html">
-            {' '}
-            <i className="fa fa-code"></i> DevBook{' '}
+            <FontAwesomeIcon icon={faCode} /> {'  '} DevBook
           </a>
         </h1>
         <ul>
