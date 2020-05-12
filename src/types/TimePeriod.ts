@@ -10,6 +10,11 @@ const parseDate = (date: TimePeriod): string => {
   return moment(date).format('MMM. YYYY');
 };
 
+/**
+ * Formats a time period assignment: experience or education.
+ * @param from Start of the assignment. Must be a Date
+ * @param to End of the assignment. Can be "Current"
+ */
 export const getTimePeriod = (from: TimePeriod, to: TimePeriod): string =>
   `${parseDate(from)} - ${parseDate(to)}`;
 

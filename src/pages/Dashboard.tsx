@@ -1,9 +1,12 @@
 import React, {FC} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import Header from '../components/Header';
-import DevFull, {dummyDevFull as dev} from '../models/DevFull';
 import {faUserCircle, faGraduationCap} from '@fortawesome/free-solid-svg-icons';
 import {faBlackTie} from '@fortawesome/free-brands-svg-icons';
+import Header from '../components/Header';
+import DevFull, {dummyDevFull as dev} from '../models/DevFull';
+
+import Experience from '../models/Experience';
+import {getTimePeriod} from '../types/TimePeriod';
 
 const Dashboard: FC<DevFull> = () => {
   return (
@@ -20,6 +23,7 @@ const Dashboard: FC<DevFull> = () => {
           <FontAwesomeIcon icon={faGraduationCap} /> Add Education
         </a>
       </div>
+
       <h2 className="my-2">Experience Credentials</h2>
       <table className="table">
         <thead>
@@ -29,26 +33,21 @@ const Dashboard: FC<DevFull> = () => {
             <th className="hide-sm">Years</th>
             <th></th>
           </tr>
-          <tbody>
-            <tr>
-              <td>Microsoft</td>
-              <td className="hide-sm">Senior Developer</td>
-              <td className="hide-sm">Oct 2011 - Current</td>
-              <td>
-                <button className="btn btn-danger">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>Sun Microsystems</td>
-              <td className="hide-sm">System Admin</td>
-              <td className="hide-sm">Oct 2004 - Nov 2010</td>
-              <td>
-                <button className="btn btn-danger">Delete</button>
-              </td>
-            </tr>
-          </tbody>
         </thead>
+        <tbody>
+          {dev.experiences.map((exp: Experience, i: number) => (
+            <tr>
+              <td>{exp.company}</td>
+              <td className="hide-sm">{exp.position}</td>
+              <td className="hide-sm">{getTimePeriod(exp.from, exp.to)}</td>
+              <td>
+                <button className="btn btn-danger">Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
       </table>
+
       <h2 className="my-2">Education Credentials</h2>
       <table className="table">
         <thead>
