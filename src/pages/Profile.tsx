@@ -1,5 +1,4 @@
 import React, {FC} from 'react';
-import DevFull from '../models/DevFull';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
   faGithub,
@@ -13,9 +12,12 @@ import {
   IconDefinition,
   faCheck,
 } from '@fortawesome/free-solid-svg-icons';
+import DevFull from '../models/DevFull';
+import Experience from '../models/Experience';
+import {parseDate} from '../types';
 
 const Profile: FC<DevFull> = () => {
-  const dev = {
+  const dev: DevFull = {
     id: '0',
     name: 'John Doe',
     picture:
@@ -33,6 +35,26 @@ const Profile: FC<DevFull> = () => {
     },
     bio:
       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis unde quae vero enim adipisci voluptas magni sapiente reprehenderit error minima.',
+    experiences: [
+      {
+        employer: 'Microsoft',
+        from: new Date(2011, 10),
+        to: 'Current',
+        position: 'Senior Developer',
+        description:
+          'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas corrupti rem eius, accusantium ipsum vel eveniet magnam voluptatum? Minus, voluptatum!',
+      },
+      {
+        employer: 'Sun Microsystems',
+        from: new Date(2004, 10),
+        to: new Date(2010, 11),
+        position: 'System Admin',
+        description:
+          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus at rem totam sed qui! Quas.',
+      },
+    ],
+    educations: [],
+    repos: [],
   };
 
   /** return the icon corresponding to the social name */
@@ -94,31 +116,22 @@ const Profile: FC<DevFull> = () => {
 
         <div className="profile-exp bg-white p-2">
           <h2 className="text-primary">Experiences</h2>
-          <div>
-            <h3>Microsoft</h3>
-            <p>Oct. 2011 - Current</p>
-            <p>
-              <strong>Position: </strong>Senior Developer
-            </p>
-            <p>
-              <strong>Description: </strong>Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Repellendus at rem totam sed qui!
-              Quas.
-            </p>
-          </div>
-          <div>
-            <h3>Sun Microsystems</h3>
-            <p>Oct. 2004 - Nov. 2010</p>
-            <p>
-              <strong>Position: </strong>System Admin
-            </p>
-            <p>
-              <strong>Description: </strong>Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Repellendus at rem totam sed qui!
-              Quas.
-            </p>
-          </div>
+          {dev.experiences.map((exp: Experience, i: number) => (
+            <div key={i}>
+              <h3>{exp.employer}</h3>
+              <p>{`${parseDate(exp.from)} - ${parseDate(exp.to)}`}</p>
+              <p>
+                <strong>Position: </strong>
+                {exp.position}
+              </p>
+              <p>
+                <strong>Description: </strong>
+                {exp.description}
+              </p>
+            </div>
+          ))}
         </div>
+
         <div className="profile-edu bg-white p-2">
           <h2 className="text-primary">Education</h2>
           <div>
