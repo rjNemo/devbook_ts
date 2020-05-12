@@ -7,6 +7,7 @@ import DevFull, {dummyDevFull as dev} from '../models/DevFull';
 
 import Experience from '../models/Experience';
 import {getTimePeriod} from '../types/TimePeriod';
+import Education from '../models/Education';
 
 const Dashboard: FC<DevFull> = () => {
   return (
@@ -57,17 +58,19 @@ const Dashboard: FC<DevFull> = () => {
             <th className="hide-sm">Years</th>
             <th></th>
           </tr>
-          <tbody>
+        </thead>
+        <tbody>
+          {dev.educations.map((edu: Education, i: number) => (
             <tr>
-              <td>University of Washington</td>
-              <td className="hide-sm">Computer Science</td>
-              <td className="hide-sm">Sep 1993 - June 1999</td>
+              <td>{edu.school}</td>
+              <td className="hide-sm">{edu.field}</td>
+              <td className="hide-sm">{getTimePeriod(edu.from, edu.to)}</td>
               <td>
                 <button className="btn btn-danger">Delete</button>
               </td>
             </tr>
-          </tbody>
-        </thead>
+          ))}
+        </tbody>
       </table>
       <div className="my-2">
         <button className="btn btn-danger">
