@@ -20,4 +20,9 @@ describe('App Router', () => {
     cy.visit(ROUTES.DEVELOPERS);
     cy.get('section');
   });
+
+  it('contains Profile page', () => {
+    cy.visit(ROUTES.PROFILE);
+    cy.get('section');
+  });
 });

@@ -3,11 +3,7 @@ import Header from '../components/Header';
 import DevProfile from '../components/DevProfile';
 import DevSummary from '../models/DevSummary';
 
-// interface IProps {
-//     developers: DevSummary[]
-// }
-
-// const Developers: FC<IProps> = ({developers}) => (
+// const Developers: FC<DevSummary[]> = (developers) => {
 const Developers: FC = () => {
   const developers: DevSummary[] = [
     {
