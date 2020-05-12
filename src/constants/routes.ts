@@ -11,3 +11,4 @@ export const EDIT_PROFILE: string = '/edit-profile';
 export const DASHBOARD: string = '/dashboard';
 export const ADD_EXPERIENCE: string = '/add-experience';
 export const ADD_EDUCATION: string = '/add-education';
+export const POST: string = '/post';

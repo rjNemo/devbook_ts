@@ -45,4 +45,9 @@ describe('App Router', () => {
     cy.visit(ROUTES.DASHBOARD);
     cy.get('section');
   });
+
+  it('contains Post page', () => {
+    cy.visit(ROUTES.POST);
+    cy.get('section');
+  });
 });
