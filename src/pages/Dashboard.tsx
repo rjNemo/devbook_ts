@@ -1,10 +1,15 @@
 import React, {FC} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faUserCircle, faGraduationCap} from '@fortawesome/free-solid-svg-icons';
+import {
+  faUserCircle,
+  faGraduationCap,
+  faUserSlash,
+  faCross,
+  faTimes,
+} from '@fortawesome/free-solid-svg-icons';
 import {faBlackTie} from '@fortawesome/free-brands-svg-icons';
 import Header from '../components/Header';
 import DevFull, {dummyDevFull as dev} from '../models/DevFull';
-
 import Experience from '../models/Experience';
 import {getTimePeriod} from '../types/TimePeriod';
 import Education from '../models/Education';
@@ -74,7 +79,7 @@ const Dashboard: FC<DevFull> = () => {
       </table>
       <div className="my-2">
         <button className="btn btn-danger">
-          <i className="fa fa-user"></i> Delete my Account
+          <FontAwesomeIcon icon={faUserSlash} /> Delete my Account
         </button>
       </div>
     </section>
