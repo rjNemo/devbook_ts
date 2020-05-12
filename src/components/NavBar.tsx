@@ -5,7 +5,7 @@ import {faCode} from '@fortawesome/free-solid-svg-icons';
 /**
  * Main Navbar serves navigation routes.
  */
-const NavBar: FC = () => (
+const NavBar = () => (
   <nav className="navbar bg-dark">
     <h1>
       <a href="dashboard.html">

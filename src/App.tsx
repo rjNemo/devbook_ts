@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {BrowserRouter} from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Router from './router/Router';
 
 /** Main App container */
-const App = () => {
+const App: FC = () => {
   return (
     <BrowserRouter>
       <NavBar />
