@@ -5,6 +5,7 @@ describe('App Router', () => {
     cy.visit(ROUTES.LANDING);
     cy.get('section');
   });
+
   it('contains SignUp page', () => {
     cy.visit(ROUTES.SIGN_UP);
     cy.get('section');
