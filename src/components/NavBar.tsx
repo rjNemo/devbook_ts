@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCode} from '@fortawesome/free-solid-svg-icons';
 
-const NavBar = () => (
+const NavBar: FC = () => (
   <nav className="navbar bg-dark">
     <h1>
       <a href="dashboard.html">
