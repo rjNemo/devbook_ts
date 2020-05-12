@@ -1,24 +1,23 @@
-import React from 'react';
+import React, {FC} from 'react';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import Header from '../components/Header';
+import DevFull, {dummyDevFull as dev} from '../models/DevFull';
+import {faUserCircle, faGraduationCap} from '@fortawesome/free-solid-svg-icons';
+import {faBlackTie} from '@fortawesome/free-brands-svg-icons';
 
-const Dashboard = () => {
+const Dashboard: FC<DevFull> = () => {
   return (
     <section className="container">
-      <h1 className="large text-primary">Dashboard</h1>
-      <p className="lead">
-        <i className="fa fa-user"></i> Welcome John
-      </p>
+      <Header title="Dashboard" lead={`Welcome ${dev.name}`} />
       <div className="dash-buttons">
         <a href="create-profile.html" className="btn btn-light">
-          {' '}
-          <i className="fa fa-user-circle text-primary"></i> Edit Profile
+          <FontAwesomeIcon icon={faUserCircle} /> Edit Profile
         </a>
         <a href="add-experience.html" className="btn btn-light">
-          {' '}
-          <i className="fa fa-black-tie text-primary"></i> Add Experience
+          <FontAwesomeIcon icon={faBlackTie} /> Add Experience
         </a>
         <a href="add-education.html" className="btn btn-light">
-          {' '}
-          <i className="fa fa-graduation-cap text-primary"></i> Add Education
+          <FontAwesomeIcon icon={faGraduationCap} /> Add Education
         </a>
       </div>
       <h2 className="my-2">Experience Credentials</h2>
