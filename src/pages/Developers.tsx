@@ -24,9 +24,9 @@ const Developers: FC = () => {
       name: 'Ruidy Nemausat',
       picture:
         'https://lh3.googleusercontent.com/a-/AOh14GhncH95MWKwPR3TRKy4eVd4n6w0-fobe4dhiam2xA',
-      description: 'Frontend Engineer at DESY',
+      description: 'Fullstack Engineer at DESY',
       location: 'Hamburg, DE',
-      skills: ['React', 'TypeScript', 'Redux', 'GraphQL'],
+      skills: ['React', 'TypeScript', 'Redux', 'Nodejs'],
     },
   ];
 

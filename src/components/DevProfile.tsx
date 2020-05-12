@@ -23,7 +23,7 @@ const DevProfile: FC<DevSummary> = ({
     </div>
     <ul>
       {skills.map((s, i) => (
-        <li className="text-primary">
+        <li className="text-primary" key={i}>
           <FontAwesomeIcon icon={faCheck} /> {s}
         </li>
       ))}

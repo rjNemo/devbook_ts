@@ -10,4 +10,14 @@ describe('App Router', () => {
     cy.visit(ROUTES.SIGN_UP);
     cy.get('section');
   });
+
+  it('contains SignIn page', () => {
+    cy.visit(ROUTES.SIGN_IN);
+    cy.get('section');
+  });
+
+  it('contains Developers page', () => {
+    cy.visit(ROUTES.DEVELOPERS);
+    cy.get('section');
+  });
 });
