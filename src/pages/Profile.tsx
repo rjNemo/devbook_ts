@@ -15,6 +15,7 @@ import {
 import DevFull from '../models/DevFull';
 import Experience from '../models/Experience';
 import {parseDate} from '../types';
+import Education from '../models/Education';
 
 const Profile: FC<DevFull> = () => {
   const dev: DevFull = {
@@ -53,7 +54,17 @@ const Profile: FC<DevFull> = () => {
           'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus at rem totam sed qui! Quas.',
       },
     ],
-    educations: [],
+    educations: [
+      {
+        school: 'University of Washington',
+        from: new Date(1993, 9),
+        to: new Date(1999, 6),
+        degree: 'Master',
+        field: 'Computer Science',
+        description:
+          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus at rem totam sed qui! Quas.',
+      },
+    ],
     repos: [],
   };
 
@@ -134,22 +145,26 @@ const Profile: FC<DevFull> = () => {
 
         <div className="profile-edu bg-white p-2">
           <h2 className="text-primary">Education</h2>
-          <div>
-            <h3>University of Washington</h3>
-            <p>Sep. 1993 - June 1999</p>
-            <p>
-              <strong>Degree: </strong>Master
-            </p>
-            <p>
-              <strong>Field: </strong>Computer Science
-            </p>
-            <p>
-              <strong>Description: </strong>Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Repellendus at rem totam sed qui!
-              Quas.
-            </p>
-          </div>
+          {dev.educations.map((edu: Education, i: number) => (
+            <div key={i}>
+              <h3>{edu.school}</h3>
+              <p>{`${parseDate(edu.from)} - ${parseDate(edu.to)}`}</p>
+              <p>
+                <strong>Degree: </strong>
+                {edu.degree}
+              </p>
+              <p>
+                <strong>Field: </strong>
+                {edu.field}
+              </p>
+              <p>
+                <strong>Description: </strong>
+                {edu.description}
+              </p>
+            </div>
+          ))}
         </div>
+
         <div className="profile-github">
           <h2 className="text-primary my-1">
             <i className="fa fa-github"></i>
