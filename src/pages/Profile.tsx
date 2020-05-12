@@ -11,11 +11,15 @@ import {
   faGlobe,
   IconDefinition,
   faCheck,
+  faStar,
+  faEye,
+  faCodeBranch,
 } from '@fortawesome/free-solid-svg-icons';
 import DevFull from '../models/DevFull';
 import Experience from '../models/Experience';
 import {parseDate} from '../types';
 import Education from '../models/Education';
+import Repo from '../models/Repo';
 
 const Profile: FC<DevFull> = () => {
   const dev: DevFull = {
@@ -65,7 +69,35 @@ const Profile: FC<DevFull> = () => {
           'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus at rem totam sed qui! Quas.',
       },
     ],
-    repos: [],
+    repos: [
+      {
+        name: 'Repo #1',
+        description:
+          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit,deserunt.',
+        link: '#',
+        stars: 42,
+        watchers: 2,
+        forks: 4,
+      },
+      {
+        name: 'Repo #2',
+        description:
+          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit,deserunt.',
+        link: '#',
+        stars: 21,
+        watchers: 1,
+        forks: 2,
+      },
+      {
+        name: 'Repo #3',
+        description:
+          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit,deserunt.',
+        link: '#',
+        stars: 50,
+        watchers: 32,
+        forks: 12,
+      },
+    ],
   };
 
   /** return the icon corresponding to the social name */
@@ -167,82 +199,32 @@ const Profile: FC<DevFull> = () => {
 
         <div className="profile-github">
           <h2 className="text-primary my-1">
-            <i className="fa fa-github"></i>
-            GitHub Repos
+            <FontAwesomeIcon icon={faGithub} /> GitHub Repos
           </h2>
 
-          <div className="repo bg-white my-1 p-1">
-            <div>
-              <h4>
-                <a href="">Repo #1</a>
-              </h4>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit,
-                deserunt.
-              </p>
+          {dev.repos.map((r: Repo, i: number) => (
+            <div className="repo bg-white my-1 p-1">
+              <div>
+                <h4>
+                  <a href={r.link}>{r.name}</a>
+                </h4>
+                <p>{r.description}</p>
+              </div>
+              <div>
+                <ul>
+                  <li className="badge badge-primary">
+                    <FontAwesomeIcon icon={faStar} /> Stars: 42
+                  </li>
+                  <li className="badge badge-dark">
+                    <FontAwesomeIcon icon={faEye} /> Watchers: 2
+                  </li>
+                  <li className="badge badge-light">
+                    <FontAwesomeIcon icon={faCodeBranch} /> Forks: 4
+                  </li>
+                </ul>
+              </div>
             </div>
-            <div>
-              <ul>
-                <li className="badge badge-primary">
-                  <i className="fa fa-star"></i> Stars: 42
-                </li>
-                <li className="badge badge-dark">
-                  <i className="fa fa-eye"></i> Watchers: 2
-                </li>
-                <li className="badge badge-light">
-                  <i className="fa fa-code-fork"></i> Forks: 4
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="repo bg-white my-1 p-1">
-            <div>
-              <h4>
-                <a href="">Repo #2</a>
-              </h4>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit,
-                deserunt.
-              </p>
-            </div>
-            <div>
-              <ul>
-                <li className="badge badge-primary">
-                  <i className="fa fa-star"></i> Stars: 42
-                </li>
-                <li className="badge badge-dark">
-                  <i className="fa fa-eye"></i> Watchers: 2
-                </li>
-                <li className="badge badge-light">
-                  <i className="fa fa-code-fork"></i> Forks: 4
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="repo bg-white my-1 p-1">
-            <div>
-              <h4>
-                <a href="">Repo #3</a>
-              </h4>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit,
-                deserunt.
-              </p>
-            </div>
-            <div>
-              <ul>
-                <li className="badge badge-primary">
-                  <i className="fa fa-star"></i> Stars: 42
-                </li>
-                <li className="badge badge-dark">
-                  <i className="fa fa-eye"></i> Watchers: 2
-                </li>
-                <li className="badge badge-light">
-                  <i className="fa fa-code-fork"></i> Forks: 4
-                </li>
-              </ul>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
