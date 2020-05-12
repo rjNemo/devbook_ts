@@ -8,6 +8,7 @@ import Profile from '../pages/Profile';
 import EditProfile from '../pages/EditProfile';
 import Dashboard from '../pages/Dashboard';
 import AddExperience from '../pages/AddExperience';
+import AddEducation from '../pages/AddEducation';
 import * as ROUTES from '../constants/routes';
 
 const Router: FC = () => (
@@ -20,6 +21,7 @@ const Router: FC = () => (
     <Route exact path={ROUTES.EDIT_PROFILE} component={EditProfile} />
     <Route exact path={ROUTES.DASHBOARD} component={Dashboard} />
     <Route exact path={ROUTES.ADD_EXPERIENCE} component={AddExperience} />
+    <Route exact path={ROUTES.ADD_EDUCATION} component={AddEducation} />
   </Switch>
 );
 
