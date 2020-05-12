@@ -1,28 +1,22 @@
 import React, {FC} from 'react';
+import Post, {dummyPost as post} from '../models/Post';
+import Comment from '../types/Comment';
 
-const Post: FC = () => (
+const PostPage: FC<Post> = () => (
   <section className="container">
     <a href="posts.html" className="btn btn-light">
       Back To Posts
     </a>
+
     <div className="post bg-white p-1 my-1">
       <div>
         <a href="profile.html">
-          <img
-            className="round-img"
-            src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
-            alt=""
-          />
-          <h4>John Doe</h4>
+          <img className="round-img" src={post.picture} alt={post.name} />
+          <h4>{post.name}</h4>
         </a>
       </div>
       <div>
-        <p className="my-1">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint possimus
-          corporis sunt necessitatibus! Minus nesciunt soluta suscipit nobis.
-          Amet accusamus distinctio cupiditate blanditiis dolor? Illo
-          perferendis eveniet cum cupiditate aliquam?
-        </p>
+        <p className="my-1">{post.text}</p>
       </div>
     </div>
 
@@ -42,49 +36,21 @@ const Post: FC = () => (
     </div>
 
     <div className="posts">
-      <div className="post bg-white p-1 my-1">
-        <div>
-          <a href="profile.html">
-            <img
-              className="round-img"
-              src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
-              alt=""
-            />
-            <h4>John Doe</h4>
-          </a>
+      {post.comments.map((c: Comment, i: number) => (
+        <div className="post bg-white p-1 my-1" key={i}>
+          <div>
+            <a href="profile.html">
+              <img className="round-img" src={c.picture} alt={c.name} />
+              <h4>{c.name}</h4>
+            </a>
+          </div>
+          <div>
+            <p className="my-1">{c.text}</p>
+          </div>
         </div>
-        <div>
-          <p className="my-1">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint
-            possimus corporis sunt necessitatibus! Minus nesciunt soluta
-            suscipit nobis. Amet accusamus distinctio cupiditate blanditiis
-            dolor? Illo perferendis eveniet cum cupiditate aliquam?
-          </p>
-        </div>
-      </div>
-
-      <div className="post bg-white p-1 my-1">
-        <div>
-          <a href="profile.html">
-            <img
-              className="round-img"
-              src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
-              alt=""
-            />
-            <h4>John Doe</h4>
-          </a>
-        </div>
-        <div>
-          <p className="my-1">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint
-            possimus corporis sunt necessitatibus! Minus nesciunt soluta
-            suscipit nobis. Amet accusamus distinctio cupiditate blanditiis
-            dolor? Illo perferendis eveniet cum cupiditate aliquam?
-          </p>
-        </div>
-      </div>
+      ))}
     </div>
   </section>
 );
 
-export default Post;
+export default PostPage;

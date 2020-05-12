@@ -1,9 +1,9 @@
 interface Comment {
-  userID: string;
+  // userID: string;
   text: string;
   name: string;
-  avatar: string;
-  date: Date;
+  picture: string;
+  // date: Date;
 }
 
 export default Comment;
