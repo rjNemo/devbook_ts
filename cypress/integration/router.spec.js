@@ -31,6 +31,11 @@ describe('App Router', () => {
     cy.get('section');
   });
 
+  it('contains Add Experience page', () => {
+    cy.visit(ROUTES.ADD_EXPERIENCE);
+    cy.get('section');
+  });
+
   it('contains Dashboard page', () => {
     cy.visit(ROUTES.DASHBOARD);
     cy.get('section');

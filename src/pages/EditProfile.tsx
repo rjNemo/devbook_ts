@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import Header from '../components/Header';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
@@ -8,15 +8,15 @@ import {
   faLinkedin,
   faInstagram,
 } from '@fortawesome/free-brands-svg-icons';
+import FormHeader from '../components/FormHeader';
 
-const EditProfile = () => {
+const EditProfile: FC = () => {
   return (
     <section className="container">
-      <Header
+      <FormHeader
         title="Create your profile"
         lead="Let's get some information to make your profile stand out"
       />
-      <small>* marks required fields</small>
 
       <form className="form">
         <div className="form-group">

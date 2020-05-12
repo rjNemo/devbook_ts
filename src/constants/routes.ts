@@ -9,3 +9,4 @@ export const DEVELOPERS: string = '/developers';
 export const PROFILE: string = '/profile';
 export const EDIT_PROFILE: string = '/edit-profile';
 export const DASHBOARD: string = '/dashboard';
+export const ADD_EXPERIENCE: string = '/add-experience';

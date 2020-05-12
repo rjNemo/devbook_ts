@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faUser} from '@fortawesome/free-solid-svg-icons';
+import {faUser, faCodeBranch} from '@fortawesome/free-solid-svg-icons';
 import {faConnectdevelop} from '@fortawesome/free-brands-svg-icons';
 
 interface IProps {
@@ -16,6 +16,9 @@ const Header: FC<IProps> = ({title, lead, icon = 'faUser'}) => {
     }
     if (icon === 'connectdevelop') {
       return <FontAwesomeIcon icon={faConnectdevelop} />;
+    }
+    if (icon === 'code-branch') {
+      return <FontAwesomeIcon icon={faCodeBranch} />;
     }
   };
 
