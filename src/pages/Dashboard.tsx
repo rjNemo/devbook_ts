@@ -4,8 +4,6 @@ import {
   faUserCircle,
   faGraduationCap,
   faUserSlash,
-  faCross,
-  faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 import {faBlackTie} from '@fortawesome/free-brands-svg-icons';
 import Header from '../components/Header';
@@ -42,7 +40,7 @@ const Dashboard: FC<DevFull> = () => {
         </thead>
         <tbody>
           {dev.experiences.map((exp: Experience, i: number) => (
-            <tr>
+            <tr key={i}>
               <td>{exp.company}</td>
               <td className="hide-sm">{exp.position}</td>
               <td className="hide-sm">{getTimePeriod(exp.from, exp.to)}</td>
@@ -66,7 +64,7 @@ const Dashboard: FC<DevFull> = () => {
         </thead>
         <tbody>
           {dev.educations.map((edu: Education, i: number) => (
-            <tr>
+            <tr key={i}>
               <td>{edu.school}</td>
               <td className="hide-sm">{edu.field}</td>
               <td className="hide-sm">{getTimePeriod(edu.from, edu.to)}</td>

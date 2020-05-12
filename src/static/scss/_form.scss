@@ -7,10 +7,10 @@
     margin-top: 0.3rem;
     color: #888;
   }
-  input[type="text"],
-  input[type="email"],
-  input[type="password"],
-  input[type="date"],
+  input[type='text'],
+  input[type='email'],
+  input[type='password'],
+  input[type='date'],
   select,
   textarea {
     display: block;
@@ -21,16 +21,16 @@
     border-radius: 0.3rem;
   }
 
-  input[type="submit"] {
+  input[type='submit'] {
     font: inherit;
   }
 
   .social-input {
     display: flex;
 
-    i {
+    svg {
       padding: 0.5rem;
-      width: 4rem;
+      width: 3rem;
 
       &.fa-twitter {
         color: #38a1f3;

@@ -26,6 +26,11 @@ describe('App Router', () => {
     cy.get('section');
   });
 
+  it('contains Edit Profile page', () => {
+    cy.visit(ROUTES.EDIT_PROFILE);
+    cy.get('section');
+  });
+
   it('contains Dashboard page', () => {
     cy.visit(ROUTES.DASHBOARD);
     cy.get('section');
