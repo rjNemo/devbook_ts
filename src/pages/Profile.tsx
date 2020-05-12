@@ -17,7 +17,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import DevFull, {dummyDevFull as dev} from '../models/DevFull';
 import Experience from '../models/Experience';
-import {parseDate} from '../types';
+import {getTimePeriod} from '../types/TimePeriod';
 import Education from '../models/Education';
 import Repo from '../models/Repo';
 
@@ -83,8 +83,8 @@ const Profile: FC<DevFull> = () => {
           <h2 className="text-primary">Experiences</h2>
           {dev.experiences.map((exp: Experience, i: number) => (
             <div key={i}>
-              <h3>{exp.employer}</h3>
-              <p>{`${parseDate(exp.from)} - ${parseDate(exp.to)}`}</p>
+              <h3>{exp.company}</h3>
+              <p>{getTimePeriod(exp.from, exp.to)}</p>
               <p>
                 <strong>Position: </strong>
                 {exp.position}
@@ -102,7 +102,7 @@ const Profile: FC<DevFull> = () => {
           {dev.educations.map((edu: Education, i: number) => (
             <div key={i}>
               <h3>{edu.school}</h3>
-              <p>{`${parseDate(edu.from)} - ${parseDate(edu.to)}`}</p>
+              <p>{getTimePeriod(edu.from, edu.to)}</p>
               <p>
                 <strong>Degree: </strong>
                 {edu.degree}

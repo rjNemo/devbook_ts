@@ -1,4 +1,4 @@
-import {TimePeriod} from '../types';
+import TimePeriod from '../types/TimePeriod';
 
 interface Education {
   school: string;

@@ -1,7 +1,7 @@
-import {TimePeriod} from '../types';
+import TimePeriod from '../types/TimePeriod';
 
 interface Experience {
-  employer: string;
+  company: string;
   from: Date;
   to: TimePeriod;
   position: string;
