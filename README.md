@@ -20,7 +20,7 @@ and edit your E2E test cases in `cypress/integration/` folder.
 
 - [ReactJs](https://reactjs.org/) - A JavaScript library for building user interfaces
 - [Redux](https://redux.js.org/) - A predictable statea container for JavaScript apps
-- [ROME](https://fiirebase.google.com/) - Firebase helps mobile and web app teams succeed
+- [Firebase](https://firebase.google.com/) - Firebase helps mobile and web app teams succeed
 
 ## Versioning
 
