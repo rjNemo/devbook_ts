@@ -1,13 +1,9 @@
 import React, {FC} from 'react';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faUser} from '@fortawesome/free-solid-svg-icons';
+import Header from '../components/Header';
 
 const SignUp: FC = () => (
   <section className="container">
-    <h1 className="large text-primary">Sign Up</h1>
-    <p className="lead">
-      <FontAwesomeIcon icon={faUser} /> Create your account
-    </p>
+    <Header title="Sign Up" lead="Create your account" />
     <form action="dashboard.html" className="form">
       <div className="form-group">
         <input type="text" placeholder="Name" required />

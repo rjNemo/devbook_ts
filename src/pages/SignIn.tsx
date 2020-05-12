@@ -1,12 +1,10 @@
 import React, {FC} from 'react';
+import Header from '../components/Header';
 
 const SignUp: FC = () => (
   <section className="container">
     <div className="alert alert-danger">Invalid credentials</div>
-    <h1 className="large text-primary">Sign In</h1>
-    <p className="lead">
-      <i className="fa fa-user"></i> Sign into your account
-    </p>
+    <Header title="Sign In" lead="Sign into your account" />
     <form action="dashboard.html" className="form">
       <div className="form-group">
         <input type="email" placeholder="Email Address" />
