@@ -13,6 +13,12 @@ interface IProps {
   icon?: string;
 }
 
+/**
+ * Header component
+ * @param title of the page
+ * @param lead description of the content
+ * @param icon  to display (optional and default to faUser)
+ */
 const Header: FC<IProps> = ({title, lead, icon = 'faUser'}) => {
   const RenderIcon = (icon: string) => {
     if (icon === 'faUser') {

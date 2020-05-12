@@ -15,13 +15,16 @@ import {
   faEye,
   faCodeBranch,
 } from '@fortawesome/free-solid-svg-icons';
-import DevFull, {dummyDevFull as dev} from '../models/DevFull';
-import Experience from '../models/Experience';
+import Dev, {dummyDev as dev} from '../models/Dev';
+import Experience from '../types/Experience';
 import {getTimePeriod} from '../types/TimePeriod';
-import Education from '../models/Education';
-import Repo from '../models/Repo';
+import Education from '../types/Education';
+import Repo from '../types/Repo';
 
-const Profile: FC<DevFull> = () => {
+/**
+ * Dev personal profile as seen by other people.
+ */
+const Profile: FC<Dev> = () => {
   /** return the icon corresponding to the social name */
   const renderSocialIcon = (name: string): IconDefinition => {
     switch (name) {

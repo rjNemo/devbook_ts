@@ -1,10 +1,21 @@
-import DevSummary from '../models/DevSummary';
-import Experience from './Experience';
-import Education from './Education';
-import Repo from './Repo';
+import Experience from '../types/Experience';
+import Education from '../types/Education';
+import Repo from '../types/Repo';
 
-/**Full developer profile information. extends summary to avoid duplication */
-interface DevFull extends DevSummary {
+/** Shorter dev interface */
+export interface DevSummary {
+  id: string;
+  name: string;
+  picture: string;
+  description: string;
+  location: string;
+  skills: string[];
+}
+
+/** Full developer profile information.
+ * @extends DevSummary to avoid duplication
+ */
+interface Dev extends DevSummary {
   bio: string;
   links: Object;
   experiences: Experience[];
@@ -13,9 +24,9 @@ interface DevFull extends DevSummary {
 }
 
 /**
- * sample DevFull for development and tests
+ * sample Dev for development and tests
  */
-export const dummyDevFull: DevFull = {
+export const dummyDev: Dev = {
   id: '0',
   name: 'John Doe',
   picture:
@@ -92,4 +103,4 @@ export const dummyDevFull: DevFull = {
     },
   ],
 };
-export default DevFull;
+export default Dev;

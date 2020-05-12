@@ -1,8 +1,11 @@
 import React, {FC} from 'react';
 import Header from '../components/Header';
 import DevProfile from '../components/DevProfile';
-import DevSummary from '../models/DevSummary';
+import {DevSummary} from '../models/Dev';
 
+/**
+ * Developers list page
+ */
 // const Developers: FC<DevSummary[]> = (developers) => {
 const Developers: FC = () => {
   const developers: DevSummary[] = [

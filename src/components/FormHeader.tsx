@@ -7,6 +7,7 @@ interface IProps {
   icon?: string;
 }
 
+/** Header component displayed on form pages */
 const FormHeader: FC<IProps> = props => (
   <>
     <Header {...props} />

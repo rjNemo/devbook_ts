@@ -9,6 +9,9 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import FormHeader from '../components/FormHeader';
 
+/**
+ * Form to update dev's personal information.
+ */
 const EditProfile: FC = () => {
   return (
     <section className="container">

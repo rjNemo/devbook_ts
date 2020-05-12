@@ -4,6 +4,9 @@ import Header from '../components/Header';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faThumbsUp, faThumbsDown} from '@fortawesome/free-solid-svg-icons';
 
+/**
+ * A Dev's Posts list
+ */
 const Posts: FC = () => {
   const posts: Post[] = [post, post];
 
@@ -19,8 +22,8 @@ const Posts: FC = () => {
           <textarea cols={30} rows={5} placeholder="Create a post"></textarea>
           <input type="submit" value="Submit" className="btn btn-dark my-1" />
           <div className="posts">
-            {posts.map((post: Post, i: number) => (
-              <div className="post bg-white p-1 my-1" key={i}>
+            {posts.map((post: Post) => (
+              <div className="post bg-white p-1 my-1" key={post.id}>
                 <div>
                   <a href="profile.html">
                     <img

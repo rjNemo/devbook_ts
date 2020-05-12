@@ -1,5 +1,8 @@
 import React, {FC} from 'react';
 
+/**
+ * Landing page
+ */
 const Landing: FC = () => (
   <section className="landing">
     <div className="dark-overlay">

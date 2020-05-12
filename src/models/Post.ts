@@ -1,6 +1,10 @@
 import Comment from '../types/Comment';
 
+/**
+ * Post send by a dev
+ */
 interface Post {
+  id: string;
   userID: string;
   name: string;
   text: string;
@@ -10,7 +14,11 @@ interface Post {
   //   date: Date;
 }
 
+/**
+ * sample Post for development and tests
+ */
 export const dummyPost: Post = {
+  id: '12',
   userID: '42',
   picture:
     'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200',

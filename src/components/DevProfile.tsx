@@ -1,8 +1,12 @@
 import React, {FC} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCheck} from '@fortawesome/free-solid-svg-icons';
-import DevSummary from '../models/DevSummary';
+import {DevSummary} from '../models/Dev';
 
+/**
+ * Present a dev profile succintly. Redirect to dev profile on click.
+ * @param props DevSummary object
+ */
 const DevProfile: FC<DevSummary> = ({
   id,
   name,

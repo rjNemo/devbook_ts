@@ -13,6 +13,7 @@ import PostPage from '../pages/Post';
 import Posts from '../pages/Posts';
 import * as ROUTES from '../constants/routes';
 
+/** Register navigation paths accessible */
 const Router: FC = () => (
   <Switch>
     <Route exact path={ROUTES.LANDING} component={Landing} />

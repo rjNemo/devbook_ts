@@ -1,6 +1,9 @@
 import React, {FC} from 'react';
 import FormHeader from '../components/FormHeader';
 
+/**
+ * Form to add an Education step to Profile
+ */
 const AddExperience: FC = () => {
   return (
     <section className="container">

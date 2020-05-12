@@ -2,6 +2,9 @@ import React, {FC} from 'react';
 import Post, {dummyPost as post} from '../models/Post';
 import Comment from '../types/Comment';
 
+/**
+ * Display a Post and the related comments. Shows a form to add a comment.
+ */
 const PostPage: FC<Post> = () => (
   <section className="container">
     <a href="posts.html" className="btn btn-light">

@@ -1,6 +1,9 @@
 import React, {FC} from 'react';
 import Header from '../components/Header';
 
+/**
+ * Sign up form
+ */
 const SignUp: FC = () => (
   <section className="container">
     <Header title="Sign Up" lead="Create your account" />

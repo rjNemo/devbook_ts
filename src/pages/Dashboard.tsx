@@ -7,12 +7,15 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {faBlackTie} from '@fortawesome/free-brands-svg-icons';
 import Header from '../components/Header';
-import DevFull, {dummyDevFull as dev} from '../models/DevFull';
-import Experience from '../models/Experience';
+import Dev, {dummyDev as dev} from '../models/Dev';
+import Experience from '../types/Experience';
 import {getTimePeriod} from '../types/TimePeriod';
-import Education from '../models/Education';
+import Education from '../types/Education';
 
-const Dashboard: FC<DevFull> = () => {
+/**
+ * Main page from which a Dev can peek and edit its own profile.
+ */
+const Dashboard: FC<Dev> = () => {
   return (
     <section className="container">
       <Header title="Dashboard" lead={`Welcome ${dev.name}`} />

@@ -1,7 +1,10 @@
 import React, {FC} from 'react';
 import Header from '../components/Header';
 
-const SignUp: FC = () => (
+/**
+ * Sign in form
+ */
+const SignIn: FC = () => (
   <section className="container">
     <div className="alert alert-danger">Invalid credentials</div>
     <Header title="Sign In" lead="Sign into your account" />
@@ -21,4 +24,4 @@ const SignUp: FC = () => (
   </section>
 );
 
-export default SignUp;
+export default SignIn;
