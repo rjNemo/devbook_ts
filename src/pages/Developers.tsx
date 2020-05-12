@@ -1,19 +1,32 @@
 import React, {FC} from 'react';
 import Header from '../components/Header';
 import DevProfile from '../components/DevProfile';
+import DevSummary from '../models/DevSummary';
 
 // interface IProps {
-//     developers: []
+//     developers: DevSummary[]
 // }
 
 // const Developers: FC<IProps> = ({developers}) => (
 const Developers: FC = () => {
-  const developers = [
+  const developers: DevSummary[] = [
     {
+      id: '0',
       name: 'John Doe',
+      picture:
+        'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200',
       description: 'Developer at Microsoft',
       location: 'Seattle, WA',
       skills: ['HTML', 'CSS', 'JavaScript', 'Python'],
+    },
+    {
+      id: '42',
+      name: 'Ruidy Nemausat',
+      picture:
+        'https://lh3.googleusercontent.com/a-/AOh14GhncH95MWKwPR3TRKy4eVd4n6w0-fobe4dhiam2xA',
+      description: 'Frontend Engineer at DESY',
+      location: 'Hamburg, DE',
+      skills: ['React', 'TypeScript', 'Redux', 'GraphQL'],
     },
   ];
 
@@ -25,14 +38,9 @@ const Developers: FC = () => {
         icon="connectdevelop"
       />
       <div className="profiles">
-        {developers.map((dev, i) => (
-          <DevProfile
-            key={i}
-            name={dev.name}
-            description={dev.description}
-            location={dev.location}
-            skills={dev.skills}
-          />
+        {developers.map(dev => (
+          // use spread operator to pass props
+          <DevProfile key={dev.id} {...dev} />
         ))}
       </div>
     </section>
