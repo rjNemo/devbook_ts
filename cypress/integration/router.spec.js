@@ -50,4 +50,9 @@ describe('App Router', () => {
     cy.visit(ROUTES.POST);
     cy.get('section');
   });
+
+  it('contains Posts page', () => {
+    cy.visit(ROUTES.POSTS);
+    cy.get('section');
+  });
 });

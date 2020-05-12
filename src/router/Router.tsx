@@ -10,6 +10,7 @@ import Dashboard from '../pages/Dashboard';
 import AddExperience from '../pages/AddExperience';
 import AddEducation from '../pages/AddEducation';
 import PostPage from '../pages/Post';
+import Posts from '../pages/Posts';
 import * as ROUTES from '../constants/routes';
 
 const Router: FC = () => (
@@ -24,6 +25,7 @@ const Router: FC = () => (
     <Route exact path={ROUTES.ADD_EXPERIENCE} component={AddExperience} />
     <Route exact path={ROUTES.ADD_EDUCATION} component={AddEducation} />
     <Route exact path={ROUTES.POST} component={PostPage} />
+    <Route exact path={ROUTES.POSTS} component={Posts} />
   </Switch>
 );
 
