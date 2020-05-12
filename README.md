@@ -3,7 +3,8 @@
 ![Deploy](https://github.com/rjNemo/devbook_ts/workflows/Deploy/badge.svg?branch=master)
 
 Social App for connecting with developers & tech enthusiasts.
-🕸 [Check it out](https://devbook.onrender.com/)
+
+🕸 [Check it out!](https://devbook.onrender.com/)
 
 ## Tests
 
@@ -18,6 +19,14 @@ yarn cypress
 ```
 
 and edit your E2E test cases in `cypress/integration/` folder.
+
+### Unit
+
+Open test runner with:
+
+```sh
+yarn test
+```
 
 ## Deployment
 
