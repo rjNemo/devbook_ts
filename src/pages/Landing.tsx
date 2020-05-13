@@ -1,4 +1,6 @@
 import React, {FC} from 'react';
+import {Link} from 'react-router-dom';
+import * as ROUTES from '../constants/routes';
 
 /**
  * Landing page
@@ -13,12 +15,12 @@ const Landing: FC = () => (
           devs
         </p>
         <div className="buttons">
-          <a href="register.html" className="btn btn-primary">
+          <Link to={ROUTES.SIGN_UP} className="btn btn-primary">
             Sign up
-          </a>
-          <a href="login.html" className="btn btn-light">
+          </Link>
+          <Link to={ROUTES.SIGN_IN} className="btn btn-light">
             Login
-          </a>
+          </Link>
         </div>
       </div>
     </div>
