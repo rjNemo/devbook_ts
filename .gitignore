@@ -8,6 +8,8 @@
 # testing
 /coverage
 /cypress/integration/examples
+/cypress/fixtures/
+/cypress/screenshots/
 
 # production
 /build

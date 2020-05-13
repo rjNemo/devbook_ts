@@ -1,5 +1,7 @@
 import React, {FC} from 'react';
+import * as ROUTES from '../constants/routes';
 import Header from '../components/Header';
+import {Link} from 'react-router-dom';
 
 /**
  * Sign in form
@@ -19,7 +21,7 @@ const SignIn: FC = () => (
       <input type="submit" value="Login" className="btn btn-primary" />
     </form>
     <p className="my-1">
-      Don't have an account? <a href="register.html">Sign in</a>
+      Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign up</Link>
     </p>
   </section>
 );
