@@ -1,12 +1,9 @@
 // Redux
 import {configureStore} from '@reduxjs/toolkit';
-import authReducer from './auth/';
+// import authReducer from './auth/';
 // Firebase
-import {
-  firebaseReducer,
-  FirebaseReducer,
-  firestoreReducer,
-} from 'react-redux-firebase';
+import {firebaseReducer, FirebaseReducer} from 'react-redux-firebase';
+import {firestoreReducer} from 'redux-firestore';
 // Typing
 import User from '../models/User';
 import {Schema} from './firebase/config';
