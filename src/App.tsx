@@ -4,11 +4,12 @@ import {BrowserRouter} from 'react-router-dom';
 import Router from './router/Router';
 import NavBar from './components/NavBar';
 // Redux
-import {Provider} from 'react-redux';
+import {Provider, useSelector} from 'react-redux';
 import store from './store';
 // Firebase
-import {ReactReduxFirebaseProvider} from 'react-redux-firebase';
-import rrfProps from './store/firebase';
+import {ReactReduxFirebaseProvider, isLoaded} from 'react-redux-firebase';
+import rrfProps from './store/firebase/config';
+import {selectAuthState} from './store/firebase';
 
 /**
  * Main App container
@@ -20,11 +21,27 @@ const App: FC = () => {
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...rrfProps}>
         <BrowserRouter>
-          <NavBar />
-          <Router />
+          <AuthApp />
         </BrowserRouter>
       </ReactReduxFirebaseProvider>
     </Provider>
+  );
+};
+
+/**
+ * Display a loading screen while fetching authentication state
+ */
+const AuthApp: FC = () => {
+  const auth = useSelector(selectAuthState);
+  if (!isLoaded(auth)) {
+    // TODO: insert Splash Screen here
+    return <div>Loading...</div>;
+  }
+  return (
+    <>
+      <NavBar />
+      <Router />
+    </>
   );
 };
 

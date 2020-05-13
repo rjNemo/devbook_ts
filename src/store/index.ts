@@ -2,7 +2,7 @@
 import {configureStore} from '@reduxjs/toolkit';
 import authReducer from './auth/';
 // Firebase
-import {firebaseReducer} from 'react-redux-firebase';
+import {firebaseReducer, FirebaseReducer} from 'react-redux-firebase';
 
 const store = configureStore({
   reducer: {
@@ -12,6 +12,9 @@ const store = configureStore({
 });
 
 // State type
-export type RootState = ReturnType<typeof store.getState>;
+export interface RootState {
+  firebase: FirebaseReducer.Reducer;
+}
+// export type RootState = ReturnType<typeof store.getState>;
 
 export default store;

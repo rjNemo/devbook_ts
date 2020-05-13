@@ -1,6 +1,5 @@
 // Redux
 import {createSlice} from '@reduxjs/toolkit';
-import {RootState} from '..';
 // Typing
 import User from '../../models/User';
 
@@ -28,10 +27,10 @@ const authSlice = createSlice({
 export const {} = authSlice.actions;
 
 // export selectors
-export const selectAuthState = (state: RootState) => {
-  const {isAuthenticated, loading} = state.auth;
-  return {isAuthenticated, loading};
-};
+// export const selectAuthState = (state: RootState) => {
+//   const {isAuthenticated, loading} = state.auth;
+//   return {isAuthenticated, loading};
+// };
 
 // export reducer
 export default authSlice.reducer;
