@@ -17,7 +17,6 @@ interface IProps {
  * Main Navbar serves navigation routes.
  */
 const NavBar: FC<IProps> = ({isAuthenticated, loading}) => {
-  console.log(isAuthenticated, loading);
   const publicLinks = (
     <ul data-testid="publicLinks">
       <li>

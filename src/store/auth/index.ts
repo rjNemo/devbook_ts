@@ -1,17 +1,21 @@
+// Redux
 import {createSlice} from '@reduxjs/toolkit';
 import {RootState} from '..';
+// Typing
+import User from '../../models/User';
 
 interface SliceState {
   isAuthenticated: boolean;
   loading: boolean;
-  // TODO: switch any by the actual user interface
-  user: any;
+  user: User | null;
+  error: string | null;
 }
 
 const initialState: SliceState = {
   isAuthenticated: false,
   loading: true,
   user: null,
+  error: null,
 };
 
 const authSlice = createSlice({
