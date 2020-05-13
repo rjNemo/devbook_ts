@@ -1,6 +1,8 @@
 import React, {FC} from 'react';
+import {Link} from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCode, faSignOutAlt, faUser} from '@fortawesome/free-solid-svg-icons';
+import * as ROUTES from '../constants/routes';
 
 interface IProps {
   isAuthenticated?: boolean;
@@ -9,40 +11,50 @@ interface IProps {
 /**
  * Main Navbar serves navigation routes.
  */
-const NavBar: FC<IProps> = ({isAuthenticated = true, loading = false}) => {
+const NavBar: FC<IProps> = ({isAuthenticated = false, loading = false}) => {
   const publicLinks = (
-    <ul>
+    <ul data-testid="publicLinks">
       <li>
-        <a href="profiles.html">Developers</a>
+        <Link to={ROUTES.DEVELOPERS} data-testid="devsLink">
+          Developers
+        </Link>
       </li>
       <li>
-        <a href="register.html">Register</a>
+        <Link to={ROUTES.SIGN_UP} data-testid="signupLink">
+          Register
+        </Link>
       </li>
       <li>
-        <a href="login.html">Login</a>
+        <Link to={ROUTES.SIGN_IN} data-testid="loginLink">
+          Login
+        </Link>
       </li>
     </ul>
   );
 
   const privateLinks = (
-    <ul>
+    <ul data-testid="privateLinks">
       <li>
-        <a href="profiles.html">Developers</a>
+        <Link to={ROUTES.DEVELOPERS} data-testid="devsLink">
+          Developers
+        </Link>
       </li>
       <li>
-        <a href="posts.html">Posts</a>
+        <Link to={ROUTES.POSTS} data-testid="postsLink">
+          Posts
+        </Link>
       </li>
       <li>
-        <a href="dashboard.html">
+        <Link to={ROUTES.DASHBOARD} data-testid="dashboardLink">
           <FontAwesomeIcon icon={faUser} />
           <span className="hide-sm"> Dashboard</span>
-        </a>
+        </Link>
       </li>
       <li>
-        <a href="login.html">
+        <Link to={ROUTES.SIGN_IN} data-testid="logoutLink">
           <FontAwesomeIcon icon={faSignOutAlt} />
           <span className="hide-sm"> Log out</span>
-        </a>
+        </Link>
       </li>
     </ul>
   );
@@ -53,9 +65,9 @@ const NavBar: FC<IProps> = ({isAuthenticated = true, loading = false}) => {
   return (
     <nav className="navbar bg-dark">
       <h1>
-        <a href="dashboard.html">
+        <Link to={ROUTES.LANDING} data-testid="homeLink">
           <FontAwesomeIcon icon={faCode} /> DevBook
-        </a>
+        </Link>
       </h1>
       {RenderLinks}
     </nav>
