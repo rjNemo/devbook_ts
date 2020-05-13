@@ -4,6 +4,10 @@ import {
   faUser,
   faCodeBranch,
   faGraduationCap,
+  faExclamation,
+  faExclamationCircle,
+  faExclamationTriangle,
+  faCode,
 } from '@fortawesome/free-solid-svg-icons';
 import {faConnectdevelop} from '@fortawesome/free-brands-svg-icons';
 
@@ -30,8 +34,14 @@ const Header: FC<IProps> = ({title, lead, icon = 'faUser'}) => {
     if (icon === 'code-branch') {
       return <FontAwesomeIcon icon={faCodeBranch} />;
     }
+    if (icon === 'code') {
+      return null;
+    }
     if (icon === 'graduation-cap') {
       return <FontAwesomeIcon icon={faGraduationCap} />;
+    }
+    if (icon === 'not-found') {
+      return <FontAwesomeIcon icon={faExclamationTriangle} />;
     }
   };
 

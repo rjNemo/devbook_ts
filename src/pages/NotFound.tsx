@@ -1,19 +1,16 @@
 import React, {FC} from 'react';
 import {Link} from 'react-router-dom';
-import * as ROUTES from '../constants/routes';
 import Header from '../components/Header';
+import * as ROUTES from '../constants/routes';
 
-/**
- * Landing page
- */
-const Landing: FC = () => (
-  <section className="landing">
+const NotFound: FC = () => (
+  <section className="not-found">
     <div className="dark-overlay">
       <div className="landing-inner">
         <Header
-          title="DevBook"
-          lead="Create developer profiles, portfolio, share and get help from other devs"
-          icon="code"
+          title="Nothing Here"
+          lead="Sorry the page requested does not exist."
+          icon="not-found"
         />
         <div className="buttons">
           <Link to={ROUTES.SIGN_UP} className="btn btn-primary">
@@ -28,4 +25,4 @@ const Landing: FC = () => (
   </section>
 );
 
-export default Landing;
+export default NotFound;

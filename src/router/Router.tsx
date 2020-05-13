@@ -11,6 +11,7 @@ import AddExperience from '../pages/AddExperience';
 import AddEducation from '../pages/AddEducation';
 import PostPage from '../pages/Post';
 import Posts from '../pages/Posts';
+import NotFound from '../pages/NotFound';
 import * as ROUTES from '../constants/routes';
 
 /** Register navigation paths accessible */
@@ -27,6 +28,8 @@ const Router: FC = () => (
     <Route exact path={ROUTES.ADD_EDUCATION} component={AddEducation} />
     <Route exact path={ROUTES.POST} component={PostPage} />
     <Route exact path={ROUTES.POSTS} component={Posts} />
+    <Route exact path={ROUTES.POSTS} component={Posts} />
+    <Route component={NotFound} />
   </Switch>
 );
 

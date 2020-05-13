@@ -540,3 +540,8 @@ img {
 .post img {
   width: 150px;
 }
+.not-found {
+  position: relative;
+  background: url('../img/404.jpg') no-repeat center center/cover;
+  height: 100vh;
+}
