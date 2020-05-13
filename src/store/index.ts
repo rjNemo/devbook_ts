@@ -1,9 +1,13 @@
+// Redux
 import {configureStore} from '@reduxjs/toolkit';
 import authReducer from './auth/';
+// Firebase
+import {firebaseReducer} from 'react-redux-firebase';
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
+    firebase: firebaseReducer,
   },
 });
 
