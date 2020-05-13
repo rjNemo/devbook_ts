@@ -1,17 +1,23 @@
 import React, {FC} from 'react';
+// Routing
 import {Link} from 'react-router-dom';
+import * as ROUTES from '../constants/routes';
+//Redux
+import {connect} from 'react-redux';
+import {selectAuthState} from '../store/auth';
+// Style
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCode, faSignOutAlt, faUser} from '@fortawesome/free-solid-svg-icons';
-import * as ROUTES from '../constants/routes';
 
 interface IProps {
-  isAuthenticated?: boolean;
-  loading?: boolean;
+  isAuthenticated: boolean;
+  loading: boolean;
 }
 /**
  * Main Navbar serves navigation routes.
  */
-const NavBar: FC<IProps> = ({isAuthenticated = false, loading = false}) => {
+const NavBar: FC<IProps> = ({isAuthenticated, loading}) => {
+  console.log(isAuthenticated, loading);
   const publicLinks = (
     <ul data-testid="publicLinks">
       <li>
@@ -74,4 +80,5 @@ const NavBar: FC<IProps> = ({isAuthenticated = false, loading = false}) => {
   );
 };
 
-export default NavBar;
+/** connect HOC subscribes to the store */
+export default connect(selectAuthState)(NavBar);
