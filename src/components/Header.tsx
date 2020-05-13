@@ -4,10 +4,7 @@ import {
   faUser,
   faCodeBranch,
   faGraduationCap,
-  faExclamation,
-  faExclamationCircle,
   faExclamationTriangle,
-  faCode,
 } from '@fortawesome/free-solid-svg-icons';
 import {faConnectdevelop} from '@fortawesome/free-brands-svg-icons';
 

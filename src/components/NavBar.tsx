@@ -1,17 +1,24 @@
 import React, {FC} from 'react';
+// Routing
 import {Link} from 'react-router-dom';
+import * as ROUTES from '../constants/routes';
+//Redux
+import {connect} from 'react-redux';
+import {selectProfile} from '../store/firebase';
+// import {selectAuthState} from '../store/auth';
+// Style
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCode, faSignOutAlt, faUser} from '@fortawesome/free-solid-svg-icons';
-import * as ROUTES from '../constants/routes';
 
 interface IProps {
-  isAuthenticated?: boolean;
-  loading?: boolean;
+  isEmpty: boolean;
+  isLoaded: boolean;
 }
+
 /**
  * Main Navbar serves navigation routes.
  */
-const NavBar: FC<IProps> = ({isAuthenticated = false, loading = false}) => {
+const NavBar: FC<IProps> = ({isEmpty, isLoaded}) => {
   const publicLinks = (
     <ul data-testid="publicLinks">
       <li>
@@ -60,7 +67,7 @@ const NavBar: FC<IProps> = ({isAuthenticated = false, loading = false}) => {
   );
 
   /** Display appropriated links after loading given authenticated prop */
-  const RenderLinks = !loading && isAuthenticated ? privateLinks : publicLinks;
+  const RenderLinks = !isLoaded && !isEmpty ? privateLinks : publicLinks;
 
   return (
     <nav className="navbar bg-dark">
@@ -74,4 +81,6 @@ const NavBar: FC<IProps> = ({isAuthenticated = false, loading = false}) => {
   );
 };
 
-export default NavBar;
+/** connect HOC subscribes to the store */
+export default connect(selectProfile)(NavBar);
+//NavBar;
