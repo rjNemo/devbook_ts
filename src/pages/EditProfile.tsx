@@ -1,6 +1,9 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import Routes from '../constants/routes';
+// Redux
+import {enhance, selectProfile} from '../store/firebase';
+import {WithFirebaseProps, isLoaded, isEmpty} from 'react-redux-firebase';
 // Style
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
@@ -15,7 +18,12 @@ import Statuses from '../constants/statuses';
 // Form
 import useForm from '../hooks';
 
-interface InitFormData {
+import User from '../models/User';
+import Dev from '../models/Dev';
+import Links from '../types/Links';
+import {useSelector} from 'react-redux';
+
+interface FormData {
   status: string;
   company: string;
   website: string;
@@ -29,61 +37,99 @@ interface InitFormData {
   twitter: string;
   youtube: string;
 }
+
+interface IProps extends Dev, WithFirebaseProps<User> {}
+
 /**
  * Form to update dev's personal information.
  */
-const EditProfile: FC = () => {
+const EditProfile: FC<IProps> = ({
+  firebase,
+  status,
+  skills,
+  company,
+  links,
+  location,
+  bio,
+}) => {
   const [showLinks, setShowLinks] = useState(false);
+  const [variable, setVariable] = useState(useSelector(selectProfile));
   const initFormData = {
-    status: '',
-    company: '',
-    website: '',
-    location: '',
-    skills: '',
-    github: '',
-    bio: '',
-    facebook: '',
-    linkedin: '',
-    instagram: '',
-    twitter: '',
-    youtube: '',
+    status: status ?? 'Developer',
+    company: company,
+    location: location ?? '',
+    bio: bio ?? '',
+    skills: skills?.toString() ?? '',
+    website: links?.website ?? '',
+    github: links?.github ?? '',
+    facebook: links?.facebook ?? '',
+    linkedin: links?.linkedin ?? '',
+    instagram: links?.instagram ?? '',
+    twitter: links?.twitter ?? '',
+    youtube: links?.youtube ?? '',
   };
-  const {formData, handleChange, resetForm} = useForm<InitFormData>(
-    initFormData,
-  );
 
-  const {
+  const {formData, handleChange, resetForm} = useForm<FormData>(initFormData);
+
+  console.log(company, formData.company, variable, isEmpty(firebase.auth));
+  /** construct profile object from formData */
+  const makeProfile = ({
     status,
     company,
-    website,
     location,
-    skills,
-    github,
     bio,
+    website,
+    instagram,
     facebook,
     linkedin,
-    instagram,
     twitter,
+    github,
     youtube,
-  } = formData;
+    skills,
+  }: FormData) => {
+    const newLinks: Links = {
+      website,
+      instagram,
+      facebook,
+      linkedin,
+      twitter,
+      github,
+      youtube,
+    };
+    const newSkills: string[] = skills?.split(',');
+    return {
+      status,
+      company,
+      location,
+      bio,
+      links: newLinks,
+      skills: newSkills,
+    };
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    console.log('Submitted');
+    const updatedDev = makeProfile(formData);
+
+    firebase.updateProfile(updatedDev, {useSet: true, merge: true});
+    console.log(`Submitted ${JSON.stringify(formData, null, 2)}`);
+    resetForm();
   };
 
-  const revealSocialLinks = () => setShowLinks(true);
+  const isDisabled: boolean = formData.status === '' || formData.skills === '';
+
+  const toggleSocialLinks = () => setShowLinks(!showLinks);
   return (
     <section className="container">
       <FormHeader
-        title="Create your profile"
+        title="Edit your profile"
         lead="Let's get some information to make your profile stand out"
       />
 
       <form className="form" onSubmit={handleSubmit}>
         <div className="form-group">
-          <select name="status" required autoFocus onChange={handleChange}>
-            <option value="0">* Select Professional Status</option>
+          <select name="status" required onChange={handleChange}>
+            <option disabled>* Select Professional Status</option>
             {Statuses.map((s: string, i: number) => (
               <option value={s} key={i}>
                 {s}
@@ -99,7 +145,8 @@ const EditProfile: FC = () => {
             type="text"
             placeholder="Company"
             name="company"
-            value={company}
+            value={formData.company}
+            // value={variable}
             onChange={handleChange}
           />
           <small className="form-text">
@@ -111,7 +158,7 @@ const EditProfile: FC = () => {
             type="text"
             placeholder="Website"
             name="website"
-            value={website}
+            value={formData.website}
             onChange={handleChange}
           />
           <small className="form-text">
@@ -123,7 +170,7 @@ const EditProfile: FC = () => {
             type="text"
             placeholder="Location"
             name="location"
-            value={location}
+            value={formData.location}
             onChange={handleChange}
           />
           <small className="form-text">
@@ -136,7 +183,7 @@ const EditProfile: FC = () => {
             placeholder="* Skills"
             name="skills"
             required
-            value={skills}
+            value={formData.skills}
             onChange={handleChange}
           />
           <small className="form-text">
@@ -148,7 +195,7 @@ const EditProfile: FC = () => {
             type="text"
             placeholder="Github Username"
             name="github"
-            value={github}
+            value={formData.github}
             onChange={handleChange}
           />
           <small className="form-text">
@@ -160,7 +207,7 @@ const EditProfile: FC = () => {
           <textarea
             placeholder="A short bio of yourself"
             name="bio"
-            value={bio}
+            value={formData.bio}
             onChange={handleChange}
           ></textarea>
           <small className="form-text">Tell us a little about yourself</small>
@@ -170,9 +217,9 @@ const EditProfile: FC = () => {
           <button
             type="button"
             className="btn btn-light"
-            onClick={revealSocialLinks}
+            onClick={toggleSocialLinks}
           >
-            Add Social Network Links
+            {showLinks ? 'Hide' : 'Add'} Social Network Links
           </button>
           <span>Optional</span>
         </div>
@@ -185,7 +232,7 @@ const EditProfile: FC = () => {
                 type="text"
                 placeholder="Facebook URL"
                 name="facebook"
-                value={facebook}
+                value={formData.facebook}
                 onChange={handleChange}
               />
             </div>
@@ -196,7 +243,7 @@ const EditProfile: FC = () => {
                 type="text"
                 placeholder="Instagram URL"
                 name="instagram"
-                value={instagram}
+                value={formData.instagram}
                 onChange={handleChange}
               />
             </div>
@@ -207,7 +254,7 @@ const EditProfile: FC = () => {
                 type="text"
                 placeholder="Linkedin URL"
                 name="linkedin"
-                value={linkedin}
+                value={formData.linkedin}
                 onChange={handleChange}
               />
             </div>
@@ -218,7 +265,7 @@ const EditProfile: FC = () => {
                 type="text"
                 placeholder="Twitter URL"
                 name="twitter"
-                value={twitter}
+                value={formData.twitter}
                 onChange={handleChange}
               />
             </div>
@@ -229,14 +276,19 @@ const EditProfile: FC = () => {
                 type="text"
                 placeholder="YouTube URL"
                 name="youtube"
-                value={youtube}
+                value={formData.youtube}
                 onChange={handleChange}
               />
             </div>
           </>
         )}
 
-        <input type="submit" className="btn btn-primary my-1" value="Submit" />
+        <input
+          type="submit"
+          className="btn btn-primary my-1"
+          value="Submit"
+          disabled={isDisabled}
+        />
         <Link to={Routes.DASHBOARD} className="btn btn-light my-1">
           Go Back
         </Link>
@@ -245,4 +297,4 @@ const EditProfile: FC = () => {
   );
 };
 
-export default EditProfile;
+export default enhance(EditProfile);

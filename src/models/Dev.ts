@@ -1,5 +1,6 @@
-import Experience from '../types/Experience';
 import Education from '../types/Education';
+import Experience from '../types/Experience';
+import Links from '../types/Links';
 import Repo from '../types/Repo';
 
 /** Shorter dev interface */
@@ -17,11 +18,17 @@ export interface DevSummary {
  */
 interface Dev extends DevSummary {
   bio: string;
-  links: Object;
+  status: string;
+  company: string;
+  links: Links;
   experiences: Experience[];
   educations: Education[];
   repos: Repo[];
 }
+
+/** create profile tagline */
+export const getDescription = (status: string, company: string) =>
+  `${status} at ${company}`;
 
 /**
  * sample Dev for development and tests
@@ -29,18 +36,21 @@ interface Dev extends DevSummary {
 export const dummyDev: Dev = {
   id: '0',
   displayName: 'John Doe',
+  status: 'Developer',
+  company: 'Microsoft',
   picture:
     'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200',
   description: 'Developer at Microsoft',
   location: 'Seattle, WA',
   skills: ['HTML', 'CSS', 'JavaScript', 'Python'],
   links: {
-    web: '#',
+    website: '#',
     instagram: 'http://insta.com',
     facebook: '#',
     linkedin: '#',
     twitter: '#',
     github: '#',
+    youtube: '#',
   },
   bio:
     'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis unde quae vero enim adipisci voluptas magni sapiente reprehenderit error minima.',
