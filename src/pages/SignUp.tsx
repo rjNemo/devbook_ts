@@ -1,63 +1,140 @@
 import React, {FC, useState} from 'react';
 // Routing
-import {Link} from 'react-router-dom';
+import {Link, useHistory, Redirect} from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
+// Redux
+import {compose} from 'redux';
+import {connect} from 'react-redux';
+import {withFirebase, WithFirebaseProps} from 'react-redux-firebase';
+import {selectProfile} from '../store/firebase';
+import User, {newUser} from '../models/User';
 // Style
 import Header from '../components/Header';
-import InputField from '../components/InputField';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faExclamationTriangle} from '@fortawesome/free-solid-svg-icons';
+import GoogleButton from 'react-google-button';
+
+// extends withFirebaseProps type to ad profile info
+interface IProps extends WithFirebaseProps<User> {
+  isEmpty: boolean;
+  isLoaded: boolean;
+}
 
 /**
- * Sign up form
+ * Sign up form recieves firebase from withFirebase HOC
  */
-const SignUp: FC = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password1, setPassword1] = useState('');
-  const [password2, setPassword2] = useState('');
-  const [error, setError] = useState(false);
+const SignUp: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
+  const history = useHistory();
 
-  const isDisabled: boolean =
-    name === '' || email === '' || password1 === '' || password1 !== password2;
+  const initFormData = {
+    name: '',
+    email: '',
+    password: '',
+    password2: '',
+    error: false,
+  };
+  const [formData, setFormData] = useState(initFormData);
+
+  /** update each input state value onChange */
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void =>
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+
+  /** clean form after successful submition */
+  const resetForm = () => setFormData(initFormData);
+
+  const {name, email, password, password2, error} = formData;
+
+  // prevent submitting invalid forms
+  const isDisabled: boolean = name === '' || email === '' || password === '';
+
+  /** create user with password */
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (password !== password2) {
+      setFormData({...formData, error: true});
+    } else {
+      // pass the info to store into the second argument
+      firebase
+        .createUser({email, password}, newUser(name, email))
+        .then(() => {
+          resetForm();
+          // redirect to dashboard
+          history.push(ROUTES.DASHBOARD);
+        })
+        .catch(err => console.error(err));
+    }
+  };
+
+  const loginWithGoogle = () =>
+    firebase.login({provider: 'google', type: 'popup'});
+
+  if (isLoaded && !isEmpty) {
+    return <Redirect to={ROUTES.DASHBOARD} />;
+  }
 
   return (
     <section className="container">
-      {error && <div className="alert alert-danger">Invalid credentials</div>}
+      {error && (
+        <div className="alert alert-danger">
+          <FontAwesomeIcon icon={faExclamationTriangle} /> Passwords don't
+          match!
+        </div>
+      )}
       <Header title="Sign Up" lead="Create your account" />
-      <form action="dashboard.html" className="form">
-        <InputField
-          state={name}
-          setState={setName}
-          placeholder="Name"
-          required
-          autoFocus
-        />
+      <GoogleButton type="light" className="my-1" onClick={loginWithGoogle} />
+      <form className="form" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <input
+            name="name"
+            value={name}
+            onChange={handleChange}
+            placeholder="Name"
+            type="text"
+            required
+            autoFocus
+          />
+        </div>
 
-        <InputField
-          state={email}
-          setState={setEmail}
-          placeholder="Email Address"
-          required
-        />
-        <small className="form-text">
-          This site uses Gravatar, so use a Gravatar email.
-        </small>
+        <div className="form-group">
+          <input
+            name="email"
+            value={email}
+            onChange={handleChange}
+            placeholder="Email Address"
+            type="email"
+            required
+          />
+          <small className="form-text">
+            This site uses Gravatar, so use a Gravatar email.
+          </small>
+        </div>
 
-        <InputField
-          state={password1}
-          setState={setPassword1}
-          placeholder="Password"
-          type="password"
-          minLength={6}
-          required
-        />
-        <InputField
-          state={password2}
-          setState={setPassword2}
-          placeholder="Confirm Password"
-          type="password"
-          minLength={6}
-          required
-        />
+        <div className="form-group">
+          <input
+            name="password"
+            value={password}
+            onChange={handleChange}
+            placeholder="Password"
+            type="password"
+            minLength={6}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <input
+            name="password2"
+            value={password2}
+            onChange={handleChange}
+            placeholder="Confirm Password"
+            type="password"
+            minLength={6}
+            required
+          />
+        </div>
 
         <input
           type="submit"
@@ -73,4 +150,7 @@ const SignUp: FC = () => {
   );
 };
 
-export default SignUp;
+/** subscribe to store and firebase */
+const enhance = compose<FC<IProps>>(connect(selectProfile), withFirebase);
+
+export default enhance(SignUp);
