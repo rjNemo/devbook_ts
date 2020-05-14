@@ -9,11 +9,13 @@ import {useState, ChangeEvent} from 'react';
  * @returns handleChange function to pass to input tag
  * @returns resetForm function to revert to initFormData
  * */
-const useForm = <T,>(initFormData: T) => {
+const useForm = <T>(initFormData: T) => {
   const [formData, setFormData] = useState<T>(initFormData);
 
   /** update each input state value onChange */
-  const handleChange = (e: ChangeEvent<HTMLInputElement>): void =>
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+  ): void =>
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
