@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 // Routing
 import {Link} from 'react-router-dom';
-import * as ROUTES from '../constants/routes';
+import Routes from '../constants/routes';
 //Redux
 import {WithFirebaseProps} from 'react-redux-firebase';
 import {enhance} from '../store/firebase';
@@ -17,23 +17,23 @@ interface IProps extends WithFirebaseProps<User> {
 }
 
 /**
- * Main Navbar serves navigation routes.
+ * Main Navbar serves navigation Routes.
  */
 const NavBar: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
   const publicLinks = (
     <ul data-testid="publicLinks">
       <li>
-        <Link to={ROUTES.DEVELOPERS} data-testid="devsLink">
+        <Link to={Routes.DEVELOPERS} data-testid="devsLink">
           Developers
         </Link>
       </li>
       <li>
-        <Link to={ROUTES.SIGN_UP} data-testid="signupLink">
+        <Link to={Routes.SIGN_UP} data-testid="signupLink">
           Register
         </Link>
       </li>
       <li>
-        <Link to={ROUTES.SIGN_IN} data-testid="loginLink">
+        <Link to={Routes.SIGN_IN} data-testid="loginLink">
           Login
         </Link>
       </li>
@@ -43,24 +43,24 @@ const NavBar: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
   const privateLinks = (
     <ul data-testid="privateLinks">
       <li>
-        <Link to={ROUTES.DEVELOPERS} data-testid="devsLink">
+        <Link to={Routes.DEVELOPERS} data-testid="devsLink">
           Developers
         </Link>
       </li>
       <li>
-        <Link to={ROUTES.POSTS} data-testid="postsLink">
+        <Link to={Routes.POSTS} data-testid="postsLink">
           Posts
         </Link>
       </li>
       <li>
-        <Link to={ROUTES.DASHBOARD} data-testid="dashboardLink">
+        <Link to={Routes.DASHBOARD} data-testid="dashboardLink">
           <FontAwesomeIcon icon={faUser} />
           <span className="hide-sm"> Dashboard</span>
         </Link>
       </li>
       <li>
         <Link
-          to={ROUTES.SIGN_IN}
+          to={Routes.SIGN_IN}
           data-testid="logoutLink"
           onClick={() => firebase.logout()}
         >
@@ -77,7 +77,7 @@ const NavBar: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
   return (
     <nav className="navbar bg-dark">
       <h1>
-        <Link to={ROUTES.LANDING} data-testid="homeLink">
+        <Link to={Routes.LANDING} data-testid="homeLink">
           <FontAwesomeIcon icon={faCode} /> DevBook
         </Link>
       </h1>

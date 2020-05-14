@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 // Routing
 import {Route, Redirect} from 'react-router-dom';
-import * as ROUTES from '../constants/routes';
+import Routes from '../constants/routes';
 // Redux
 import {isLoaded, isEmpty} from 'react-redux-firebase';
 import {useSelector} from 'react-redux';
@@ -34,7 +34,7 @@ const PrivateRoute: FC<IProps> = ({
         ) : (
           <Redirect
             to={{
-              pathname: ROUTES.SIGN_IN,
+              pathname: Routes.SIGN_IN,
               state: {from: location},
             }}
           />

@@ -1,7 +1,7 @@
 import React, {FC, useState} from 'react';
 // Routing
 import {Link, Redirect} from 'react-router-dom';
-import * as ROUTES from '../constants/routes';
+import Routes from '../constants/routes';
 // Redux
 import {WithFirebaseProps} from 'react-redux-firebase';
 import {enhance} from '../store/firebase';
@@ -64,7 +64,7 @@ const SignUp: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
 
   // redirect to dashboard if connected
   if (isLoaded && !isEmpty) {
-    return <Redirect to={ROUTES.DASHBOARD} />;
+    return <Redirect to={Routes.DASHBOARD} />;
   }
 
   return (
@@ -131,7 +131,7 @@ const SignUp: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
         />
       </form>
       <p className="my-1">
-        Already have an account? <Link to={ROUTES.SIGN_IN}>Sign in</Link>
+        Already have an account? <Link to={Routes.SIGN_IN}>Sign in</Link>
       </p>
     </section>
   );

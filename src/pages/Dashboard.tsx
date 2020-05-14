@@ -4,7 +4,7 @@ import {WithFirebaseProps} from 'react-redux-firebase';
 import {enhance} from '../store/firebase';
 // Routing
 import {Link} from 'react-router-dom';
-import * as ROUTES from '../constants/routes';
+import Routes from '../constants/routes';
 // Style
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
@@ -36,13 +36,13 @@ const Dashboard: FC<IProps> = ({
     <section className="container">
       <Header title="Dashboard" lead={`Welcome ${displayName}`} />
       <div className="dash-buttons">
-        <Link to={ROUTES.EDIT_PROFILE} className="btn btn-light">
+        <Link to={Routes.EDIT_PROFILE} className="btn btn-light">
           <FontAwesomeIcon icon={faUserCircle} /> Edit Profile
         </Link>
-        <Link to={ROUTES.ADD_EXPERIENCE} className="btn btn-light">
+        <Link to={Routes.ADD_EXPERIENCE} className="btn btn-light">
           <FontAwesomeIcon icon={faBlackTie} /> Add Experience
         </Link>
-        <Link to={ROUTES.ADD_EDUCATION} className="btn btn-light">
+        <Link to={Routes.ADD_EDUCATION} className="btn btn-light">
           <FontAwesomeIcon icon={faGraduationCap} /> Add Education
         </Link>
       </div>
