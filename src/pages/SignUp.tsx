@@ -33,7 +33,7 @@ interface InitFormData {
  */
 const SignUp: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
   const history = useHistory();
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<any>(null);
 
   // handle form data
   const initFormData: InitFormData = {
@@ -55,19 +55,11 @@ const SignUp: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
   /** create user with password */
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (password !== password2) {
-      setError(true);
-    } else {
-      // pass the info to store into the second argument
-      firebase
-        .createUser({email, password}, newUser(name, email))
-        .then(() => {
-          resetForm();
-          // redirect to dashboard
-          history.push(ROUTES.DASHBOARD);
-        })
-        .catch(err => console.error(err));
-    }
+    // pass the info to store into the second argument
+    firebase
+      .createUser({email, password}, newUser(name, email))
+      .then(() => resetForm())
+      .catch(err => setError(err));
   };
 
   const loginWithGoogle = () =>
@@ -79,7 +71,7 @@ const SignUp: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
 
   return (
     <section className="container">
-      {error && <Alert />}
+      {error && <Alert text={error?.message} />}
       <Header title="Sign Up" lead="Create your account" />
       <GoogleButton type="light" className="my-1" onClick={loginWithGoogle} />
       <form className="form" onSubmit={handleSubmit}>
