@@ -13,6 +13,7 @@ import Header from '../components/Header';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faExclamationTriangle} from '@fortawesome/free-solid-svg-icons';
 import GoogleButton from 'react-google-button';
+import useForm from '../hooks';
 
 // extends withFirebaseProps type to ad profile info
 interface IProps extends WithFirebaseProps<User> {
@@ -20,32 +21,31 @@ interface IProps extends WithFirebaseProps<User> {
   isLoaded: boolean;
 }
 
+interface InitFormData {
+  name: string;
+  email: string;
+  password: string;
+  password2: string;
+}
 /**
  * Sign up form recieves firebase from withFirebase HOC
  */
 const SignUp: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
   const history = useHistory();
+  const [error, setError] = useState(false);
 
-  const initFormData = {
+  const initFormData: InitFormData = {
     name: '',
     email: '',
     password: '',
     password2: '',
-    error: false,
   };
-  const [formData, setFormData] = useState(initFormData);
 
-  /** update each input state value onChange */
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void =>
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  const {formData, handleChange, resetForm} = useForm<InitFormData>(
+    initFormData,
+  );
 
-  /** clean form after successful submition */
-  const resetForm = () => setFormData(initFormData);
-
-  const {name, email, password, password2, error} = formData;
+  const {name, email, password, password2} = formData;
 
   // prevent submitting invalid forms
   const isDisabled: boolean = name === '' || email === '' || password === '';
@@ -54,7 +54,7 @@ const SignUp: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password !== password2) {
-      setFormData({...formData, error: true});
+      setError(true);
     } else {
       // pass the info to store into the second argument
       firebase
