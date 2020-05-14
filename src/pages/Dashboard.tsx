@@ -4,6 +4,9 @@ import {compose} from '@reduxjs/toolkit';
 import {connect} from 'react-redux';
 import {withFirebase, WithFirebaseProps} from 'react-redux-firebase';
 import {selectProfile} from '../store/firebase';
+// Routing
+import {Link} from 'react-router-dom';
+import * as ROUTES from '../constants/routes';
 // Style
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
@@ -35,15 +38,15 @@ const Dashboard: FC<IProps> = ({
     <section className="container">
       <Header title="Dashboard" lead={`Welcome ${displayName}`} />
       <div className="dash-buttons">
-        <a href="create-profile.html" className="btn btn-light">
+        <Link to={ROUTES.EDIT_PROFILE} className="btn btn-light">
           <FontAwesomeIcon icon={faUserCircle} /> Edit Profile
-        </a>
-        <a href="add-experience.html" className="btn btn-light">
+        </Link>
+        <Link to={ROUTES.ADD_EXPERIENCE} className="btn btn-light">
           <FontAwesomeIcon icon={faBlackTie} /> Add Experience
-        </a>
-        <a href="add-education.html" className="btn btn-light">
+        </Link>
+        <Link to={ROUTES.ADD_EDUCATION} className="btn btn-light">
           <FontAwesomeIcon icon={faGraduationCap} /> Add Education
-        </a>
+        </Link>
       </div>
 
       <h2 className="my-2">Experience Credentials</h2>
