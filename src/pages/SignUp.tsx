@@ -1,6 +1,6 @@
 import React, {FC, useState} from 'react';
 // Routing
-import {Link, useHistory, Redirect} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
 // Redux
 import {compose} from 'redux';
@@ -32,7 +32,6 @@ interface InitFormData {
  * Sign up form recieves firebase from withFirebase HOC
  */
 const SignUp: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
-  const history = useHistory();
   const [error, setError] = useState<any>(null);
 
   // handle form data

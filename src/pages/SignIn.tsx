@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {WithFirebaseProps, withFirebase} from 'react-redux-firebase';
 import {selectProfile} from '../store/firebase';
 // Routing
-import {Link, useHistory, Redirect} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
 // Style
 import GoogleButton from 'react-google-button';
@@ -30,7 +30,6 @@ interface IProps extends WithFirebaseProps<User> {
  * Sign in form
  */
 const SignIn: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
-  const history = useHistory();
   const [error, setError] = useState<any>(null);
 
   // handle form data
