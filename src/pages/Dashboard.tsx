@@ -1,6 +1,8 @@
 import React, {FC} from 'react';
 // Redux
+import {compose} from '@reduxjs/toolkit';
 import {connect} from 'react-redux';
+import {withFirebase, WithFirebaseProps} from 'react-redux-firebase';
 import {selectProfile} from '../store/firebase';
 // Style
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -13,17 +15,25 @@ import {faBlackTie} from '@fortawesome/free-brands-svg-icons';
 import Header from '../components/Header';
 // Types
 import Dev from '../models/Dev';
+import User from '../models/User';
 import Experience from '../types/Experience';
 import {getTimePeriod} from '../types/TimePeriod';
 import Education from '../types/Education';
 
+interface IProps extends Dev, WithFirebaseProps<User> {}
 /**
  * Main page from which a Dev can peek and edit its own profile.
  */
-const Dashboard: FC<Dev> = dev => {
+const Dashboard: FC<IProps> = ({
+  firebase,
+  displayName,
+  experiences,
+  educations,
+}) => {
+  const logout = () => firebase.logout();
   return (
     <section className="container">
-      <Header title="Dashboard" lead={`Welcome ${dev.displayName}`} />
+      <Header title="Dashboard" lead={`Welcome ${displayName}`} />
       <div className="dash-buttons">
         <a href="create-profile.html" className="btn btn-light">
           <FontAwesomeIcon icon={faUserCircle} /> Edit Profile
@@ -47,7 +57,7 @@ const Dashboard: FC<Dev> = dev => {
           </tr>
         </thead>
         <tbody>
-          {/* {dev.experiences.map((exp: Experience, i: number) => (
+          {experiences?.map((exp: Experience, i: number) => (
             <tr key={i}>
               <td>{exp.company}</td>
               <td className="hide-sm">{exp.position}</td>
@@ -56,7 +66,7 @@ const Dashboard: FC<Dev> = dev => {
                 <button className="btn btn-danger">Delete</button>
               </td>
             </tr>
-          ))} */}
+          ))}
         </tbody>
       </table>
 
@@ -71,7 +81,7 @@ const Dashboard: FC<Dev> = dev => {
           </tr>
         </thead>
         <tbody>
-          {/* {dev.educations.map((edu: Education, i: number) => (
+          {educations?.map((edu: Education, i: number) => (
             <tr key={i}>
               <td>{edu.school}</td>
               <td className="hide-sm">{edu.field}</td>
@@ -80,11 +90,11 @@ const Dashboard: FC<Dev> = dev => {
                 <button className="btn btn-danger">Delete</button>
               </td>
             </tr>
-          ))} */}
+          ))}
         </tbody>
       </table>
       <div className="my-2">
-        <button className="btn btn-danger">
+        <button className="btn btn-danger" onClick={logout}>
           <FontAwesomeIcon icon={faUserSlash} /> Delete my Account
         </button>
       </div>
@@ -92,4 +102,5 @@ const Dashboard: FC<Dev> = dev => {
   );
 };
 
-export default connect(selectProfile)(Dashboard);
+const enhance = compose<FC>(connect(selectProfile), withFirebase);
+export default enhance(Dashboard);
