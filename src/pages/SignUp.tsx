@@ -9,10 +9,10 @@ import {withFirebase, WithFirebaseProps} from 'react-redux-firebase';
 import {selectProfile} from '../store/firebase';
 import User, {newUser} from '../models/User';
 // Style
-import Header from '../components/Header';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faExclamationTriangle} from '@fortawesome/free-solid-svg-icons';
 import GoogleButton from 'react-google-button';
+import Alert from '../components/Alert';
+import Header from '../components/Header';
+// Form
 import useForm from '../hooks';
 
 // extends withFirebaseProps type to ad profile info
@@ -27,6 +27,7 @@ interface InitFormData {
   password: string;
   password2: string;
 }
+
 /**
  * Sign up form recieves firebase from withFirebase HOC
  */
@@ -34,6 +35,7 @@ const SignUp: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
   const history = useHistory();
   const [error, setError] = useState(false);
 
+  // handle form data
   const initFormData: InitFormData = {
     name: '',
     email: '',
@@ -77,12 +79,7 @@ const SignUp: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
 
   return (
     <section className="container">
-      {error && (
-        <div className="alert alert-danger">
-          <FontAwesomeIcon icon={faExclamationTriangle} /> Passwords don't
-          match!
-        </div>
-      )}
+      {error && <Alert />}
       <Header title="Sign Up" lead="Create your account" />
       <GoogleButton type="light" className="my-1" onClick={loginWithGoogle} />
       <form className="form" onSubmit={handleSubmit}>
