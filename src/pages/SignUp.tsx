@@ -3,10 +3,8 @@ import React, {FC, useState} from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
 // Redux
-import {compose} from 'redux';
-import {connect} from 'react-redux';
-import {withFirebase, WithFirebaseProps} from 'react-redux-firebase';
-import {selectProfile} from '../store/firebase';
+import {WithFirebaseProps} from 'react-redux-firebase';
+import {enhance} from '../store/firebase';
 import User, {newUser} from '../models/User';
 // Style
 import GoogleButton from 'react-google-button';
@@ -140,6 +138,4 @@ const SignUp: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
 };
 
 /** subscribe to store and firebase */
-const enhance = compose<FC<IProps>>(connect(selectProfile), withFirebase);
-
 export default enhance(SignUp);

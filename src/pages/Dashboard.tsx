@@ -1,9 +1,7 @@
 import React, {FC} from 'react';
 // Redux
-import {compose} from '@reduxjs/toolkit';
-import {connect} from 'react-redux';
-import {withFirebase, WithFirebaseProps} from 'react-redux-firebase';
-import {selectProfile} from '../store/firebase';
+import {WithFirebaseProps} from 'react-redux-firebase';
+import {enhance} from '../store/firebase';
 // Routing
 import {Link} from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
@@ -105,5 +103,4 @@ const Dashboard: FC<IProps> = ({
   );
 };
 
-const enhance = compose<FC>(connect(selectProfile), withFirebase);
 export default enhance(Dashboard);

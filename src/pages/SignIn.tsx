@@ -1,9 +1,7 @@
 import React, {FC, useState} from 'react';
 // Redux
-import {compose} from '@reduxjs/toolkit';
-import {connect} from 'react-redux';
-import {WithFirebaseProps, withFirebase} from 'react-redux-firebase';
-import {selectProfile} from '../store/firebase';
+import {WithFirebaseProps} from 'react-redux-firebase';
+import {enhance} from '../store/firebase';
 // Routing
 import {Link, Redirect} from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
@@ -107,6 +105,4 @@ const SignIn: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
 };
 
 /** subscribe to store and firebase */
-const enhance = compose<FC<IProps>>(connect(selectProfile), withFirebase);
-
 export default enhance(SignIn);

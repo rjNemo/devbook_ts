@@ -3,10 +3,8 @@ import React, {FC} from 'react';
 import {Link} from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
 //Redux
-import {compose} from '@reduxjs/toolkit';
-import {connect} from 'react-redux';
-import {withFirebase, WithFirebaseProps} from 'react-redux-firebase';
-import {selectProfile} from '../store/firebase';
+import {WithFirebaseProps} from 'react-redux-firebase';
+import {enhance} from '../store/firebase';
 // Style
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCode, faSignOutAlt, faUser} from '@fortawesome/free-solid-svg-icons';
@@ -89,6 +87,4 @@ const NavBar: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
 };
 
 /** connect HOC subscribes to the store */
-
-const enhance = compose<FC>(connect(selectProfile), withFirebase);
 export default enhance(NavBar);
