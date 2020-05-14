@@ -1,0 +1,48 @@
+import React, {FC} from 'react';
+// Routing
+import {Route, Redirect} from 'react-router-dom';
+import * as ROUTES from '../constants/routes';
+// Redux
+import {isLoaded, isEmpty} from 'react-redux-firebase';
+import {useSelector} from 'react-redux';
+import {RootState} from '../store';
+
+interface IProps {
+  exact?: boolean;
+  path: string;
+  component: React.FC<any>;
+}
+/**
+ * Redirects to the login screen if you're not authenticated yet or
+ * if auth is not loaded yet
+ */
+const PrivateRoute: FC<IProps> = ({
+  component: Component,
+  exact,
+  path,
+  ...rest
+}) => {
+  const auth = useSelector((state: RootState) => state.firebase.auth);
+  return (
+    <Route
+      exact={exact}
+      path={path}
+      {...rest}
+      render={({location, ...rest}) =>
+        isLoaded(auth) && !isEmpty(auth) ? (
+          <Component {...rest} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: ROUTES.SIGN_IN,
+              state: {from: location},
+            }}
+          />
+        )
+      }
+    />
+  );
+};
+
+/** subscribe to store and firebase */
+export default PrivateRoute;
