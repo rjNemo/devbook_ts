@@ -59,6 +59,7 @@ const SignIn: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
   const loginWithGoogle = () =>
     firebase.login({provider: 'google', type: 'popup'});
 
+  // redirect to dashboard if connected
   if (isLoaded && !isEmpty) {
     return <Redirect to={ROUTES.DASHBOARD} />;
   }
