@@ -5,7 +5,6 @@ import * as ROUTES from '../constants/routes';
 //Redux
 import {connect} from 'react-redux';
 import {selectProfile} from '../store/firebase';
-// import {selectAuthState} from '../store/auth';
 // Style
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCode, faSignOutAlt, faUser} from '@fortawesome/free-solid-svg-icons';
@@ -67,7 +66,7 @@ const NavBar: FC<IProps> = ({isEmpty, isLoaded}) => {
   );
 
   /** Display appropriated links after loading given authenticated prop */
-  const RenderLinks = !isLoaded && !isEmpty ? privateLinks : publicLinks;
+  const RenderLinks = isLoaded && !isEmpty ? privateLinks : publicLinks;
 
   return (
     <nav className="navbar bg-dark">
@@ -83,4 +82,3 @@ const NavBar: FC<IProps> = ({isEmpty, isLoaded}) => {
 
 /** connect HOC subscribes to the store */
 export default connect(selectProfile)(NavBar);
-//NavBar;
