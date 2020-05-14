@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {Link} from 'react-router-dom';
 import Routes from '../constants/routes';
 // Style
@@ -33,6 +33,7 @@ interface InitFormData {
  * Form to update dev's personal information.
  */
 const EditProfile: FC = () => {
+  const [showLinks, setShowLinks] = useState(false);
   const initFormData = {
     status: '',
     company: '',
@@ -70,6 +71,8 @@ const EditProfile: FC = () => {
     e.preventDefault();
     console.log('Submitted');
   };
+
+  const revealSocialLinks = () => setShowLinks(true);
   return (
     <section className="container">
       <FormHeader
@@ -164,66 +167,74 @@ const EditProfile: FC = () => {
         </div>
 
         <div className="my-2">
-          <button type="button" className="btn btn-light">
+          <button
+            type="button"
+            className="btn btn-light"
+            onClick={revealSocialLinks}
+          >
             Add Social Network Links
           </button>
           <span>Optional</span>
         </div>
 
-        <div className="form-group social-input">
-          <FontAwesomeIcon icon={faFacebook} size="2x" />
-          <input
-            type="text"
-            placeholder="Facebook URL"
-            name="facebook"
-            value={facebook}
-            onChange={handleChange}
-          />
-        </div>
+        {showLinks && (
+          <>
+            <div className="form-group social-input">
+              <FontAwesomeIcon icon={faFacebook} size="2x" />
+              <input
+                type="text"
+                placeholder="Facebook URL"
+                name="facebook"
+                value={facebook}
+                onChange={handleChange}
+              />
+            </div>
 
-        <div className="form-group social-input">
-          <FontAwesomeIcon icon={faInstagram} size="2x" />
-          <input
-            type="text"
-            placeholder="Instagram URL"
-            name="instagram"
-            value={instagram}
-            onChange={handleChange}
-          />
-        </div>
+            <div className="form-group social-input">
+              <FontAwesomeIcon icon={faInstagram} size="2x" />
+              <input
+                type="text"
+                placeholder="Instagram URL"
+                name="instagram"
+                value={instagram}
+                onChange={handleChange}
+              />
+            </div>
 
-        <div className="form-group social-input">
-          <FontAwesomeIcon icon={faLinkedin} size="2x" />
-          <input
-            type="text"
-            placeholder="Linkedin URL"
-            name="linkedin"
-            value={linkedin}
-            onChange={handleChange}
-          />
-        </div>
+            <div className="form-group social-input">
+              <FontAwesomeIcon icon={faLinkedin} size="2x" />
+              <input
+                type="text"
+                placeholder="Linkedin URL"
+                name="linkedin"
+                value={linkedin}
+                onChange={handleChange}
+              />
+            </div>
 
-        <div className="form-group social-input">
-          <FontAwesomeIcon icon={faTwitter} size="2x" />
-          <input
-            type="text"
-            placeholder="Twitter URL"
-            name="twitter"
-            value={twitter}
-            onChange={handleChange}
-          />
-        </div>
+            <div className="form-group social-input">
+              <FontAwesomeIcon icon={faTwitter} size="2x" />
+              <input
+                type="text"
+                placeholder="Twitter URL"
+                name="twitter"
+                value={twitter}
+                onChange={handleChange}
+              />
+            </div>
 
-        <div className="form-group social-input">
-          <FontAwesomeIcon icon={faYoutube} size="2x" />
-          <input
-            type="text"
-            placeholder="YouTube URL"
-            name="youtube"
-            value={youtube}
-            onChange={handleChange}
-          />
-        </div>
+            <div className="form-group social-input">
+              <FontAwesomeIcon icon={faYoutube} size="2x" />
+              <input
+                type="text"
+                placeholder="YouTube URL"
+                name="youtube"
+                value={youtube}
+                onChange={handleChange}
+              />
+            </div>
+          </>
+        )}
 
         <input type="submit" className="btn btn-primary my-1" value="Submit" />
         <Link to={Routes.DASHBOARD} className="btn btn-light my-1">
