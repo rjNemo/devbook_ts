@@ -13,6 +13,7 @@ import PostPage from '../pages/Post';
 import Posts from '../pages/Posts';
 import NotFound from '../pages/NotFound';
 import * as ROUTES from '../constants/routes';
+import PrivateRoute from './PrivateRoute';
 
 /** Register navigation paths accessible */
 const Router: FC = () => (
@@ -22,13 +23,16 @@ const Router: FC = () => (
     <Route exact path={ROUTES.SIGN_IN} component={SignIn} />
     <Route exact path={ROUTES.DEVELOPERS} component={Developers} />
     <Route exact path={ROUTES.PROFILE} component={Profile} />
-    <Route exact path={ROUTES.EDIT_PROFILE} component={EditProfile} />
-    <Route exact path={ROUTES.DASHBOARD} component={Dashboard} />
-    <Route exact path={ROUTES.ADD_EXPERIENCE} component={AddExperience} />
-    <Route exact path={ROUTES.ADD_EDUCATION} component={AddEducation} />
-    <Route exact path={ROUTES.POST} component={PostPage} />
-    <Route exact path={ROUTES.POSTS} component={Posts} />
-    <Route exact path={ROUTES.POSTS} component={Posts} />
+    <PrivateRoute exact path={ROUTES.EDIT_PROFILE} component={EditProfile} />
+    <PrivateRoute exact path={ROUTES.DASHBOARD} component={Dashboard} />
+    <PrivateRoute
+      exact
+      path={ROUTES.ADD_EXPERIENCE}
+      component={AddExperience}
+    />
+    <PrivateRoute exact path={ROUTES.ADD_EDUCATION} component={AddEducation} />
+    <PrivateRoute exact path={ROUTES.POST} component={PostPage} />
+    <PrivateRoute exact path={ROUTES.POSTS} component={Posts} />
     <Route component={NotFound} />
   </Switch>
 );

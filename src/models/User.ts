@@ -1,8 +1,20 @@
 interface User {
-  name: string;
+  displayName: string;
   email: string;
-  picture: string;
+  avatarUrl: string;
   createdAt: Date;
 }
+
+/** User constructor */
+export const newUser = (
+  displayName: string,
+  email: string,
+  avatarUrl: string = '',
+): User => ({
+  displayName,
+  email,
+  avatarUrl,
+  createdAt: new Date(),
+});
 
 export default User;

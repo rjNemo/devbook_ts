@@ -3,14 +3,17 @@ import React, {FC} from 'react';
 import {Link} from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
 //Redux
+import {compose} from '@reduxjs/toolkit';
 import {connect} from 'react-redux';
+import {withFirebase, WithFirebaseProps} from 'react-redux-firebase';
 import {selectProfile} from '../store/firebase';
-// import {selectAuthState} from '../store/auth';
 // Style
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCode, faSignOutAlt, faUser} from '@fortawesome/free-solid-svg-icons';
+// Typing
+import User from '../models/User';
 
-interface IProps {
+interface IProps extends WithFirebaseProps<User> {
   isEmpty: boolean;
   isLoaded: boolean;
 }
@@ -18,7 +21,7 @@ interface IProps {
 /**
  * Main Navbar serves navigation routes.
  */
-const NavBar: FC<IProps> = ({isEmpty, isLoaded}) => {
+const NavBar: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
   const publicLinks = (
     <ul data-testid="publicLinks">
       <li>
@@ -58,7 +61,11 @@ const NavBar: FC<IProps> = ({isEmpty, isLoaded}) => {
         </Link>
       </li>
       <li>
-        <Link to={ROUTES.SIGN_IN} data-testid="logoutLink">
+        <Link
+          to={ROUTES.SIGN_IN}
+          data-testid="logoutLink"
+          onClick={() => firebase.logout()}
+        >
           <FontAwesomeIcon icon={faSignOutAlt} />
           <span className="hide-sm"> Log out</span>
         </Link>
@@ -67,7 +74,7 @@ const NavBar: FC<IProps> = ({isEmpty, isLoaded}) => {
   );
 
   /** Display appropriated links after loading given authenticated prop */
-  const RenderLinks = !isLoaded && !isEmpty ? privateLinks : publicLinks;
+  const RenderLinks = isLoaded && !isEmpty ? privateLinks : publicLinks;
 
   return (
     <nav className="navbar bg-dark">
@@ -82,5 +89,6 @@ const NavBar: FC<IProps> = ({isEmpty, isLoaded}) => {
 };
 
 /** connect HOC subscribes to the store */
-export default connect(selectProfile)(NavBar);
-//NavBar;
+
+const enhance = compose<FC>(connect(selectProfile), withFirebase);
+export default enhance(NavBar);
