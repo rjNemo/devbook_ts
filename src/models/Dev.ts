@@ -5,7 +5,7 @@ import Repo from '../types/Repo';
 /** Shorter dev interface */
 export interface DevSummary {
   id: string;
-  name: string;
+  displayName: string;
   picture: string;
   description: string;
   location: string;
@@ -28,7 +28,7 @@ interface Dev extends DevSummary {
  */
 export const dummyDev: Dev = {
   id: '0',
-  name: 'John Doe',
+  displayName: 'John Doe',
   picture:
     'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200',
   description: 'Developer at Microsoft',

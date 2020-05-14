@@ -1,4 +1,8 @@
 import React, {FC} from 'react';
+// Redux
+import {connect} from 'react-redux';
+import {selectProfile} from '../store/firebase';
+// Style
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
   faUserCircle,
@@ -7,7 +11,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {faBlackTie} from '@fortawesome/free-brands-svg-icons';
 import Header from '../components/Header';
-import Dev, {dummyDev as dev} from '../models/Dev';
+// Types
+import Dev from '../models/Dev';
 import Experience from '../types/Experience';
 import {getTimePeriod} from '../types/TimePeriod';
 import Education from '../types/Education';
@@ -15,10 +20,10 @@ import Education from '../types/Education';
 /**
  * Main page from which a Dev can peek and edit its own profile.
  */
-const Dashboard: FC<Dev> = () => {
+const Dashboard: FC<Dev> = dev => {
   return (
     <section className="container">
-      <Header title="Dashboard" lead={`Welcome ${dev.name}`} />
+      <Header title="Dashboard" lead={`Welcome ${dev.displayName}`} />
       <div className="dash-buttons">
         <a href="create-profile.html" className="btn btn-light">
           <FontAwesomeIcon icon={faUserCircle} /> Edit Profile
@@ -42,7 +47,7 @@ const Dashboard: FC<Dev> = () => {
           </tr>
         </thead>
         <tbody>
-          {dev.experiences.map((exp: Experience, i: number) => (
+          {/* {dev.experiences.map((exp: Experience, i: number) => (
             <tr key={i}>
               <td>{exp.company}</td>
               <td className="hide-sm">{exp.position}</td>
@@ -51,7 +56,7 @@ const Dashboard: FC<Dev> = () => {
                 <button className="btn btn-danger">Delete</button>
               </td>
             </tr>
-          ))}
+          ))} */}
         </tbody>
       </table>
 
@@ -66,7 +71,7 @@ const Dashboard: FC<Dev> = () => {
           </tr>
         </thead>
         <tbody>
-          {dev.educations.map((edu: Education, i: number) => (
+          {/* {dev.educations.map((edu: Education, i: number) => (
             <tr key={i}>
               <td>{edu.school}</td>
               <td className="hide-sm">{edu.field}</td>
@@ -75,7 +80,7 @@ const Dashboard: FC<Dev> = () => {
                 <button className="btn btn-danger">Delete</button>
               </td>
             </tr>
-          ))}
+          ))} */}
         </tbody>
       </table>
       <div className="my-2">
@@ -87,4 +92,4 @@ const Dashboard: FC<Dev> = () => {
   );
 };
 
-export default Dashboard;
+export default connect(selectProfile)(Dashboard);
