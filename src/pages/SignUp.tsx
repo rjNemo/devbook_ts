@@ -12,6 +12,7 @@ import Alert from '../components/Alert';
 import Header from '../components/Header';
 // Form
 import useForm from '../hooks';
+import {blankDev} from '../models/Dev';
 
 // extends withFirebaseProps type to ad profile info
 interface IProps extends WithFirebaseProps<User> {
@@ -55,12 +56,18 @@ const SignUp: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
     // pass the info to store into the second argument
     firebase
       .createUser({email, password}, newUser(name, email))
-      .then(() => resetForm())
+      .then(() => {
+        firebase.updateProfile(blankDev, {useSet: true, merge: true});
+        resetForm();
+      })
       .catch(err => setError(err));
   };
 
   const loginWithGoogle = () =>
-    firebase.login({provider: 'google', type: 'popup'});
+    firebase
+      .login({provider: 'google', type: 'popup'})
+      .then(() => firebase.updateProfile(blankDev, {useSet: true, merge: true}))
+      .catch(err => setError(err));
 
   // redirect to dashboard if connected
   if (isLoaded && !isEmpty) {

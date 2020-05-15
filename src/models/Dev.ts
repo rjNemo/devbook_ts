@@ -30,6 +30,31 @@ interface Dev extends DevSummary {
 export const getDescription = (status: string, company: string) =>
   `${status} at ${company}`;
 
+/** blank Dev serve as placeholder when initializing a new profile */
+export const blankDev: Dev = {
+  id: '42',
+  displayName: '',
+  status: 'Developer',
+  company: '',
+  picture: '',
+  description: '',
+  location: '',
+  skills: [],
+  links: {
+    website: '',
+    instagram: '',
+    facebook: '',
+    linkedin: '',
+    twitter: '',
+    github: '',
+    youtube: '',
+  },
+  bio: '',
+  experiences: [],
+  educations: [],
+  repos: [],
+};
+
 /**
  * sample Dev for development and tests
  */
