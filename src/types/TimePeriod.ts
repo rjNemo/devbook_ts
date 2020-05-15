@@ -1,9 +1,9 @@
 import moment from 'moment';
 
-type TimePeriod = Date | 'Current';
+type TimePeriod = string | Date | 'Current';
 
 /** format exp date to be used */
-const parseDate = (date: TimePeriod): string => {
+export const parseDate = (date: TimePeriod): string => {
   if (date === 'Current') {
     return date;
   }

@@ -1,33 +1,43 @@
-import React, {FC, useState} from 'react';
-import FormHeader from '../components/FormHeader';
-import {enhance} from '../store/firebase';
-import Routes from '../constants/routes';
+import React, {FC, useState, FormEvent} from 'react';
+// Routing
 import {Link} from 'react-router-dom';
+import Routes from '../constants/routes';
+// Redux
+import {WithFirebaseProps} from 'react-redux-firebase';
+import {enhance} from '../store/firebase';
+// Style
+import FormHeader from '../components/FormHeader';
+import Alert from '../components/Alert';
+// Typing
 import Dev from '../models/Dev';
-import {WithFirebaseProps, withFirebase} from 'react-redux-firebase';
 import User from '../models/User';
 import IAlert, {formAlert} from '../types/Alert';
-import Alert from '../components/Alert';
+import Education from '../types/Education';
+import {parseDate} from '../types/TimePeriod';
+// Form
 import useForm from '../hooks';
 
 interface FormData {
   school: string;
   degree: string;
-  from?: string;
-  to?: string;
-  current?: boolean;
-  description?: string;
+  field: string;
+  from: string;
+  to: string;
+  current: boolean;
+  description: string;
 }
 
+interface IProps extends Dev, WithFirebaseProps<User> {}
 /**
  * Form to add an Education step to Profile
  */
-const AddEducation: FC<WithFirebaseProps<User>> = ({firebase}) => {
+const AddEducation: FC<IProps> = ({firebase, educations}) => {
   const [alert, setAlert] = useState<IAlert>(formAlert);
 
   const initFormData: FormData = {
     school: '',
     degree: '',
+    field: '',
     from: '',
     to: '',
     current: false,
@@ -39,6 +49,48 @@ const AddEducation: FC<WithFirebaseProps<User>> = ({firebase}) => {
 
   const isDisabled: boolean = formData.school === '' || formData.degree === '';
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    const makeEducation = ({
+      school,
+      degree,
+      from,
+      field,
+      to,
+      current,
+      description,
+    }: FormData): Education => {
+      if (current) to = 'Current';
+      const newEdu: Education = {
+        school,
+        degree,
+        field,
+        from: parseDate(from),
+        to: parseDate(to),
+        description,
+      };
+      return newEdu;
+    };
+    const newEdu = makeEducation(formData);
+    console.log(JSON.stringify(newEdu, null, 4));
+
+    try {
+      firebase.updateProfile(
+        {educations: [...educations, newEdu]},
+        {useSet: true, merge: true},
+      );
+      setAlert({
+        show: true,
+        color: 'success',
+        text:
+          'Profile successfully updated. You may continue or go back to your dashboard.',
+      });
+      resetForm();
+    } catch (err) {
+      setAlert({...alert, show: true});
+    }
+  };
+
   return (
     <section className="container">
       <FormHeader
@@ -48,12 +100,12 @@ const AddEducation: FC<WithFirebaseProps<User>> = ({firebase}) => {
         icon="graduation-cap"
       />
 
-      <form className="form">
+      <form className="form" onSubmit={handleSubmit}>
         <div className="form-group">
           <input
             type="text"
             placeholder="* School or Bootcamp"
-            name="schools"
+            name="school"
             value={formData.school}
             onChange={handleChange}
             required
@@ -71,7 +123,13 @@ const AddEducation: FC<WithFirebaseProps<User>> = ({firebase}) => {
           />
         </div>
         <div className="form-group">
-          <input type="text" placeholder="Field Of Study" name="fieldofstudy" />
+          <input
+            type="text"
+            placeholder="Field Of Study"
+            name="field"
+            value={formData.field}
+            onChange={handleChange}
+          />
         </div>
         <div className="form-group">
           <h4>From Date</h4>
@@ -127,4 +185,4 @@ const AddEducation: FC<WithFirebaseProps<User>> = ({firebase}) => {
   );
 };
 
-export default withFirebase(AddEducation);
+export default enhance(AddEducation);

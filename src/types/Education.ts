@@ -2,9 +2,9 @@ import TimePeriod from '../types/TimePeriod';
 
 interface Education {
   school: string;
+  degree: string;
   from: TimePeriod;
   to: TimePeriod;
-  degree: string;
   field: string;
   description: string;
 }

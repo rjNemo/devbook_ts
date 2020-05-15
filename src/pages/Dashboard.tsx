@@ -85,7 +85,7 @@ const Dashboard: FC<IProps> = ({
           {educations?.map((edu: Education, i: number) => (
             <tr key={i}>
               <td>{edu.school}</td>
-              <td className="hide-sm">{edu.field}</td>
+              <td className="hide-sm">{edu.degree}</td>
               <td className="hide-sm">{getTimePeriod(edu.from, edu.to)}</td>
               <td>
                 <button className="btn btn-danger">Delete</button>
