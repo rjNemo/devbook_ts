@@ -1,4 +1,4 @@
-import React, {FC, useState, useEffect} from 'react';
+import React, {FC, useState} from 'react';
 import {Link} from 'react-router-dom';
 import Routes from '../constants/routes';
 // Redux
@@ -22,6 +22,7 @@ import User from '../models/User';
 import Dev from '../models/Dev';
 import Links from '../types/Links';
 import {useSelector} from 'react-redux';
+import Alert from '../components/Alert';
 
 interface FormData {
   status: string;
@@ -53,7 +54,12 @@ const EditProfile: FC<IProps> = ({
   bio,
 }) => {
   const [showLinks, setShowLinks] = useState(false);
-  const [variable, setVariable] = useState(useSelector(selectProfile));
+  const [alert, setAlert] = useState({
+    show: false,
+    color: 'danger',
+    text: 'Something went wrong',
+  });
+
   const initFormData = {
     status: status ?? 'Developer',
     company: company,
@@ -69,9 +75,8 @@ const EditProfile: FC<IProps> = ({
     youtube: links?.youtube ?? '',
   };
 
-  const {formData, handleChange, resetForm} = useForm<FormData>(initFormData);
+  const {formData, handleChange} = useForm<FormData>(initFormData);
 
-  console.log(company, formData.company, variable, isEmpty(firebase.auth));
   /** construct profile object from formData */
   const makeProfile = ({
     status,
@@ -110,10 +115,17 @@ const EditProfile: FC<IProps> = ({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     const updatedDev = makeProfile(formData);
-
-    firebase.updateProfile(updatedDev, {useSet: true, merge: true});
-    console.log(`Submitted ${JSON.stringify(formData, null, 2)}`);
-    resetForm();
+    try {
+      firebase.updateProfile(updatedDev, {useSet: true, merge: true});
+      setAlert({
+        show: true,
+        color: 'success',
+        text:
+          'Profile successfully updated. You may go back to your dashboard.',
+      });
+    } catch (err) {
+      setAlert({...alert, show: true});
+    }
   };
 
   const isDisabled: boolean = formData.status === '' || formData.skills === '';
@@ -128,7 +140,12 @@ const EditProfile: FC<IProps> = ({
 
       <form className="form" onSubmit={handleSubmit}>
         <div className="form-group">
-          <select name="status" required onChange={handleChange}>
+          <select
+            name="status"
+            required
+            onChange={handleChange}
+            defaultValue={formData.status}
+          >
             <option disabled>* Select Professional Status</option>
             {Statuses.map((s: string, i: number) => (
               <option value={s} key={i}>
@@ -282,7 +299,7 @@ const EditProfile: FC<IProps> = ({
             </div>
           </>
         )}
-
+        {alert.show && <Alert text={alert.text} color={alert.color} />}
         <input
           type="submit"
           className="btn btn-primary my-1"
