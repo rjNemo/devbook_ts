@@ -24,7 +24,11 @@ const useForm = <T>(initFormData: T) => {
   /** clean form after successful submition */
   const resetForm = () => setFormData(initFormData);
 
-  return {formData, handleChange, resetForm};
+  // /** update checkboxes */
+  const handleCheckboxesChange = (e: ChangeEvent<HTMLInputElement>): void =>
+    setFormData({...formData, [e.target.name]: e.target.checked});
+
+  return {formData, handleChange, handleCheckboxesChange, resetForm};
 };
 
 export default useForm;
