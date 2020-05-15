@@ -2,8 +2,8 @@ import React, {FC, useState} from 'react';
 import {Link} from 'react-router-dom';
 import Routes from '../constants/routes';
 // Redux
-import {enhance, selectProfile} from '../store/firebase';
-import {WithFirebaseProps, isLoaded, isEmpty} from 'react-redux-firebase';
+import {enhance} from '../store/firebase';
+import {WithFirebaseProps} from 'react-redux-firebase';
 // Style
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
@@ -14,15 +14,15 @@ import {
   faInstagram,
 } from '@fortawesome/free-brands-svg-icons';
 import FormHeader from '../components/FormHeader';
+import Alert from '../components/Alert';
 import Statuses from '../constants/statuses';
 // Form
 import useForm from '../hooks';
-
-import User from '../models/User';
+// Typing
 import Dev from '../models/Dev';
+import User from '../models/User';
 import Links from '../types/Links';
-import {useSelector} from 'react-redux';
-import Alert from '../components/Alert';
+import IAlert, {formAlert} from '../types/Alert';
 
 interface FormData {
   status: string;
@@ -54,11 +54,7 @@ const EditProfile: FC<IProps> = ({
   bio,
 }) => {
   const [showLinks, setShowLinks] = useState(false);
-  const [alert, setAlert] = useState({
-    show: false,
-    color: 'danger',
-    text: 'Something went wrong',
-  });
+  const [alert, setAlert] = useState<IAlert>(formAlert);
 
   const initFormData = {
     status: status ?? 'Developer',
