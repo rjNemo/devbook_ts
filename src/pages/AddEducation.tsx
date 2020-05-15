@@ -72,7 +72,6 @@ const AddEducation: FC<IProps> = ({firebase, educations}) => {
       return newEdu;
     };
     const newEdu = makeEducation(formData);
-    console.log(JSON.stringify(newEdu, null, 4));
 
     try {
       firebase.updateProfile(
@@ -156,7 +155,7 @@ const AddEducation: FC<IProps> = ({firebase, educations}) => {
               name="current"
               checked={formData.current}
               onChange={handleCheckboxesChange}
-            />
+            />{' '}
             Current School
           </p>
         </div>

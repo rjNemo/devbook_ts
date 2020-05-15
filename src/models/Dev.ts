@@ -60,11 +60,13 @@ export const dummyDev: Dev = {
       from: new Date(2011, 10),
       to: 'Current',
       position: 'Senior Developer',
+      location: 'USA',
       description:
         'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas corrupti rem eius, accusantium ipsum vel eveniet magnam voluptatum? Minus, voluptatum!',
     },
     {
       company: 'Sun Microsystems',
+      location: 'USA',
       from: new Date(2004, 10),
       to: new Date(2010, 11),
       position: 'System Admin',
