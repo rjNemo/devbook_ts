@@ -25,3 +25,16 @@ jobs:
         with:
           start: yarn start
           wait-on: 'http://localhost:3000'
+  release:
+    if: ${{ github.ref == 'master' }}
+    needs: test
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: yarn build
+      - name: Install Firebase CLI tools
+        run: yarn global add firebase-tools
+      - name: Deploy
+        run: firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
