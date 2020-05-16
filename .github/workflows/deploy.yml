@@ -21,7 +21,7 @@ jobs:
       - name: Unit tests
         run: yarn test --watchAll=false
       - name: E2E tests
-      uses: cypress-io/github-action@v1
+        uses: cypress-io/github-action@v1
         with:
           start: yarn start
           wait-on: 'http://localhost:3000'
@@ -30,11 +30,11 @@ jobs:
     needs: test
     name: Release
     runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-        - name: Build
-          run: yarn build
-        - name: Install Firebase CLI tools
-          run: yarn global add firebase-tools
-        - name: Deploy
-          run: firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: yarn build
+      - name: Install Firebase CLI tools
+        run: yarn global add firebase-tools
+      - name: Deploy
+        run: firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
