@@ -14,17 +14,17 @@ jobs:
       REACT_APP_AUTH_DOMAIN: ${{ secrets.REACT_APP_AUTH_DOMAIN }}
       REACT_APP_APP_ID: ${{ secrets.REACT_APP_APP_ID }}
       REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
-      steps:
-        - uses: actions/checkout@v2
-        - name: Install dependencies
-        run: yarn install --frozen-lockfile
-        - name: Unit tests
-        run: yarn test --watchAll=false
-        - name: E2E tests
-        uses: cypress-io/github-action@v1
-        with:
-          start: yarn start
-          wait-on: 'http://localhost:3000'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+      run: yarn install --frozen-lockfile
+      - name: Unit tests
+      run: yarn test --watchAll=false
+      - name: E2E tests
+      uses: cypress-io/github-action@v1
+      with:
+        start: yarn start
+        wait-on: 'http://localhost:3000'
   release:
     if: ${{ github.ref == 'master' }}
     needs: test
