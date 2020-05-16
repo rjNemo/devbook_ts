@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {Link} from 'react-router-dom';
-import * as ROUTES from '../constants/routes';
+import Routes from '../constants/routes';
 import Header from '../components/Header';
 
 /**
@@ -16,10 +16,10 @@ const Landing: FC = () => (
           icon="code"
         />
         <div className="buttons">
-          <Link to={ROUTES.SIGN_UP} className="btn btn-primary">
+          <Link to={Routes.SIGN_UP} className="btn btn-primary">
             Sign up
           </Link>
-          <Link to={ROUTES.SIGN_IN} className="btn btn-light">
+          <Link to={Routes.SIGN_IN} className="btn btn-light">
             Login
           </Link>
         </div>

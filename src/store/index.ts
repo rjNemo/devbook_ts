@@ -1,16 +1,14 @@
 // Redux
 import {configureStore} from '@reduxjs/toolkit';
-// import authReducer from './auth/';
 // Firebase
 import {firebaseReducer, FirebaseReducer} from 'react-redux-firebase';
 import {firestoreReducer} from 'redux-firestore';
 // Typing
-import User from '../models/User';
 import {Schema} from './firebase/config';
+import Dev from '../models/Dev';
 
 const store = configureStore({
   reducer: {
-    // auth: authReducer,
     firebase: firebaseReducer,
     firestore: firestoreReducer,
   },
@@ -18,7 +16,7 @@ const store = configureStore({
 
 // State type
 export interface RootState {
-  firebase: FirebaseReducer.Reducer<User, Schema>;
+  firebase: FirebaseReducer.Reducer<Dev, Schema>;
 }
 
 export default store;

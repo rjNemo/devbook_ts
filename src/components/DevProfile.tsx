@@ -9,16 +9,16 @@ import {DevSummary} from '../models/Dev';
  */
 const DevProfile: FC<DevSummary> = ({
   id,
-  name,
+  displayName,
   picture,
   description,
   location,
   skills,
 }) => (
   <div className="profile bg-light">
-    <img src={picture} alt={name} className="round-img" />
+    <img src={picture} alt={displayName} className="round-img" />
     <div>
-      <h2>{name}</h2>
+      <h2>{displayName}</h2>
       <p>{description}</p>
       <p>{location}</p>
       <a href="profile.html" className="btn btn-primary">

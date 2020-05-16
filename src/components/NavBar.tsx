@@ -1,41 +1,40 @@
 import React, {FC} from 'react';
 // Routing
 import {Link} from 'react-router-dom';
-import * as ROUTES from '../constants/routes';
+import Routes from '../constants/routes';
 //Redux
-import {compose} from '@reduxjs/toolkit';
-import {connect} from 'react-redux';
-import {withFirebase, WithFirebaseProps} from 'react-redux-firebase';
-import {selectProfile} from '../store/firebase';
+import {WithFirebaseProps} from 'react-redux-firebase';
+import {enhance} from '../store/firebase';
 // Style
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCode, faSignOutAlt, faUser} from '@fortawesome/free-solid-svg-icons';
 // Typing
 import User from '../models/User';
+import Dev from '../models/Dev';
 
-interface IProps extends WithFirebaseProps<User> {
+interface IProps extends Dev, WithFirebaseProps<User> {
   isEmpty: boolean;
   isLoaded: boolean;
 }
 
 /**
- * Main Navbar serves navigation routes.
+ * Main Navbar serves navigation Routes.
  */
-const NavBar: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
+const NavBar: FC<IProps> = ({firebase, isEmpty, isLoaded, isActive}) => {
   const publicLinks = (
     <ul data-testid="publicLinks">
       <li>
-        <Link to={ROUTES.DEVELOPERS} data-testid="devsLink">
+        <Link to={Routes.DEVELOPERS} data-testid="devsLink">
           Developers
         </Link>
       </li>
       <li>
-        <Link to={ROUTES.SIGN_UP} data-testid="signupLink">
+        <Link to={Routes.SIGN_UP} data-testid="signupLink">
           Register
         </Link>
       </li>
       <li>
-        <Link to={ROUTES.SIGN_IN} data-testid="loginLink">
+        <Link to={Routes.SIGN_IN} data-testid="loginLink">
           Login
         </Link>
       </li>
@@ -45,24 +44,24 @@ const NavBar: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
   const privateLinks = (
     <ul data-testid="privateLinks">
       <li>
-        <Link to={ROUTES.DEVELOPERS} data-testid="devsLink">
+        <Link to={Routes.DEVELOPERS} data-testid="devsLink">
           Developers
         </Link>
       </li>
       <li>
-        <Link to={ROUTES.POSTS} data-testid="postsLink">
+        <Link to={Routes.POSTS} data-testid="postsLink">
           Posts
         </Link>
       </li>
       <li>
-        <Link to={ROUTES.DASHBOARD} data-testid="dashboardLink">
+        <Link to={Routes.DASHBOARD} data-testid="dashboardLink">
           <FontAwesomeIcon icon={faUser} />
           <span className="hide-sm"> Dashboard</span>
         </Link>
       </li>
       <li>
         <Link
-          to={ROUTES.SIGN_IN}
+          to={Routes.SIGN_IN}
           data-testid="logoutLink"
           onClick={() => firebase.logout()}
         >
@@ -74,12 +73,13 @@ const NavBar: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
   );
 
   /** Display appropriated links after loading given authenticated prop */
-  const RenderLinks = isLoaded && !isEmpty ? privateLinks : publicLinks;
+  const RenderLinks =
+    isLoaded && !isEmpty && isActive ? privateLinks : publicLinks;
 
   return (
     <nav className="navbar bg-dark">
       <h1>
-        <Link to={ROUTES.LANDING} data-testid="homeLink">
+        <Link to={Routes.LANDING} data-testid="homeLink">
           <FontAwesomeIcon icon={faCode} /> DevBook
         </Link>
       </h1>
@@ -89,6 +89,4 @@ const NavBar: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
 };
 
 /** connect HOC subscribes to the store */
-
-const enhance = compose<FC>(connect(selectProfile), withFirebase);
 export default enhance(NavBar);

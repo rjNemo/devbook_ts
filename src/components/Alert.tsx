@@ -4,10 +4,11 @@ import {faExclamationTriangle} from '@fortawesome/free-solid-svg-icons';
 
 interface IProps {
   text: string;
+  color?: string;
 }
 
-const Alert: FC<IProps> = ({text}) => (
-  <div className="alert alert-danger">
+const Alert: FC<IProps> = ({text, color = 'danger'}) => (
+  <div className={`alert alert-${color}`}>
     <FontAwesomeIcon icon={faExclamationTriangle} /> {text}
   </div>
 );

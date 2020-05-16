@@ -56,7 +56,7 @@ const Profile: FC<Dev> = () => {
             alt="Some guy"
             className="round-img my-1"
           />
-          <h1 className="large">{dev.name}</h1>
+          <h1 className="large">{dev.displayName}</h1>
           <p className="lead">{dev.description}</p>
           <p>{dev.location}</p>
           <div className="icons my-1">
@@ -69,7 +69,7 @@ const Profile: FC<Dev> = () => {
         </div>
 
         <div className="profile-about bg-light p-2">
-          <h2 className="text-primary">{`${dev.name}'s Bio`}</h2>
+          <h2 className="text-primary">{`${dev.displayName}'s Bio`}</h2>
           <p>{dev.bio}</p>
           <div className="line"></div>
           <h2 className="text-primary">Skill Set</h2>

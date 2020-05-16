@@ -11,7 +11,7 @@ const Developers: FC = () => {
   const developers: DevSummary[] = [
     {
       id: '0',
-      name: 'John Doe',
+      displayName: 'John Doe',
       picture:
         'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200',
       description: 'Developer at Microsoft',
@@ -20,7 +20,7 @@ const Developers: FC = () => {
     },
     {
       id: '42',
-      name: 'Ruidy Nemausat',
+      displayName: 'Ruidy Nemausat',
       picture:
         'https://lh3.googleusercontent.com/a-/AOh14GhncH95MWKwPR3TRKy4eVd4n6w0-fobe4dhiam2xA',
       description: 'Fullstack Engineer at DESY',

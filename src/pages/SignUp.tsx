@@ -1,12 +1,10 @@
 import React, {FC, useState} from 'react';
 // Routing
 import {Link, Redirect} from 'react-router-dom';
-import * as ROUTES from '../constants/routes';
+import Routes from '../constants/routes';
 // Redux
-import {compose} from 'redux';
-import {connect} from 'react-redux';
-import {withFirebase, WithFirebaseProps} from 'react-redux-firebase';
-import {selectProfile} from '../store/firebase';
+import {WithFirebaseProps} from 'react-redux-firebase';
+import {enhance} from '../store/firebase';
 import User, {newUser} from '../models/User';
 // Style
 import GoogleButton from 'react-google-button';
@@ -14,9 +12,10 @@ import Alert from '../components/Alert';
 import Header from '../components/Header';
 // Form
 import useForm from '../hooks';
+import Dev, {blankDev} from '../models/Dev';
 
 // extends withFirebaseProps type to ad profile info
-interface IProps extends WithFirebaseProps<User> {
+interface IProps extends Dev, WithFirebaseProps<User> {
   isEmpty: boolean;
   isLoaded: boolean;
 }
@@ -31,7 +30,7 @@ interface InitFormData {
 /**
  * Sign up form recieves firebase from withFirebase HOC
  */
-const SignUp: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
+const SignUp: FC<IProps> = ({firebase, isEmpty, isLoaded, isActive}) => {
   const [error, setError] = useState<any>(null);
 
   // handle form data
@@ -57,16 +56,40 @@ const SignUp: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
     // pass the info to store into the second argument
     firebase
       .createUser({email, password}, newUser(name, email))
-      .then(() => resetForm())
+      .then(() => {
+        firebase.updateProfile(blankDev, {useSet: true, merge: true});
+        resetForm();
+      })
       .catch(err => setError(err));
   };
 
   const loginWithGoogle = () =>
-    firebase.login({provider: 'google', type: 'popup'});
+    firebase
+      .login({provider: 'google', type: 'popup'})
+      .then(() => {
+        // updateProfile only if user does not already exists in db
+        const email = firebase.auth().currentUser?.email;
+        let exists: boolean = false;
+        firebase
+          .firestore()
+          .collection('users/')
+          .where('email', '==', email)
+          .get()
+          .then(docs =>
+            docs.forEach(doc => {
+              exists = doc.data().isActive !== undefined;
+            }),
+          )
+          .then(() => {
+            if (!exists)
+              firebase.updateProfile(blankDev, {useSet: true, merge: true});
+          });
+      })
+      .catch(err => setError(err));
 
   // redirect to dashboard if connected
-  if (isLoaded && !isEmpty) {
-    return <Redirect to={ROUTES.DASHBOARD} />;
+  if (isLoaded && !isEmpty && isActive) {
+    return <Redirect to={Routes.DASHBOARD} />;
   }
 
   return (
@@ -133,13 +156,11 @@ const SignUp: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
         />
       </form>
       <p className="my-1">
-        Already have an account? <Link to={ROUTES.SIGN_IN}>Sign in</Link>
+        Already have an account? <Link to={Routes.SIGN_IN}>Sign in</Link>
       </p>
     </section>
   );
 };
 
 /** subscribe to store and firebase */
-const enhance = compose<FC<IProps>>(connect(selectProfile), withFirebase);
-
 export default enhance(SignUp);

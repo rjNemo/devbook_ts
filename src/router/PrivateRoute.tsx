@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 // Routing
 import {Route, Redirect} from 'react-router-dom';
-import * as ROUTES from '../constants/routes';
+import Routes from '../constants/routes';
 // Redux
 import {isLoaded, isEmpty} from 'react-redux-firebase';
 import {useSelector} from 'react-redux';
@@ -23,18 +23,20 @@ const PrivateRoute: FC<IProps> = ({
   ...rest
 }) => {
   const auth = useSelector((state: RootState) => state.firebase.auth);
+  const profile = useSelector((state: RootState) => state.firebase.profile);
+  const isActive = profile.isActive;
   return (
     <Route
       exact={exact}
       path={path}
       {...rest}
       render={({location, ...rest}) =>
-        isLoaded(auth) && !isEmpty(auth) ? (
+        isLoaded(auth) && !isEmpty(auth) && isActive ? (
           <Component {...rest} />
         ) : (
           <Redirect
             to={{
-              pathname: ROUTES.SIGN_IN,
+              pathname: Routes.SIGN_IN,
               state: {from: location},
             }}
           />
