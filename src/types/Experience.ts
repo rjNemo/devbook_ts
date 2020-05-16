@@ -1,6 +1,7 @@
 import TimePeriod from '../types/TimePeriod';
 
 interface Experience {
+  id: number;
   company: string;
   from: TimePeriod;
   to: TimePeriod;

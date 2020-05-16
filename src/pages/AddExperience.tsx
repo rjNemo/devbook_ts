@@ -64,6 +64,7 @@ const AddExperience: FC<IProps> = ({firebase, experiences}) => {
     }: FormData): Experience => {
       if (current) to = 'Current';
       const newExp: Experience = {
+        id: experiences.length,
         position,
         company,
         location,
@@ -74,7 +75,6 @@ const AddExperience: FC<IProps> = ({firebase, experiences}) => {
       return newExp;
     };
     const newExp = makeExperience(formData);
-    console.log(JSON.stringify(newExp, null, 4));
 
     try {
       firebase.updateProfile(

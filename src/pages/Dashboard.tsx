@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, MouseEvent} from 'react';
 // Redux
 import {WithFirebaseProps} from 'react-redux-firebase';
 import {enhance} from '../store/firebase';
@@ -32,6 +32,32 @@ const Dashboard: FC<IProps> = ({
   educations,
 }) => {
   const logout = () => firebase.logout();
+
+  /**
+   *
+   * @param id key of the entry to remove
+   * @param entries array of credential educations
+   */
+  const deleteEduEntry = (id: number, entries: Education[]) => (
+    e: MouseEvent<HTMLButtonElement>,
+  ) => {
+    firebase.updateProfile({
+      educations: entries.filter((e: Education) => e.id !== id),
+    });
+  };
+  /**
+   *
+   * @param id key of the entry to remove
+   * @param entries array of credential experiences
+   */
+  const deleteExpEntry = (id: number, entries: Experience[]) => (
+    e: MouseEvent<HTMLButtonElement>,
+  ) => {
+    firebase.updateProfile({
+      experiences: entries.filter((e: Experience) => e.id !== id),
+    });
+  };
+
   return (
     <section className="container">
       <Header title="Dashboard" lead={`Welcome ${displayName}`} />
@@ -58,13 +84,18 @@ const Dashboard: FC<IProps> = ({
           </tr>
         </thead>
         <tbody>
-          {experiences?.map((exp: Experience, i: number) => (
-            <tr key={i}>
+          {experiences?.map((exp: Experience) => (
+            <tr key={exp.id}>
               <td>{exp.company}</td>
               <td className="hide-sm">{exp.position}</td>
               <td className="hide-sm">{getTimePeriod(exp.from, exp.to)}</td>
               <td>
-                <button className="btn btn-danger">Delete</button>
+                <button
+                  className="btn btn-danger"
+                  onClick={deleteExpEntry(exp.id, experiences)}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
@@ -83,12 +114,17 @@ const Dashboard: FC<IProps> = ({
         </thead>
         <tbody>
           {educations?.map((edu: Education, i: number) => (
-            <tr key={i}>
+            <tr key={edu.id}>
               <td>{edu.school}</td>
               <td className="hide-sm">{edu.degree}</td>
               <td className="hide-sm">{getTimePeriod(edu.from, edu.to)}</td>
               <td>
-                <button className="btn btn-danger">Delete</button>
+                <button
+                  className="btn btn-danger"
+                  onClick={deleteEduEntry(edu.id, educations)}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}

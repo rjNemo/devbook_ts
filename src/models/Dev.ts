@@ -81,6 +81,7 @@ export const dummyDev: Dev = {
     'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis unde quae vero enim adipisci voluptas magni sapiente reprehenderit error minima.',
   experiences: [
     {
+      id: 1,
       company: 'Microsoft',
       from: new Date(2011, 10),
       to: 'Current',
@@ -90,6 +91,7 @@ export const dummyDev: Dev = {
         'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas corrupti rem eius, accusantium ipsum vel eveniet magnam voluptatum? Minus, voluptatum!',
     },
     {
+      id: 0,
       company: 'Sun Microsystems',
       location: 'USA',
       from: new Date(2004, 10),
@@ -101,6 +103,7 @@ export const dummyDev: Dev = {
   ],
   educations: [
     {
+      id: 0,
       school: 'University of Washington',
       from: new Date(1993, 9),
       to: new Date(1999, 6),

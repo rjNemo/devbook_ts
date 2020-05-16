@@ -62,6 +62,7 @@ const AddEducation: FC<IProps> = ({firebase, educations}) => {
     }: FormData): Education => {
       if (current) to = 'Current';
       const newEdu: Education = {
+        id: educations.length,
         school,
         degree,
         field,
