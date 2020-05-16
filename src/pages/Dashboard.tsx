@@ -31,7 +31,11 @@ const Dashboard: FC<IProps> = ({
   experiences,
   educations,
 }) => {
-  const logout = () => firebase.logout();
+  /** turns account to inactive then logs user out */
+  const deleteAccount = () => {
+    firebase.updateProfile({isActive: false}, {useSet: true, merge: true});
+    firebase.logout();
+  };
 
   /**
    *
@@ -131,7 +135,7 @@ const Dashboard: FC<IProps> = ({
         </tbody>
       </table>
       <div className="my-2">
-        <button className="btn btn-danger" onClick={logout}>
+        <button className="btn btn-danger" onClick={deleteAccount}>
           <FontAwesomeIcon icon={faUserSlash} /> Delete my Account
         </button>
       </div>

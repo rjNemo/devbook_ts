@@ -17,6 +17,7 @@ export interface DevSummary {
  * @extends DevSummary to avoid duplication
  */
 interface Dev extends DevSummary {
+  isActive: boolean;
   bio: string;
   status: string;
   company: string;
@@ -33,6 +34,7 @@ export const getDescription = (status: string, company: string) =>
 /** blank Dev serve as placeholder when initializing a new profile */
 export const blankDev: Dev = {
   id: '42',
+  isActive: true,
   displayName: '',
   status: 'Developer',
   company: '',
@@ -60,6 +62,7 @@ export const blankDev: Dev = {
  */
 export const dummyDev: Dev = {
   id: '0',
+  isActive: true,
   displayName: 'John Doe',
   status: 'Developer',
   company: 'Microsoft',
