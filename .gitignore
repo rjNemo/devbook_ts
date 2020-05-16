@@ -28,3 +28,8 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
+.firebase
+firebase.json
+firestore.indexes.json
+*rules
+.firebaserc
