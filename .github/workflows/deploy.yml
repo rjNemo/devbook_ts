@@ -17,14 +17,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
-      run: yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile
       - name: Unit tests
-      run: yarn test --watchAll=false
+        run: yarn test --watchAll=false
       - name: E2E tests
       uses: cypress-io/github-action@v1
-      with:
-        start: yarn start
-        wait-on: 'http://localhost:3000'
+        with:
+          start: yarn start
+          wait-on: 'http://localhost:3000'
   release:
     if: ${{ github.ref == 'master' }}
     needs: test
@@ -33,8 +33,8 @@ jobs:
       steps:
         - uses: actions/checkout@v2
         - name: Build
-        run: yarn build
+          run: yarn build
         - name: Install Firebase CLI tools
-        run: yarn global add firebase-tools
+          run: yarn global add firebase-tools
         - name: Deploy
-        run: firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
+          run: firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
