@@ -12,10 +12,10 @@ import Alert from '../components/Alert';
 import Header from '../components/Header';
 // Form
 import useForm from '../hooks';
-import {blankDev} from '../models/Dev';
+import Dev, {blankDev} from '../models/Dev';
 
 // extends withFirebaseProps type to ad profile info
-interface IProps extends WithFirebaseProps<User> {
+interface IProps extends Dev, WithFirebaseProps<User> {
   isEmpty: boolean;
   isLoaded: boolean;
 }
@@ -30,7 +30,7 @@ interface InitFormData {
 /**
  * Sign up form recieves firebase from withFirebase HOC
  */
-const SignUp: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
+const SignUp: FC<IProps> = ({firebase, isEmpty, isLoaded, isActive}) => {
   const [error, setError] = useState<any>(null);
 
   // handle form data
@@ -66,11 +66,29 @@ const SignUp: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
   const loginWithGoogle = () =>
     firebase
       .login({provider: 'google', type: 'popup'})
-      .then(() => firebase.updateProfile(blankDev, {useSet: true, merge: true}))
+      .then(() => {
+        // updateProfile only if user does not already exists in db
+        const email = firebase.auth().currentUser?.email;
+        let exists: boolean = false;
+        firebase
+          .firestore()
+          .collection('users/')
+          .where('email', '==', email)
+          .get()
+          .then(docs =>
+            docs.forEach(doc => {
+              exists = doc.data().isActive !== undefined;
+            }),
+          )
+          .then(() => {
+            if (!exists)
+              firebase.updateProfile(blankDev, {useSet: true, merge: true});
+          });
+      })
       .catch(err => setError(err));
 
   // redirect to dashboard if connected
-  if (isLoaded && !isEmpty) {
+  if (isLoaded && !isEmpty && isActive) {
     return <Redirect to={Routes.DASHBOARD} />;
   }
 

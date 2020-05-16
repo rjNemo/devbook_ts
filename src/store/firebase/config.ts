@@ -19,7 +19,7 @@ const rrfProps = {
   createFirestoreInstance,
 };
 
-// Firestore SChema
+// Firestore Schema
 export interface Schema {
   devs: Dev;
 }

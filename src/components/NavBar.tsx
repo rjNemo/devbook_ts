@@ -10,8 +10,9 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCode, faSignOutAlt, faUser} from '@fortawesome/free-solid-svg-icons';
 // Typing
 import User from '../models/User';
+import Dev from '../models/Dev';
 
-interface IProps extends WithFirebaseProps<User> {
+interface IProps extends Dev, WithFirebaseProps<User> {
   isEmpty: boolean;
   isLoaded: boolean;
 }
@@ -19,7 +20,7 @@ interface IProps extends WithFirebaseProps<User> {
 /**
  * Main Navbar serves navigation Routes.
  */
-const NavBar: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
+const NavBar: FC<IProps> = ({firebase, isEmpty, isLoaded, isActive}) => {
   const publicLinks = (
     <ul data-testid="publicLinks">
       <li>
@@ -72,7 +73,8 @@ const NavBar: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
   );
 
   /** Display appropriated links after loading given authenticated prop */
-  const RenderLinks = isLoaded && !isEmpty ? privateLinks : publicLinks;
+  const RenderLinks =
+    isLoaded && !isEmpty && isActive ? privateLinks : publicLinks;
 
   return (
     <nav className="navbar bg-dark">

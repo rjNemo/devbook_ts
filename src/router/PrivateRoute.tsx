@@ -23,13 +23,15 @@ const PrivateRoute: FC<IProps> = ({
   ...rest
 }) => {
   const auth = useSelector((state: RootState) => state.firebase.auth);
+  const profile = useSelector((state: RootState) => state.firebase.profile);
+  const isActive = profile.isActive;
   return (
     <Route
       exact={exact}
       path={path}
       {...rest}
       render={({location, ...rest}) =>
-        isLoaded(auth) && !isEmpty(auth) ? (
+        isLoaded(auth) && !isEmpty(auth) && isActive ? (
           <Component {...rest} />
         ) : (
           <Redirect

@@ -13,13 +13,14 @@ import Alert from '../components/Alert';
 import User from '../models/User';
 // Form
 import useForm from '../hooks';
+import Dev from '../models/Dev';
 
 interface InitFormData {
   email: string;
   password: string;
 }
 
-interface IProps extends WithFirebaseProps<User> {
+interface IProps extends Dev, WithFirebaseProps<User> {
   isEmpty: boolean;
   isLoaded: boolean;
 }
@@ -27,7 +28,7 @@ interface IProps extends WithFirebaseProps<User> {
 /**
  * Sign in form
  */
-const SignIn: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
+const SignIn: FC<IProps> = ({firebase, isEmpty, isLoaded, isActive}) => {
   const [error, setError] = useState<any>(null);
 
   // handle form data
@@ -57,7 +58,7 @@ const SignIn: FC<IProps> = ({firebase, isEmpty, isLoaded}) => {
     firebase.login({provider: 'google', type: 'popup'});
 
   // redirect to dashboard if connected
-  if (isLoaded && !isEmpty) {
+  if (isLoaded && !isEmpty && isActive) {
     return <Redirect to={Routes.DASHBOARD} />;
   }
 
