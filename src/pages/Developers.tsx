@@ -24,7 +24,6 @@ const Developers: FC<IProps> = ({developers}) => (
     />
     <div className="profiles">
       {developers?.map(dev => (
-        // use spread operator to pass props
         <DevProfile key={dev.id} {...dev} />
       ))}
     </div>
