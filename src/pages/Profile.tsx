@@ -1,4 +1,14 @@
-import React, {FC, useState, useEffect} from 'react';
+import React, {FC} from 'react';
+// Redux
+import {compose} from '@reduxjs/toolkit';
+import {firestoreConnect} from 'react-redux-firebase';
+import {connect} from 'react-redux';
+import {RootState} from '../store';
+// Routing
+import {Link, useParams} from 'react-router-dom';
+import Routes from '../constants/routes';
+import NotFound from './NotFound';
+// Style
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
   faGithub,
@@ -15,18 +25,12 @@ import {
   faEye,
   faCodeBranch,
 } from '@fortawesome/free-solid-svg-icons';
+// Typing
 import Dev from '../models/Dev';
 import Experience from '../types/Experience';
 import {getTimePeriod} from '../types/TimePeriod';
 import Education from '../types/Education';
 import Repo from '../types/Repo';
-import {compose} from '@reduxjs/toolkit';
-import {firestoreConnect} from 'react-redux-firebase';
-import {connect} from 'react-redux';
-import {RootState} from '../store';
-import Routes from '../constants/routes';
-import {Link, useParams, Redirect} from 'react-router-dom';
-import NotFound from './NotFound';
 
 interface IProps {
   dev: Dev;
@@ -59,7 +63,9 @@ const Profile: FC<IProps> = ({dev}) => {
     }
   };
 
-  return (
+  return dev === undefined ? (
+    <div>Loading ... </div>
+  ) : (
     <section className="container">
       <Link to={Routes.DEVELOPERS} className="btn">
         Back to profiles
@@ -72,11 +78,11 @@ const Profile: FC<IProps> = ({dev}) => {
             alt="Some guy"
             className="round-img my-1"
           />
-          <h1 className="large">{dev?.displayName}</h1>
-          <p className="lead">{dev?.description}</p>
-          <p>{dev?.location}</p>
+          <h1 className="large">{dev.displayName}</h1>
+          <p className="lead">{dev.description}</p>
+          <p>{dev.location}</p>
           <div className="icons my-1">
-            {/* {Object.entries(dev?.links).map(([icon, webAddress], i: number) => (
+            {/* {Object.entries(dev.links).map(([icon, webAddress], i: number) => (
               <a href={webAddress} key={i}>
                 <FontAwesomeIcon icon={renderSocialIcon(icon)} size="2x" />
               </a>
@@ -85,12 +91,12 @@ const Profile: FC<IProps> = ({dev}) => {
         </div>
 
         <div className="profile-about bg-light p-2">
-          <h2 className="text-primary">{`${dev?.displayName}'s Bio`}</h2>
-          <p>{dev?.bio}</p>
+          <h2 className="text-primary">{`${dev.displayName}'s Bio`}</h2>
+          <p>{dev.bio}</p>
           <div className="line"></div>
           <h2 className="text-primary">Skill Set</h2>
           <div className="skills">
-            {dev?.skills?.map((s: string, i: number) => (
+            {dev.skills?.map((s: string, i: number) => (
               <div className="p-1" key={i}>
                 <FontAwesomeIcon icon={faCheck} /> {s}
               </div>
@@ -100,7 +106,7 @@ const Profile: FC<IProps> = ({dev}) => {
 
         <div className="profile-exp bg-white p-2">
           <h2 className="text-primary">Experiences</h2>
-          {dev?.experiences?.map((exp: Experience, i: number) => (
+          {dev.experiences?.map((exp: Experience, i: number) => (
             <div key={i}>
               <h3>{exp.company}</h3>
               <p>{getTimePeriod(exp.from, exp.to)}</p>
@@ -118,7 +124,7 @@ const Profile: FC<IProps> = ({dev}) => {
 
         <div className="profile-edu bg-white p-2">
           <h2 className="text-primary">Education</h2>
-          {dev?.educations?.map((edu: Education, i: number) => (
+          {dev.educations?.map((edu: Education, i: number) => (
             <div key={i}>
               <h3>{edu.school}</h3>
               <p>{getTimePeriod(edu.from, edu.to)}</p>
@@ -143,7 +149,7 @@ const Profile: FC<IProps> = ({dev}) => {
             <FontAwesomeIcon icon={faGithub} /> GitHub Repos
           </h2>
 
-          {dev?.repos?.map((r: Repo, i: number) => (
+          {dev.repos?.map((r: Repo, i: number) => (
             <div className="repo bg-white my-1 p-1">
               <div>
                 <h4>
