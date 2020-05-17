@@ -31,9 +31,10 @@ interface Dev extends DevSummary {
 export const getDescription = (status: string, company: string) =>
   `${status} at ${company}`;
 
-/** blank Dev serve as placeholder when initializing a new profile */
-export const blankDev: Dev = {
-  id: '42',
+/** blank Dev serve as placeholder when initializing a new profile
+ * id is not specified to not overwrite document uid.
+ */
+export const blankDev = {
   isActive: true,
   displayName: '',
   status: 'Developer',
