@@ -1,7 +1,12 @@
 import React, {FC} from 'react';
+// Routing
+import {Link} from 'react-router-dom';
+// Style
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCheck} from '@fortawesome/free-solid-svg-icons';
-import {DevSummary} from '../models/Dev';
+// Typing
+import {DevSummary, getDescription} from '../models/Dev';
+import Routes from '../constants/routes';
 
 /**
  * Present a dev profile succintly. Redirect to dev profile on click.
@@ -10,23 +15,24 @@ import {DevSummary} from '../models/Dev';
 const DevProfile: FC<DevSummary> = ({
   id,
   displayName,
-  picture,
-  description,
+  avatarUrl,
+  status,
+  company,
   location,
   skills,
 }) => (
   <div className="profile bg-light">
-    <img src={picture} alt={displayName} className="round-img" />
+    <img src={avatarUrl} alt={displayName} className="round-img" />
     <div>
       <h2>{displayName}</h2>
-      <p>{description}</p>
+      <p>{getDescription(status, company)}</p>
       <p>{location}</p>
-      <a href="profile.html" className="btn btn-primary">
+      <Link to={`${Routes.PROFILE}/${id}`} className="btn btn-primary">
         View Profile
-      </a>
+      </Link>
     </div>
     <ul>
-      {skills.map((s, i) => (
+      {skills?.map((s, i) => (
         <li className="text-primary" key={i}>
           <FontAwesomeIcon icon={faCheck} /> {s}
         </li>

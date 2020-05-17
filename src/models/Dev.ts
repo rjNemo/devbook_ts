@@ -5,10 +5,12 @@ import Repo from '../types/Repo';
 
 /** Shorter dev interface */
 export interface DevSummary {
-  id: string;
+  id?: string;
   displayName: string;
-  picture: string;
+  avatarUrl: string;
   description: string;
+  status: string;
+  company: string;
   location: string;
   skills: string[];
 }
@@ -16,33 +18,40 @@ export interface DevSummary {
 /** Full developer profile information.
  * @extends DevSummary to avoid duplication
  */
-interface Dev extends DevSummary {
+interface IDev extends DevSummary {
   isActive: boolean;
   bio: string;
-  status: string;
-  company: string;
+  github: string;
   links: Links;
   experiences: Experience[];
   educations: Education[];
   repos: Repo[];
 }
 
-/** create profile tagline */
-export const getDescription = (status: string, company: string) =>
-  `${status} at ${company}`;
+export const getDescription = (status?: string, company?: string): string => {
+  if (status && company) return `${status} at ${company}`;
+  if (status) return status;
+  if (company) return `Employed at ${company}`;
+  return 'DevBook Member';
+};
 
-/** blank Dev serve as placeholder when initializing a new profile */
-export const blankDev: Dev = {
-  id: '42',
-  isActive: true,
-  displayName: '',
-  status: 'Developer',
-  company: '',
-  picture: '',
-  description: '',
-  location: '',
-  skills: [],
-  links: {
+/** class implementing IDev.
+ * No constructor is provided.
+ * new Dev() returns a placeholder used when initializing a new profile.
+ * id is not specified to not overwrite document uid.
+ */
+export class Dev implements IDev {
+  id?: string;
+  isActive = true;
+  displayName = '';
+  status = 'Developer';
+  company = '';
+  avatarUrl = '';
+  description = '';
+  location = '';
+  skills: string[] = [];
+  github: string = '';
+  links: Links = {
     website: '',
     instagram: '',
     facebook: '',
@@ -50,27 +59,28 @@ export const blankDev: Dev = {
     twitter: '',
     github: '',
     youtube: '',
-  },
-  bio: '',
-  experiences: [],
-  educations: [],
-  repos: [],
-};
+  };
+  bio = '';
+  experiences: Experience[] = [];
+  educations: Education[] = [];
+  repos: Repo[] = [];
+}
 
 /**
  * sample Dev for development and tests
  */
-export const dummyDev: Dev = {
+export const dummyDev: IDev = {
   id: '0',
   isActive: true,
   displayName: 'John Doe',
   status: 'Developer',
   company: 'Microsoft',
-  picture:
+  avatarUrl:
     'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200',
   description: 'Developer at Microsoft',
   location: 'Seattle, WA',
   skills: ['HTML', 'CSS', 'JavaScript', 'Python'],
+  github: '',
   links: {
     website: '#',
     instagram: 'http://insta.com',
@@ -146,4 +156,32 @@ export const dummyDev: Dev = {
     },
   ],
 };
-export default Dev;
+
+/** dummy devSummary profiles for debug and development only */
+export const developers: DevSummary[] = [
+  {
+    id: '0',
+    displayName: 'John Doe',
+    avatarUrl:
+      'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200',
+    description: 'Developer at Microsoft',
+    location: 'Seattle, WA',
+    skills: ['HTML', 'CSS', 'JavaScript', 'Python'],
+    status: 'Developer',
+    company: 'Microsoft',
+  },
+  {
+    id: '42',
+    displayName: 'Ruidy Nemausat',
+    avatarUrl:
+      'https://lh3.googleusercontent.com/a-/AOh14GhncH95MWKwPR3TRKy4eVd4n6w0-fobe4dhiam2xA',
+    description: 'Fullstack Engineer at DESY',
+
+    location: 'Hamburg, DE',
+    skills: ['React', 'TypeScript', 'Redux', 'Nodejs'],
+    status: 'Developer',
+    company: 'Microsoft',
+  },
+];
+
+export default IDev;

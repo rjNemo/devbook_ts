@@ -1,49 +1,39 @@
 import React, {FC} from 'react';
+// Redux
+import {compose} from 'redux';
+import {connect} from 'react-redux';
+import {firestoreConnect} from 'react-redux-firebase';
+import {RootState} from '../store';
+// Style
 import Header from '../components/Header';
 import DevProfile from '../components/DevProfile';
 import {DevSummary} from '../models/Dev';
 
+interface IProps {
+  developers: DevSummary[];
+}
 /**
  * Developers list page
  */
-// const Developers: FC<DevSummary[]> = (developers) => {
-const Developers: FC = () => {
-  const developers: DevSummary[] = [
-    {
-      id: '0',
-      displayName: 'John Doe',
-      picture:
-        'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200',
-      description: 'Developer at Microsoft',
-      location: 'Seattle, WA',
-      skills: ['HTML', 'CSS', 'JavaScript', 'Python'],
-    },
-    {
-      id: '42',
-      displayName: 'Ruidy Nemausat',
-      picture:
-        'https://lh3.googleusercontent.com/a-/AOh14GhncH95MWKwPR3TRKy4eVd4n6w0-fobe4dhiam2xA',
-      description: 'Fullstack Engineer at DESY',
-      location: 'Hamburg, DE',
-      skills: ['React', 'TypeScript', 'Redux', 'Nodejs'],
-    },
-  ];
+const Developers: FC<IProps> = ({developers}) => (
+  <section className="container">
+    <Header
+      title="Developers"
+      lead="Browse and connect with developers"
+      icon="connectdevelop"
+    />
+    <div className="profiles">
+      {developers?.map(dev => (
+        // use spread operator to pass props
+        <DevProfile key={dev.id} {...dev} />
+      ))}
+    </div>
+  </section>
+);
 
-  return (
-    <section className="container">
-      <Header
-        title="Developers"
-        lead="Browse and connect with developers"
-        icon="connectdevelop"
-      />
-      <div className="profiles">
-        {developers.map(dev => (
-          // use spread operator to pass props
-          <DevProfile key={dev.id} {...dev} />
-        ))}
-      </div>
-    </section>
-  );
-};
-
-export default Developers;
+export default compose<FC>(
+  firestoreConnect(() => ['users']), // or { collection: 'users' }
+  connect((state: RootState, props) => ({
+    developers: state.firestore.ordered.users,
+  })),
+)(Developers);
