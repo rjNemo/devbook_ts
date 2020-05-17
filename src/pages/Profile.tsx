@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useState, useEffect} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
   faGithub,
@@ -25,7 +25,8 @@ import {firestoreConnect} from 'react-redux-firebase';
 import {connect} from 'react-redux';
 import {RootState} from '../store';
 import Routes from '../constants/routes';
-import {Link, useParams} from 'react-router-dom';
+import {Link, useParams, Redirect} from 'react-router-dom';
+import NotFound from './NotFound';
 
 interface IProps {
   dev: Dev;
@@ -35,6 +36,11 @@ interface IProps {
  * Dev personal profile as seen by other people.
  */
 const Profile: FC<IProps> = ({dev}) => {
+  // display 404 page if dev is null
+  if (dev === null) {
+    return <NotFound />;
+  }
+
   /** return the icon corresponding to the social name */
   const renderSocialIcon = (name: string): IconDefinition => {
     switch (name) {
