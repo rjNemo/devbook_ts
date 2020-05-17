@@ -1,7 +1,11 @@
 // Redux
 import {configureStore} from '@reduxjs/toolkit';
 // Firebase
-import {firebaseReducer, FirebaseReducer} from 'react-redux-firebase';
+import {
+  firebaseReducer,
+  FirebaseReducer,
+  FirestoreReducer,
+} from 'react-redux-firebase';
 import {firestoreReducer} from 'redux-firestore';
 // Typing
 import {Schema} from './firebase/config';
@@ -17,6 +21,7 @@ const store = configureStore({
 // State type
 export interface RootState {
   firebase: FirebaseReducer.Reducer<Dev, Schema>;
+  firestore: FirestoreReducer.Reducer;
 }
 
 export default store;
