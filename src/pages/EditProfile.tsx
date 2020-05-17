@@ -21,7 +21,7 @@ import useForm from '../hooks';
 // Typing
 import Dev from '../models/Dev';
 import User from '../models/User';
-import Links from '../types/Links';
+import Links, {parseLink, getGithubLink} from '../types/Links';
 import IAlert, {formAlert} from '../types/Alert';
 
 interface FormData {
@@ -52,6 +52,7 @@ const EditProfile: FC<IProps> = ({
   links,
   location,
   bio,
+  github,
 }) => {
   const [showLinks, setShowLinks] = useState(false);
   const [alert, setAlert] = useState<IAlert>(formAlert);
@@ -63,7 +64,7 @@ const EditProfile: FC<IProps> = ({
     bio: bio ?? '',
     skills: skills?.toString() ?? '',
     website: links?.website ?? '',
-    github: links?.github ?? '',
+    github: github ?? '',
     facebook: links?.facebook ?? '',
     linkedin: links?.linkedin ?? '',
     instagram: links?.instagram ?? '',
@@ -89,13 +90,13 @@ const EditProfile: FC<IProps> = ({
     skills,
   }: FormData) => {
     const newLinks: Links = {
-      website,
-      instagram,
-      facebook,
-      linkedin,
-      twitter,
-      github,
-      youtube,
+      website: parseLink(website),
+      instagram: parseLink(instagram),
+      facebook: parseLink(facebook),
+      linkedin: parseLink(linkedin),
+      twitter: parseLink(twitter),
+      github: getGithubLink(github),
+      youtube: parseLink(youtube),
     };
     const newSkills: string[] = skills?.split(',');
     return {
@@ -103,6 +104,7 @@ const EditProfile: FC<IProps> = ({
       company,
       location,
       bio,
+      github,
       links: newLinks,
       skills: newSkills,
     };

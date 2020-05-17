@@ -21,6 +21,7 @@ interface IDev extends DevSummary {
   bio: string;
   status: string;
   company: string;
+  github: string;
   links: Links;
   experiences: Experience[];
   educations: Education[];
@@ -42,6 +43,7 @@ export class Dev implements IDev {
   description = '';
   location = '';
   skills: string[] = [];
+  github: string = '';
   links: Links = {
     website: '',
     instagram: '',
@@ -71,6 +73,7 @@ export const dummyDev: IDev = {
   description: 'Developer at Microsoft',
   location: 'Seattle, WA',
   skills: ['HTML', 'CSS', 'JavaScript', 'Python'],
+  github: '',
   links: {
     website: '#',
     instagram: 'http://insta.com',
