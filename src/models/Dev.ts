@@ -5,7 +5,7 @@ import Repo from '../types/Repo';
 
 /** Shorter dev interface */
 export interface DevSummary {
-  id: string;
+  id?: string;
   displayName: string;
   avatarUrl: string;
   description: string;
@@ -16,7 +16,7 @@ export interface DevSummary {
 /** Full developer profile information.
  * @extends DevSummary to avoid duplication
  */
-interface Dev extends DevSummary {
+interface IDev extends DevSummary {
   isActive: boolean;
   bio: string;
   status: string;
@@ -27,23 +27,25 @@ interface Dev extends DevSummary {
   repos: Repo[];
 }
 
-/** create profile tagline */
-export const getDescription = (status: string, company: string) =>
-  `${status} at ${company}`;
-
-/** blank Dev serve as placeholder when initializing a new profile
+/** class implementing IDev.
+ * No constructor is provided.
+ * new Dev() returns a placeholder used when initializing a new profile.
  * id is not specified to not overwrite document uid.
  */
-export const blankDev = {
-  isActive: true,
-  displayName: '',
-  status: 'Developer',
-  company: '',
-  avatarUrl: '',
-  description: '',
-  location: '',
-  skills: [],
-  links: {
+export class Dev implements IDev {
+  id?: string;
+  isActive = true;
+  displayName = '';
+  status = 'Developer';
+  company = '';
+  avatarUrl = '';
+  /** create profile tagline */
+  get description(): string {
+    return `${this.status} at ${this.company}`;
+  }
+  location = '';
+  skills: string[] = [];
+  links: Links = {
     website: '',
     instagram: '',
     facebook: '',
@@ -51,17 +53,46 @@ export const blankDev = {
     twitter: '',
     github: '',
     youtube: '',
-  },
-  bio: '',
-  experiences: [],
-  educations: [],
-  repos: [],
-};
+  };
+  bio = '';
+  experiences: Experience[] = [];
+  educations: Education[] = [];
+  repos: Repo[] = [];
+}
+//
+// export const getDescription = (status: string, company: string) =>
+//   `${status} at ${company}`;
+
+/**
+ */
+// export const blankDev = {
+//   isActive: true,
+//   displayName: '',
+//   status: 'Developer',
+//   company: '',
+//   avatarUrl: '',
+//   description: '',
+//   location: '',
+//   skills: [],
+//   links: {
+//     website: '',
+//     instagram: '',
+//     facebook: '',
+//     linkedin: '',
+//     twitter: '',
+//     github: '',
+//     youtube: '',
+//   },
+//   bio: '',
+//   experiences: [],
+//   educations: [],
+//   repos: [],
+// };
 
 /**
  * sample Dev for development and tests
  */
-export const dummyDev: Dev = {
+export const dummyDev: IDev = {
   id: '0',
   isActive: true,
   displayName: 'John Doe',
@@ -170,4 +201,4 @@ export const developers: DevSummary[] = [
   },
 ];
 
-export default Dev;
+export default IDev;

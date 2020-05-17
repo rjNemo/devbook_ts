@@ -12,7 +12,7 @@ import Alert from '../components/Alert';
 import Header from '../components/Header';
 // Form
 import useForm from '../hooks';
-import Dev, {blankDev} from '../models/Dev';
+import {Dev} from '../models/Dev';
 
 // extends withFirebaseProps type to ad profile info
 interface IProps extends Dev, WithFirebaseProps<User> {
@@ -57,7 +57,7 @@ const SignUp: FC<IProps> = ({firebase, isEmpty, isLoaded, isActive}) => {
     firebase
       .createUser({email, password}, newUser(name, email))
       .then(() => {
-        firebase.updateProfile(blankDev, {useSet: true, merge: true});
+        firebase.updateProfile(new Dev(), {useSet: true, merge: true});
         resetForm();
       })
       .catch(err => setError(err));
@@ -82,7 +82,7 @@ const SignUp: FC<IProps> = ({firebase, isEmpty, isLoaded, isActive}) => {
           )
           .then(() => {
             if (!exists)
-              firebase.updateProfile(blankDev, {useSet: true, merge: true});
+              firebase.updateProfile(new Dev(), {useSet: true, merge: true});
           });
       })
       .catch(err => setError(err));
