@@ -22,7 +22,7 @@ const Router: FC = () => (
     <Route exact path={Routes.SIGN_UP} component={SignUp} />
     <Route exact path={Routes.SIGN_IN} component={SignIn} />
     <Route exact path={Routes.DEVELOPERS} component={Developers} />
-    <Route exact path={Routes.PROFILE} component={Profile} />
+    <Route exact path={`${Routes.PROFILE}/:id`} component={Profile} />
     <PrivateRoute exact path={Routes.EDIT_PROFILE} component={EditProfile} />
     <PrivateRoute exact path={Routes.DASHBOARD} component={Dashboard} />
     <PrivateRoute
