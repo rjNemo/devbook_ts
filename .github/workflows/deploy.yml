@@ -26,15 +26,18 @@ jobs:
           start: yarn start
           wait-on: 'http://localhost:3000'
   release:
-    if: ${{ github.ref == 'master' }}
-    needs: test
     name: Release
+    if: ${{ github.ref == 'refs/heads/master' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
       - name: Build
         run: yarn build
-      - name: Install Firebase CLI tools
-        run: yarn global add firebase-tools
-      - name: Deploy
-        run: firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
