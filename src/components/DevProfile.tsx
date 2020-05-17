@@ -26,7 +26,7 @@ const DevProfile: FC<DevSummary> = ({
       </a>
     </div>
     <ul>
-      {skills.map((s, i) => (
+      {skills?.map((s, i) => (
         <li className="text-primary" key={i}>
           <FontAwesomeIcon icon={faCheck} /> {s}
         </li>
