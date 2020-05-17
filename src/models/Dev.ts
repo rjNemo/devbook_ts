@@ -7,7 +7,7 @@ import Repo from '../types/Repo';
 export interface DevSummary {
   id: string;
   displayName: string;
-  picture: string;
+  avatarUrl: string;
   description: string;
   location: string;
   skills: string[];
@@ -38,7 +38,7 @@ export const blankDev: Dev = {
   displayName: '',
   status: 'Developer',
   company: '',
-  picture: '',
+  avatarUrl: '',
   description: '',
   location: '',
   skills: [],
@@ -66,7 +66,7 @@ export const dummyDev: Dev = {
   displayName: 'John Doe',
   status: 'Developer',
   company: 'Microsoft',
-  picture:
+  avatarUrl:
     'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200',
   description: 'Developer at Microsoft',
   location: 'Seattle, WA',
@@ -152,7 +152,7 @@ export const developers: DevSummary[] = [
   {
     id: '0',
     displayName: 'John Doe',
-    picture:
+    avatarUrl:
       'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200',
     description: 'Developer at Microsoft',
     location: 'Seattle, WA',
@@ -161,7 +161,7 @@ export const developers: DevSummary[] = [
   {
     id: '42',
     displayName: 'Ruidy Nemausat',
-    picture:
+    avatarUrl:
       'https://lh3.googleusercontent.com/a-/AOh14GhncH95MWKwPR3TRKy4eVd4n6w0-fobe4dhiam2xA',
     description: 'Fullstack Engineer at DESY',
     location: 'Hamburg, DE',
