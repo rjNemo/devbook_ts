@@ -32,7 +32,7 @@ export const getDescription = (status?: string, company?: string): string => {
   if (status && company) return `${status} at ${company}`;
   if (status) return status;
   if (company) return `Employed at ${company}`;
-  return 'Document your current occupation.';
+  return 'DevBook Member';
 };
 
 /** class implementing IDev.

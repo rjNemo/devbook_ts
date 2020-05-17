@@ -127,7 +127,10 @@ const Profile: FC<IProps> = ({dev}) => {
           <h2 className="text-primary">Experiences</h2>
           {dev.experiences.length === 0 ? (
             <div>
-              <img src={require('../static/img/404.jpg')} alt="" />
+              <img
+                src={require('../static/img/404.jpg')}
+                alt="no experiences"
+              />
             </div>
           ) : (
             dev.experiences.map((exp: Experience, i: number) => (
@@ -151,7 +154,7 @@ const Profile: FC<IProps> = ({dev}) => {
           <h2 className="text-primary">Education</h2>
           {dev.educations.length === 0 ? (
             <div>
-              <img src={require('../static/img/404.jpg')} alt="" />
+              <img src={require('../static/img/404.jpg')} alt="no educations" />
             </div>
           ) : (
             dev.educations.map((edu: Education, i: number) => (
@@ -180,9 +183,12 @@ const Profile: FC<IProps> = ({dev}) => {
             <FontAwesomeIcon icon={faGithub} /> GitHub Repos
           </h2>
 
-          {dev.repos.length === 0 ? (
+          {dev.repos?.length === 0 ? (
             <div>
-              <img src={require('../static/img/404.jpg')} alt="" />
+              <img
+                src={require('../static/img/404.jpg')}
+                alt="no repositories"
+              />
             </div>
           ) : (
             dev.repos.map((r: Repo, i: number) => (
