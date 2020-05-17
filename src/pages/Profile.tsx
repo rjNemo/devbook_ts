@@ -102,15 +102,21 @@ const Profile: FC<IProps> = ({dev}) => {
 
         <div className="profile-about bg-light p-2">
           <h2 className="text-primary">{`${dev.displayName}'s Bio`}</h2>
-          <p>{dev.bio}</p>
+          <p>
+            {dev.bio.length === 0
+              ? 'Add a short bio to present yourself!'
+              : dev.bio}
+          </p>
           <div className="line"></div>
           <h2 className="text-primary">Skill Set</h2>
           <div className="skills">
-            {dev.skills?.map((s: string, i: number) => (
-              <div className="p-1" key={i}>
-                <FontAwesomeIcon icon={faCheck} /> {s}
-              </div>
-            ))}
+            {dev.skills.length === 0
+              ? 'Let us know about your skills!'
+              : dev.skills?.map((s: string, i: number) => (
+                  <div className="p-1" key={i}>
+                    <FontAwesomeIcon icon={faCheck} /> {s}
+                  </div>
+                ))}
           </div>
         </div>
 
