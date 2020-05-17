@@ -15,16 +15,26 @@ import {
   faEye,
   faCodeBranch,
 } from '@fortawesome/free-solid-svg-icons';
-import Dev, {dummyDev as dev} from '../models/Dev';
+import Dev from '../models/Dev';
 import Experience from '../types/Experience';
 import {getTimePeriod} from '../types/TimePeriod';
 import Education from '../types/Education';
 import Repo from '../types/Repo';
+import {compose} from '@reduxjs/toolkit';
+import {firestoreConnect} from 'react-redux-firebase';
+import {connect} from 'react-redux';
+import {RootState} from '../store';
+import Routes from '../constants/routes';
+import {Link, useParams} from 'react-router-dom';
+
+interface IProps {
+  dev: Dev;
+}
 
 /**
  * Dev personal profile as seen by other people.
  */
-const Profile: FC<Dev> = () => {
+const Profile: FC<IProps> = ({dev}) => {
   /** return the icon corresponding to the social name */
   const renderSocialIcon = (name: string): IconDefinition => {
     switch (name) {
@@ -45,9 +55,9 @@ const Profile: FC<Dev> = () => {
 
   return (
     <section className="container">
-      <a href="profiles.html" className="btn">
+      <Link to={Routes.DEVELOPERS} className="btn">
         Back to profiles
-      </a>
+      </Link>
 
       <div className="profile-grid my-1">
         <div className="profile-top bg-primary p-2">
@@ -56,25 +66,25 @@ const Profile: FC<Dev> = () => {
             alt="Some guy"
             className="round-img my-1"
           />
-          <h1 className="large">{dev.displayName}</h1>
-          <p className="lead">{dev.description}</p>
-          <p>{dev.location}</p>
+          <h1 className="large">{dev?.displayName}</h1>
+          <p className="lead">{dev?.description}</p>
+          <p>{dev?.location}</p>
           <div className="icons my-1">
-            {Object.entries(dev.links).map(([icon, webAddress], i: number) => (
+            {/* {Object.entries(dev?.links).map(([icon, webAddress], i: number) => (
               <a href={webAddress} key={i}>
                 <FontAwesomeIcon icon={renderSocialIcon(icon)} size="2x" />
               </a>
-            ))}
+            ))} */}
           </div>
         </div>
 
         <div className="profile-about bg-light p-2">
-          <h2 className="text-primary">{`${dev.displayName}'s Bio`}</h2>
-          <p>{dev.bio}</p>
+          <h2 className="text-primary">{`${dev?.displayName}'s Bio`}</h2>
+          <p>{dev?.bio}</p>
           <div className="line"></div>
           <h2 className="text-primary">Skill Set</h2>
           <div className="skills">
-            {dev.skills.map((s: string, i: number) => (
+            {dev?.skills?.map((s: string, i: number) => (
               <div className="p-1" key={i}>
                 <FontAwesomeIcon icon={faCheck} /> {s}
               </div>
@@ -84,7 +94,7 @@ const Profile: FC<Dev> = () => {
 
         <div className="profile-exp bg-white p-2">
           <h2 className="text-primary">Experiences</h2>
-          {dev.experiences.map((exp: Experience, i: number) => (
+          {dev?.experiences?.map((exp: Experience, i: number) => (
             <div key={i}>
               <h3>{exp.company}</h3>
               <p>{getTimePeriod(exp.from, exp.to)}</p>
@@ -102,7 +112,7 @@ const Profile: FC<Dev> = () => {
 
         <div className="profile-edu bg-white p-2">
           <h2 className="text-primary">Education</h2>
-          {dev.educations.map((edu: Education, i: number) => (
+          {dev?.educations?.map((edu: Education, i: number) => (
             <div key={i}>
               <h3>{edu.school}</h3>
               <p>{getTimePeriod(edu.from, edu.to)}</p>
@@ -127,7 +137,7 @@ const Profile: FC<Dev> = () => {
             <FontAwesomeIcon icon={faGithub} /> GitHub Repos
           </h2>
 
-          {dev.repos.map((r: Repo, i: number) => (
+          {dev?.repos?.map((r: Repo, i: number) => (
             <div className="repo bg-white my-1 p-1">
               <div>
                 <h4>
@@ -156,4 +166,20 @@ const Profile: FC<Dev> = () => {
   );
 };
 
-export default Profile;
+/**
+ * Container to fetch id params from thr URI and pass it to Profile page
+ */
+const ProfileContainer: FC = () => {
+  const {id} = useParams();
+
+  const Component = compose<FC>(
+    firestoreConnect(() => [`users/${id}`]),
+    connect(({firestore: {data}}: RootState) => ({
+      dev: data.users && data.users[id],
+    })),
+  )(Profile);
+
+  return <Component />;
+};
+
+export default ProfileContainer;
