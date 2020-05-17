@@ -5,6 +5,15 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    env:
+      REACT_APP_STORAGE_BUCKET: ${{ secrets.REACT_APP_STORAGE_BUCKET }}
+      REACT_APP_PROJECT_ID: ${{ secrets.REACT_APP_PROJECT_ID }}
+      REACT_APP_MSG_SENDER_ID: ${{ secrets.REACT_APP_MSG_SENDER_ID }}
+      REACT_APP_MEASUREMENT_ID: ${{ secrets.REACT_APP_MEASUREMENT_ID }}
+      REACT_APP_DB_URL: ${{ secrets.REACT_APP_DB_URL }}
+      REACT_APP_AUTH_DOMAIN: ${{ secrets.REACT_APP_AUTH_DOMAIN }}
+      REACT_APP_APP_ID: ${{ secrets.REACT_APP_APP_ID }}
+      REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
@@ -16,3 +25,16 @@ jobs:
         with:
           start: yarn start
           wait-on: 'http://localhost:3000'
+  release:
+    if: ${{ github.ref == 'master' }}
+    needs: test
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: yarn build
+      - name: Install Firebase CLI tools
+        run: yarn global add firebase-tools
+      - name: Deploy
+        run: firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}

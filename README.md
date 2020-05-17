@@ -1,6 +1,10 @@
 # DevBook
 
+![Deploy](https://github.com/rjNemo/devbook_ts/workflows/Deploy/badge.svg?branch=master)
+
 Social App for connecting with developers & tech enthusiasts.
+
+🕸 [Check it out!](https://devbook.onrender.com/)
 
 ## Tests
 
@@ -16,11 +20,26 @@ yarn cypress
 
 and edit your E2E test cases in `cypress/integration/` folder.
 
+### Unit
+
+Open test runner with:
+
+```sh
+yarn test
+```
+
+## Deployment
+
+We use Github Actions to check push and pull requests.
+
+The application is deployed on [Render](https://render.com) cloud platform.
+It watches git `master` branch and automatic deploy if the diff passes the tests.
+
 ## Built With
 
 - [ReactJs](https://reactjs.org/) - A JavaScript library for building user interfaces
 - [Redux](https://redux.js.org/) - A predictable statea container for JavaScript apps
-- [Firebase](https://fiirebase.google.com/) - Firebase helps mobile and web app teams succeed
+- [Firebase](https://firebase.google.com/) - Firebase helps mobile and web app teams succeed
 
 ## Versioning
 
