@@ -4,6 +4,7 @@ on: [push]
 jobs:
   test:
     name: Test
+    if: ${{ github.ref == 'refs/heads/master' }}
     runs-on: ubuntu-latest
     env:
       REACT_APP_STORAGE_BUCKET: ${{ secrets.REACT_APP_STORAGE_BUCKET }}
@@ -37,7 +38,9 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Build
         run: yarn build
-      - name: Install Firebase CLI tools
-        run: yarn global add firebase-tools
-      - name: Deploy
-        run: firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
