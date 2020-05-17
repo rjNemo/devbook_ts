@@ -4,7 +4,6 @@ on: [push]
 jobs:
   test:
     name: Test
-    if: ${{ github.ref == 'master' }}
     runs-on: ubuntu-latest
     env:
       REACT_APP_STORAGE_BUCKET: ${{ secrets.REACT_APP_STORAGE_BUCKET }}
@@ -28,12 +27,14 @@ jobs:
           wait-on: 'http://localhost:3000'
   release:
     name: Release
-    # if: ${{ github.ref == 'master' }}
+    # if: ${{ github.ref == 'refs/heads/master' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: ref
         run: echo ${{ github.ref }}
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
       - name: Build
         run: yarn build
       - name: Install Firebase CLI tools
