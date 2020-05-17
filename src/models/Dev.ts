@@ -39,10 +39,7 @@ export class Dev implements IDev {
   status = 'Developer';
   company = '';
   avatarUrl = '';
-  /** create profile tagline */
-  get description(): string {
-    return `${this.status} at ${this.company}`;
-  }
+  description = '';
   location = '';
   skills: string[] = [];
   links: Links = {
@@ -59,35 +56,6 @@ export class Dev implements IDev {
   educations: Education[] = [];
   repos: Repo[] = [];
 }
-//
-// export const getDescription = (status: string, company: string) =>
-//   `${status} at ${company}`;
-
-/**
- */
-// export const blankDev = {
-//   isActive: true,
-//   displayName: '',
-//   status: 'Developer',
-//   company: '',
-//   avatarUrl: '',
-//   description: '',
-//   location: '',
-//   skills: [],
-//   links: {
-//     website: '',
-//     instagram: '',
-//     facebook: '',
-//     linkedin: '',
-//     twitter: '',
-//     github: '',
-//     youtube: '',
-//   },
-//   bio: '',
-//   experiences: [],
-//   educations: [],
-//   repos: [],
-// };
 
 /**
  * sample Dev for development and tests
@@ -196,6 +164,7 @@ export const developers: DevSummary[] = [
     avatarUrl:
       'https://lh3.googleusercontent.com/a-/AOh14GhncH95MWKwPR3TRKy4eVd4n6w0-fobe4dhiam2xA',
     description: 'Fullstack Engineer at DESY',
+
     location: 'Hamburg, DE',
     skills: ['React', 'TypeScript', 'Redux', 'Nodejs'],
   },

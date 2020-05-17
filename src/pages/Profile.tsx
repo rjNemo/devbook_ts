@@ -16,6 +16,7 @@ import {
   faInstagram,
   faLinkedin,
   faTwitter,
+  faYoutube,
 } from '@fortawesome/free-brands-svg-icons';
 import {
   faGlobe,
@@ -26,7 +27,7 @@ import {
   faCodeBranch,
 } from '@fortawesome/free-solid-svg-icons';
 // Typing
-import Dev from '../models/Dev';
+import {Dev} from '../models/Dev';
 import Experience from '../types/Experience';
 import {getTimePeriod} from '../types/TimePeriod';
 import Education from '../types/Education';
@@ -58,6 +59,8 @@ const Profile: FC<IProps> = ({dev}) => {
         return faLinkedin;
       case 'twitter':
         return faTwitter;
+      case 'youtube':
+        return faYoutube;
       default:
         return faGlobe;
     }
@@ -74,19 +77,26 @@ const Profile: FC<IProps> = ({dev}) => {
       <div className="profile-grid my-1">
         <div className="profile-top bg-primary p-2">
           <img
-            src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
-            alt="Some guy"
+            src={dev.avatarUrl}
+            alt={dev.displayName}
             className="round-img my-1"
           />
           <h1 className="large">{dev.displayName}</h1>
-          <p className="lead">{dev.description}</p>
+          <p className="lead">{`${dev.status} at ${dev.company}`}</p>
           <p>{dev.location}</p>
           <div className="icons my-1">
-            {/* {Object.entries(dev.links).map(([icon, webAddress], i: number) => (
-              <a href={webAddress} key={i}>
-                <FontAwesomeIcon icon={renderSocialIcon(icon)} size="2x" />
-              </a>
-            ))} */}
+            {Object.entries(dev.links)
+              .sort()
+              .map(([icon, webAddress], i: number) => (
+                <a
+                  href={webAddress}
+                  key={i}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FontAwesomeIcon icon={renderSocialIcon(icon)} size="2x" />
+                </a>
+              ))}
           </div>
         </div>
 
