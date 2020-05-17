@@ -33,7 +33,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: ref
-        run: echo github.ref
+        run: echo ${{ github.ref }}
       - name: Build
         run: yarn build
       - name: Install Firebase CLI tools
