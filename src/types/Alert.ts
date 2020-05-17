@@ -4,6 +4,7 @@ interface IAlert {
   text: string;
 }
 
+/** standard alert displaying form status after submission */
 export const formAlert: IAlert = {
   show: false,
   color: 'danger',
