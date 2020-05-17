@@ -125,42 +125,54 @@ const Profile: FC<IProps> = ({dev}) => {
 
         <div className="profile-exp bg-white p-2">
           <h2 className="text-primary">Experiences</h2>
-          {dev.experiences?.map((exp: Experience, i: number) => (
-            <div key={i}>
-              <h3>{exp.company}</h3>
-              <p>{getTimePeriod(exp.from, exp.to)}</p>
-              <p>
-                <strong>Position: </strong>
-                {exp.position}
-              </p>
-              <p>
-                <strong>Description: </strong>
-                {exp.description}
-              </p>
+          {dev.experiences.length === 0 ? (
+            <div>
+              <img src={require('../static/img/404.jpg')} alt="" />
             </div>
-          ))}
+          ) : (
+            dev.experiences.map((exp: Experience, i: number) => (
+              <div key={i}>
+                <h3>{exp.company}</h3>
+                <p>{getTimePeriod(exp.from, exp.to)}</p>
+                <p>
+                  <strong>Position: </strong>
+                  {exp.position}
+                </p>
+                <p>
+                  <strong>Description: </strong>
+                  {exp.description}
+                </p>
+              </div>
+            ))
+          )}
         </div>
 
         <div className="profile-edu bg-white p-2">
           <h2 className="text-primary">Education</h2>
-          {dev.educations?.map((edu: Education, i: number) => (
-            <div key={i}>
-              <h3>{edu.school}</h3>
-              <p>{getTimePeriod(edu.from, edu.to)}</p>
-              <p>
-                <strong>Degree: </strong>
-                {edu.degree}
-              </p>
-              <p>
-                <strong>Field: </strong>
-                {edu.field}
-              </p>
-              <p>
-                <strong>Description: </strong>
-                {edu.description}
-              </p>
+          {dev.educations.length === 0 ? (
+            <div>
+              <img src={require('../static/img/404.jpg')} alt="" />
             </div>
-          ))}
+          ) : (
+            dev.educations.map((edu: Education, i: number) => (
+              <div key={i}>
+                <h3>{edu.school}</h3>
+                <p>{getTimePeriod(edu.from, edu.to)}</p>
+                <p>
+                  <strong>Degree: </strong>
+                  {edu.degree}
+                </p>
+                <p>
+                  <strong>Field: </strong>
+                  {edu.field}
+                </p>
+                <p>
+                  <strong>Description: </strong>
+                  {edu.description}
+                </p>
+              </div>
+            ))
+          )}
         </div>
 
         <div className="profile-github">
@@ -168,29 +180,35 @@ const Profile: FC<IProps> = ({dev}) => {
             <FontAwesomeIcon icon={faGithub} /> GitHub Repos
           </h2>
 
-          {dev.repos?.map((r: Repo, i: number) => (
-            <div className="repo bg-white my-1 p-1">
-              <div>
-                <h4>
-                  <a href={r.link}>{r.name}</a>
-                </h4>
-                <p>{r.description}</p>
-              </div>
-              <div>
-                <ul>
-                  <li className="badge badge-primary">
-                    <FontAwesomeIcon icon={faStar} /> Stars: 42
-                  </li>
-                  <li className="badge badge-dark">
-                    <FontAwesomeIcon icon={faEye} /> Watchers: 2
-                  </li>
-                  <li className="badge badge-light">
-                    <FontAwesomeIcon icon={faCodeBranch} /> Forks: 4
-                  </li>
-                </ul>
-              </div>
+          {dev.repos.length === 0 ? (
+            <div>
+              <img src={require('../static/img/404.jpg')} alt="" />
             </div>
-          ))}
+          ) : (
+            dev.repos.map((r: Repo, i: number) => (
+              <div className="repo bg-white my-1 p-1">
+                <div>
+                  <h4>
+                    <a href={r.link}>{r.name}</a>
+                  </h4>
+                  <p>{r.description}</p>
+                </div>
+                <div>
+                  <ul>
+                    <li className="badge badge-primary">
+                      <FontAwesomeIcon icon={faStar} /> Stars: 42
+                    </li>
+                    <li className="badge badge-dark">
+                      <FontAwesomeIcon icon={faEye} /> Watchers: 2
+                    </li>
+                    <li className="badge badge-light">
+                      <FontAwesomeIcon icon={faCodeBranch} /> Forks: 4
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </section>
