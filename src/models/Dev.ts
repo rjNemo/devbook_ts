@@ -9,6 +9,8 @@ export interface DevSummary {
   displayName: string;
   avatarUrl: string;
   description: string;
+  status: string;
+  company: string;
   location: string;
   skills: string[];
 }
@@ -19,14 +21,19 @@ export interface DevSummary {
 interface IDev extends DevSummary {
   isActive: boolean;
   bio: string;
-  status: string;
-  company: string;
   github: string;
   links: Links;
   experiences: Experience[];
   educations: Education[];
   repos: Repo[];
 }
+
+export const getDescription = (status?: string, company?: string): string => {
+  if (status && company) return `${status} at ${company}`;
+  if (status) return status;
+  if (company) return `Employed at ${company}`;
+  return 'Document your current occupation.';
+};
 
 /** class implementing IDev.
  * No constructor is provided.
@@ -160,6 +167,8 @@ export const developers: DevSummary[] = [
     description: 'Developer at Microsoft',
     location: 'Seattle, WA',
     skills: ['HTML', 'CSS', 'JavaScript', 'Python'],
+    status: 'Developer',
+    company: 'Microsoft',
   },
   {
     id: '42',
@@ -170,6 +179,8 @@ export const developers: DevSummary[] = [
 
     location: 'Hamburg, DE',
     skills: ['React', 'TypeScript', 'Redux', 'Nodejs'],
+    status: 'Developer',
+    company: 'Microsoft',
   },
 ];
 

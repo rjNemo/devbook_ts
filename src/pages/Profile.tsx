@@ -27,14 +27,14 @@ import {
   faCodeBranch,
 } from '@fortawesome/free-solid-svg-icons';
 // Typing
-import {Dev} from '../models/Dev';
+import IDev, {getDescription} from '../models/Dev';
 import Experience from '../types/Experience';
 import {getTimePeriod} from '../types/TimePeriod';
 import Education from '../types/Education';
 import Repo from '../types/Repo';
 
 interface IProps {
-  dev: Dev;
+  dev: IDev;
 }
 
 /**
@@ -45,6 +45,9 @@ const Profile: FC<IProps> = ({dev}) => {
   if (dev === null) {
     return <NotFound />;
   }
+
+  const fn = dev?.description;
+  console.log(fn);
 
   /** return the icon corresponding to the social name */
   const renderSocialIcon = (name: string): IconDefinition => {
@@ -82,7 +85,7 @@ const Profile: FC<IProps> = ({dev}) => {
             className="round-img my-1"
           />
           <h1 className="large">{dev.displayName}</h1>
-          <p className="lead">{`${dev.status} at ${dev.company}`}</p>
+          <p className="lead">{getDescription(dev.status, dev.company)}</p>
           <p>{dev.location}</p>
           <div className="icons my-1">
             {Object.entries(dev.links)

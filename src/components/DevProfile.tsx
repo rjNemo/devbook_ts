@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCheck} from '@fortawesome/free-solid-svg-icons';
 // Typing
-import {DevSummary} from '../models/Dev';
+import {DevSummary, getDescription} from '../models/Dev';
 import Routes from '../constants/routes';
 
 /**
@@ -16,7 +16,8 @@ const DevProfile: FC<DevSummary> = ({
   id,
   displayName,
   avatarUrl,
-  description,
+  status,
+  company,
   location,
   skills,
 }) => (
@@ -24,7 +25,7 @@ const DevProfile: FC<DevSummary> = ({
     <img src={avatarUrl} alt={displayName} className="round-img" />
     <div>
       <h2>{displayName}</h2>
-      <p>{description}</p>
+      <p>{getDescription(status, company)}</p>
       <p>{location}</p>
       <Link to={`${Routes.PROFILE}/${id}`} className="btn btn-primary">
         View Profile
