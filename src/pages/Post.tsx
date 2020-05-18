@@ -14,7 +14,7 @@ const PostPage: FC<Post> = () => (
     <div className="post bg-white p-1 my-1">
       <div>
         <a href="profile.html">
-          <img className="round-img" src={post.picture} alt={post.name} />
+          <img className="round-img" src={post.avatarUrl} alt={post.name} />
           <h4>{post.name}</h4>
         </a>
       </div>
@@ -43,7 +43,7 @@ const PostPage: FC<Post> = () => (
         <div className="post bg-white p-1 my-1" key={i}>
           <div>
             <a href="profile.html">
-              <img className="round-img" src={c.picture} alt={c.name} />
+              <img className="round-img" src={c.avatarUrl} alt={c.name} />
               <h4>{c.name}</h4>
             </a>
           </div>

@@ -3,12 +3,19 @@ import Post, {dummyPost as post} from '../models/Post';
 import Header from '../components/Header';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faThumbsUp, faThumbsDown} from '@fortawesome/free-solid-svg-icons';
+import Routes from '../constants/routes';
+import {Link} from 'react-router-dom';
 
 /**
  * A Dev's Posts list
  */
 const Posts: FC = () => {
   const posts: Post[] = [post, post];
+
+  const removeLike = (e: React.MouseEvent<HTMLButtonElement>) =>
+    new Error('Not implemented yet.');
+  const addLike = (e: React.MouseEvent<HTMLButtonElement>) =>
+    new Error('Not implemented yet.');
 
   return (
     <section className="container">
@@ -25,26 +32,29 @@ const Posts: FC = () => {
             {posts.map((post: Post) => (
               <div className="post bg-white p-1 my-1" key={post.id}>
                 <div>
-                  <a href="profile.html">
+                  <Link to={`${Routes.PROFILE}/${post.userID}`}>
                     <img
-                      src={post.picture}
+                      src={post.avatarUrl}
                       alt={post.name}
                       className="round-img"
                     />
                     <h4>{post.name}</h4>
-                  </a>
+                  </Link>
                 </div>
                 <div>
                   <p className="my-1">{post.text}</p>
-                  <button className="btn btn-light">
+                  <button className="btn btn-light" onClick={addLike}>
                     <FontAwesomeIcon icon={faThumbsUp} /> {post.likes.length}
                   </button>
-                  <button className="btn btn-light">
+                  <button className="btn btn-light" onClick={removeLike}>
                     <FontAwesomeIcon icon={faThumbsDown} />
                   </button>
-                  <a href="post.html" className="btn btn-primary">
+                  <Link
+                    to={`${Routes.POST}/${post.id}`}
+                    className="btn btn-primary"
+                  >
                     Discussion
-                  </a>
+                  </Link>
                 </div>
               </div>
             ))}
