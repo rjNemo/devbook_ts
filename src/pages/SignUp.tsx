@@ -5,17 +5,18 @@ import Routes from '../constants/routes';
 // Redux
 import {WithFirebaseProps} from 'react-redux-firebase';
 import {enhance} from '../store/firebase';
-import User, {newUser} from '../models/User';
 // Style
 import GoogleButton from 'react-google-button';
 import Alert from '../components/Alert';
 import Header from '../components/Header';
+// Typing
+import IDev, {blankDev} from '../models/Dev';
+import User, {newUser} from '../models/User';
 // Form
 import useForm from '../hooks';
-import {Dev} from '../models/Dev';
 
 // extends withFirebaseProps type to ad profile info
-interface IProps extends Dev, WithFirebaseProps<User> {
+interface IProps extends IDev, WithFirebaseProps<User> {
   isEmpty: boolean;
   isLoaded: boolean;
 }
@@ -57,7 +58,7 @@ const SignUp: FC<IProps> = ({firebase, isEmpty, isLoaded, isActive}) => {
     firebase
       .createUser({email, password}, newUser(name, email))
       .then(() => {
-        firebase.updateProfile(new Dev(), {useSet: true, merge: true});
+        firebase.updateProfile(blankDev, {useSet: true, merge: true});
         resetForm();
       })
       .catch(err => setError(err));
@@ -82,7 +83,7 @@ const SignUp: FC<IProps> = ({firebase, isEmpty, isLoaded, isActive}) => {
           )
           .then(() => {
             if (!exists)
-              firebase.updateProfile(new Dev(), {useSet: true, merge: true});
+              firebase.updateProfile(blankDev, {useSet: true, merge: true});
           });
       })
       .catch(err => setError(err));
