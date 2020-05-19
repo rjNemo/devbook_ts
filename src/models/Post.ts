@@ -5,10 +5,10 @@ import Comment from '../types/Comment';
  */
 interface Post {
   id: string;
-  userID: string;
-  name: string;
+  userID?: string;
+  name?: string;
   text: string;
-  avatarUrl: string;
+  avatarUrl?: string;
   likes: string[];
   comments: Comment[];
   //   date: Date;
