@@ -192,7 +192,9 @@ const Profile: FC<IProps> = ({dev}) => {
               <div className="repo bg-white my-1 p-1" key={i}>
                 <div>
                   <h4>
-                    <a href={r.url}>{r.name}</a>
+                    <a href={r.url} target="_blank" rel="noopener noreferrer">
+                      {r.name}
+                    </a>
                   </h4>
                   <p>{r.description}</p>
                 </div>
