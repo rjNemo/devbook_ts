@@ -1,7 +1,7 @@
 interface Repo {
   name: string;
   description: string;
-  link: string;
+  url: string;
   stars: number;
   watchers: number;
   forks: number;

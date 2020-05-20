@@ -128,7 +128,7 @@ export const dummyDev: IDev = {
       name: 'Repo #1',
       description:
         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit,deserunt.',
-      link: '#',
+      url: '#',
       stars: 42,
       watchers: 2,
       forks: 4,
@@ -137,7 +137,7 @@ export const dummyDev: IDev = {
       name: 'Repo #2',
       description:
         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit,deserunt.',
-      link: '#',
+      url: '#',
       stars: 21,
       watchers: 1,
       forks: 2,
@@ -146,7 +146,7 @@ export const dummyDev: IDev = {
       name: 'Repo #3',
       description:
         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit,deserunt.',
-      link: '#',
+      url: '#',
       stars: 50,
       watchers: 32,
       forks: 12,

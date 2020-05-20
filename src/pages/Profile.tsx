@@ -46,9 +46,6 @@ const Profile: FC<IProps> = ({dev}) => {
     return <NotFound />;
   }
 
-  const fn = dev?.description;
-  console.log(fn);
-
   /** return the icon corresponding to the social name */
   const renderSocialIcon = (name: string): IconDefinition => {
     switch (name) {
@@ -192,23 +189,23 @@ const Profile: FC<IProps> = ({dev}) => {
             </div>
           ) : (
             dev.repos.map((r: Repo, i: number) => (
-              <div className="repo bg-white my-1 p-1">
+              <div className="repo bg-white my-1 p-1" key={i}>
                 <div>
                   <h4>
-                    <a href={r.link}>{r.name}</a>
+                    <a href={r.url}>{r.name}</a>
                   </h4>
                   <p>{r.description}</p>
                 </div>
                 <div>
                   <ul>
                     <li className="badge badge-primary">
-                      <FontAwesomeIcon icon={faStar} /> Stars: 42
+                      <FontAwesomeIcon icon={faStar} /> Stars: {r.stars}
                     </li>
                     <li className="badge badge-dark">
-                      <FontAwesomeIcon icon={faEye} /> Watchers: 2
+                      <FontAwesomeIcon icon={faEye} /> Watchers: {r.watchers}
                     </li>
                     <li className="badge badge-light">
-                      <FontAwesomeIcon icon={faCodeBranch} /> Forks: 4
+                      <FontAwesomeIcon icon={faCodeBranch} /> Forks: {r.forks}
                     </li>
                   </ul>
                 </div>

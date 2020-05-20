@@ -13,7 +13,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faThumbsUp} from '@fortawesome/free-solid-svg-icons';
 import Header from '../components/Header';
 // Typing
-import Post, {dummyPost as post} from '../models/Post';
+import Post from '../models/Post';
 import Collections from '../constants/collections';
 
 interface IProps extends WithFirestoreProps {
