@@ -18,7 +18,7 @@ const getGithubRepos = async (owner: string) => {
     const {data: repos} = await octokit.repos.listForAuthenticatedUser({
       owner,
     });
-    const newRepo: Repo[] = repos.forEach((r: any) => ({
+    const newRepo: Repo[] = repos.map((r: any) => ({
       url: r.url,
       stars: r.stargazers_count,
       forks: r.forks_count,

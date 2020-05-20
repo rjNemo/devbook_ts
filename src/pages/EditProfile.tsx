@@ -18,6 +18,7 @@ import Alert from '../components/Alert';
 import Statuses from '../constants/statuses';
 // Form
 import useForm from '../hooks';
+import getGithubRepos from '../services/github';
 // Typing
 import Dev from '../models/Dev';
 import User from '../models/User';
@@ -75,7 +76,7 @@ const EditProfile: FC<IProps> = ({
   const {formData, handleChange} = useForm<FormData>(initFormData);
 
   /** construct profile object from formData */
-  const makeProfile = ({
+  const makeProfile = async ({
     status,
     company,
     location,
@@ -99,6 +100,7 @@ const EditProfile: FC<IProps> = ({
       youtube: parseLink(youtube),
     };
     const newSkills: string[] = skills?.split(',');
+    const newRepos = await getGithubRepos(github);
     return {
       status,
       company,
@@ -107,12 +109,13 @@ const EditProfile: FC<IProps> = ({
       github,
       links: newLinks,
       skills: newSkills,
+      repos: newRepos,
     };
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const updatedDev = makeProfile(formData);
+    const updatedDev = await makeProfile(formData);
     try {
       firebase.updateProfile(updatedDev, {useSet: true, merge: true});
       setAlert({
@@ -122,6 +125,7 @@ const EditProfile: FC<IProps> = ({
           'Profile successfully updated. You may go back to your dashboard.',
       });
     } catch (err) {
+      console.error(err);
       setAlert({...alert, show: true});
     }
   };
