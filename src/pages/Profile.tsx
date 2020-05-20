@@ -32,7 +32,6 @@ import Experience from '../types/Experience';
 import {getTimePeriod} from '../types/TimePeriod';
 import Education from '../types/Education';
 import Repo from '../types/Repo';
-import asyncGetRepos from '../services/github';
 
 interface IProps {
   dev: IDev;
@@ -46,8 +45,6 @@ const Profile: FC<IProps> = ({dev}) => {
   if (dev === null) {
     return <NotFound />;
   }
-
-  asyncGetRepos();
 
   /** return the icon corresponding to the social name */
   const renderSocialIcon = (name: string): IconDefinition => {
@@ -195,7 +192,7 @@ const Profile: FC<IProps> = ({dev}) => {
               <div className="repo bg-white my-1 p-1">
                 <div>
                   <h4>
-                    <a href={r.link}>{r.name}</a>
+                    <a href={r.url}>{r.name}</a>
                   </h4>
                   <p>{r.description}</p>
                 </div>
