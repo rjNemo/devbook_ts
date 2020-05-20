@@ -6,8 +6,8 @@ import Repo from '../types/Repo';
 /** Shorter dev interface */
 export interface DevSummary {
   id?: string;
-  displayName: string;
-  avatarUrl: string;
+  displayName?: string;
+  avatarUrl?: string;
   description: string;
   status: string;
   company: string;
@@ -40,18 +40,15 @@ export const getDescription = (status?: string, company?: string): string => {
  * new Dev() returns a placeholder used when initializing a new profile.
  * id is not specified to not overwrite document uid.
  */
-export class Dev implements IDev {
-  id?: string;
-  isActive = true;
-  displayName = '';
-  status = 'Developer';
-  company = '';
-  avatarUrl = '';
-  description = '';
-  location = '';
-  skills: string[] = [];
-  github: string = '';
-  links: Links = {
+export const blankDev: IDev = {
+  isActive: true,
+  status: 'Developer',
+  company: '',
+  description: '',
+  location: '',
+  skills: [],
+  github: '',
+  links: {
     website: '',
     instagram: '',
     facebook: '',
@@ -59,12 +56,12 @@ export class Dev implements IDev {
     twitter: '',
     github: '',
     youtube: '',
-  };
-  bio = '';
-  experiences: Experience[] = [];
-  educations: Education[] = [];
-  repos: Repo[] = [];
-}
+  },
+  bio: '',
+  experiences: [],
+  educations: [],
+  repos: [],
+};
 
 /**
  * sample Dev for development and tests

@@ -2,7 +2,7 @@ interface Comment {
   // userID: string;
   text: string;
   name: string;
-  picture: string;
+  avatarUrl: string;
   // date: Date;
 }
 
