@@ -1,25 +1,46 @@
 import React, {FC} from 'react';
 // Routing
 import {useParams, Link} from 'react-router-dom';
+import Routes from '../constants/routes';
 // Redux
 import {compose} from '@reduxjs/toolkit';
 import {connect} from 'react-redux';
-import {firestoreConnect} from 'react-redux-firebase';
+import {firestoreConnect, WithFirestoreProps} from 'react-redux-firebase';
 import {RootState} from '../store';
 import Collections from '../constants/collections';
 // Typing
 import Post from '../models/Post';
 import Comment from '../types/Comment';
-import Routes from '../constants/routes';
+// Form
+import useForm from '../hooks';
 
-interface IProps {
+interface IProps extends WithFirestoreProps {
   post: Post;
 }
+
 /**
  * Display a Post and the related comments. Shows a form to add a comment.
  */
-const PostPage: FC<IProps> = ({post}) => {
-  console.log(post);
+const PostPage: FC<IProps> = ({post, firestore}) => {
+  const newComment: Comment = {
+    name: post.name ?? 'error',
+    avatarUrl: post.avatarUrl ?? 'error',
+    text: '',
+  };
+
+  const {formData, handleChange, resetForm} = useForm(newComment);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    firestore
+      .update(`${Collections.POSTS}/${post.id}`, {
+        comments: [...post.comments, formData],
+      })
+      .then(() => resetForm())
+      .catch(err => console.error(err));
+  };
+
   return (
     <section className="container">
       <Link to={Routes.POSTS} className="btn btn-light">
@@ -42,32 +63,34 @@ const PostPage: FC<IProps> = ({post}) => {
         <div className="post-form-header bg-primary">
           <h3>Leave A Comment</h3>
         </div>
-        <form className="form my-1">
+        <form className="form my-1" onSubmit={handleSubmit}>
           <textarea
             name="text"
             cols={30}
             rows={5}
             placeholder="Comment on this post"
+            value={formData.text}
+            onChange={handleChange}
           ></textarea>
           <input type="submit" className="btn btn-dark my-1" value="Submit" />
         </form>
       </div>
 
-      {/* <div className="posts">
-      {post.comments?.map((c: Comment, i: number) => (
-        <div className="post bg-white p-1 my-1" key={i}>
-          <div>
-            <a href="profile.html">
-              <img className="round-img" src={c.avatarUrl} alt={c.name} />
-              <h4>{c.name}</h4>
-            </a>
+      <div className="posts">
+        {post.comments?.map((c: Comment, i: number) => (
+          <div className="post bg-white p-1 my-1" key={i}>
+            <div>
+              <a href="profile.html">
+                <img className="round-img" src={c.avatarUrl} alt={c.name} />
+                <h4>{c.name}</h4>
+              </a>
+            </div>
+            <div>
+              <p className="my-1">{c.text}</p>
+            </div>
           </div>
-          <div>
-            <p className="my-1">{c.text}</p>
-          </div>
-        </div>
-      ))}
-    </div> */}
+        ))}
+      </div>
     </section>
   );
 };
@@ -80,7 +103,7 @@ const PostPageContainer: FC = () => {
   const Component = compose<FC>(
     firestoreConnect(() => [`${Collections.POSTS}/${id}`]),
     connect(({firestore: {data}}: RootState) => ({
-      post: data.posts && data.posts[id],
+      post: data.posts && {...data.posts[id], id},
     })),
   )(PostPage);
 

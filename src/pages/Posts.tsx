@@ -43,10 +43,7 @@ const Posts: FC<IProps> = ({posts, firestore, firebase}) => {
     e.preventDefault();
     firestore
       .add(Collections.POSTS, newPost)
-      .then(res => {
-        console.log(res);
-        setText('');
-      })
+      .then(() => setText(''))
       .catch(err => console.error(err));
   };
   // const removeLike = (e: React.MouseEvent<HTMLButtonElement>) =>
