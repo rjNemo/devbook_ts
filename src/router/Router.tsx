@@ -31,7 +31,7 @@ const Router: FC = () => (
       component={AddExperience}
     />
     <PrivateRoute exact path={Routes.ADD_EDUCATION} component={AddEducation} />
-    <PrivateRoute exact path={Routes.POST} component={PostPage} />
+    <PrivateRoute exact path={`${Routes.POST}/:id`} component={PostPage} />
     <PrivateRoute exact path={Routes.POSTS} component={Posts} />
     <Route component={NotFound} />
   </Switch>
