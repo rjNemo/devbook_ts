@@ -41,4 +41,4 @@ const DevProfile: FC<DevSummary> = ({
   </div>
 );
 
-export default DevProfile;
+export default React.memo(DevProfile);
