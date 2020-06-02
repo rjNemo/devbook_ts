@@ -4,7 +4,7 @@
 
 Social App for connecting with developers & tech enthusiasts.
 
-🕸 [Check it out!](https://devbook.onrender.com/)
+🕸 [Check it out!](https://devprojects-4749c.firebaseapp.com/)
 
 ## Getting Started
 
