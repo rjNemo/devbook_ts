@@ -28,4 +28,4 @@ const Landing: FC = () => (
   </section>
 );
 
-export default Landing;
+export default React.memo(Landing);

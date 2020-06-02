@@ -25,4 +25,4 @@ const NotFound: FC = () => (
   </section>
 );
 
-export default NotFound;
+export default React.memo(NotFound);
