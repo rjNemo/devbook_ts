@@ -54,7 +54,7 @@ const Posts: FC<IProps> = ({posts, firestore, firebase}) => {
     e.preventDefault();
     const post = posts.find(p => p.id === postID);
 
-    if (post) {
+    if (post && id && !post.likes.includes(id)) {
       firestore
         .update(`${Collections.POSTS}/${post.id}`, {likes: [...post.likes, id]})
         .catch(err => console.error(err));
