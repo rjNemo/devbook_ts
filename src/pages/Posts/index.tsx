@@ -3,18 +3,16 @@ import React, {FC, useState} from 'react';
 import {compose} from '@reduxjs/toolkit';
 import {connect, useSelector} from 'react-redux';
 import {firestoreConnect, WithFirestoreProps} from 'react-redux-firebase';
-import {RootState} from '../store';
-import {selectProfile} from '../store/firebase';
-// Routing
-import {Link} from 'react-router-dom';
-import Routes from '../constants/routes';
+import {RootState} from '../../store';
+import {selectProfile} from '../../store/firebase';
 // Style
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faThumbsUp} from '@fortawesome/free-solid-svg-icons';
-import Header from '../components/Header';
+import Header from '../../components/Header';
 // Typing
-import Post from '../models/Post';
-import Collections from '../constants/collections';
+import Post from '../../models/Post';
+import Collections from '../../constants/collections';
+
+import PostsForm from './Form';
+import PostsItem from './Item';
 
 interface IProps extends WithFirestoreProps {
   posts: Post[];
@@ -69,45 +67,15 @@ const Posts: FC<IProps> = ({posts, firestore, firebase}) => {
           <h3>Say Something</h3>
         </div>
 
-        <form className="form my-1" onSubmit={handleSubmit}>
-          <textarea
-            cols={30}
-            rows={5}
-            placeholder="Create a post"
-            value={text}
-            onChange={handleChange}
-          />
-          <input type="submit" value="Submit" className="btn btn-dark my-1" />
-        </form>
+        <PostsForm
+          text={text}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+        />
+
         <div className="posts">
           {posts?.map((post: Post) => (
-            <div className="post bg-white p-1 my-1" key={post.id}>
-              <div>
-                <Link to={`${Routes.PROFILE}/${post.userID}`}>
-                  <img
-                    src={post.avatarUrl}
-                    alt={post.name}
-                    className="round-img"
-                  />
-                  <h4>{post.name}</h4>
-                </Link>
-              </div>
-              <div>
-                <p className="my-1">{post.text}</p>
-                <button className="btn btn-light" onClick={addLike(post.id)}>
-                  <FontAwesomeIcon icon={faThumbsUp} /> {post.likes?.length}
-                </button>
-                {/* <button className="btn btn-light" onClick={removeLike}>
-    <FontAwesomeIcon icon={faThumbsDown} />
-  </button> */}
-                <Link
-                  to={`${Routes.POST}/${post.id}`}
-                  className="btn btn-primary"
-                >
-                  Discussion
-                </Link>
-              </div>
-            </div>
+            <PostsItem post={post} addLike={addLike} key={post.id} />
           ))}
         </div>
       </div>
@@ -116,7 +84,7 @@ const Posts: FC<IProps> = ({posts, firestore, firebase}) => {
 };
 
 export default compose<FC>(
-  firestoreConnect(() => ['posts']), // or { collection: 'users' }
+  firestoreConnect(() => [Collections.POSTS]), // or { collection: 'users' }
   connect((state: RootState) => ({
     posts: state.firestore.ordered.posts,
   })),
