@@ -15,6 +15,7 @@ import Experience from '../../types/Experience';
 import {getTimePeriod} from '../../types/TimePeriod';
 import Education from '../../types/Education';
 import DashboardExperienceSection from './ExperienceSection';
+import DashboardEducationSection from './EducationSection';
 
 interface IProps extends Dev, WithFirebaseProps<User> {}
 /**
@@ -62,41 +63,16 @@ const Dashboard: FC<IProps> = ({
       <Header title="Dashboard" lead={`Welcome ${displayName}`} />
       <DashBoardButtons />
 
-      {!!experiences && (
-        <DashboardExperienceSection
-          experiences={experiences}
-          handleDelete={deleteExpEntry}
-        />
-      )}
+      <DashboardExperienceSection
+        experiences={experiences}
+        handleDelete={deleteExpEntry}
+      />
 
-      <h2 className="my-2">Education Credentials</h2>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>School</th>
-            <th className="hide-sm">Degree</th>
-            <th className="hide-sm">Years</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {educations?.map((edu: Education, i: number) => (
-            <tr key={edu.id}>
-              <td>{edu.school}</td>
-              <td className="hide-sm">{edu.degree}</td>
-              <td className="hide-sm">{getTimePeriod(edu.from, edu.to)}</td>
-              <td>
-                <button
-                  className="btn btn-danger"
-                  onClick={deleteEduEntry(edu.id, educations)}
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <DashboardEducationSection
+        educations={educations}
+        handleDelete={deleteEduEntry}
+      />
+
       <div className="my-2">
         <button className="btn btn-danger" onClick={deleteAccount}>
           <FontAwesomeIcon icon={faUserSlash} /> Delete my Account

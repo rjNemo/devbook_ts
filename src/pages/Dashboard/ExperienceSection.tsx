@@ -27,7 +27,7 @@ const DashboardExperienceSection: FC<IProps> = ({
           </tr>
         </thead>
         <tbody>
-          {experiences.map((exp: Experience) => (
+          {experiences?.map((exp: Experience) => (
             <tr key={exp.id}>
               <td>{exp.company}</td>
               <td className="hide-sm">{exp.position}</td>
