@@ -12,7 +12,6 @@ import Header from '../../components/Header';
 import Dev from '../../models/Dev';
 import User from '../../models/User';
 import Experience from '../../types/Experience';
-import {getTimePeriod} from '../../types/TimePeriod';
 import Education from '../../types/Education';
 import DashboardExperienceSection from './ExperienceSection';
 import DashboardEducationSection from './EducationSection';

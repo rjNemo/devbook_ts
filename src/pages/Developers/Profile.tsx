@@ -5,8 +5,8 @@ import {Link} from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCheck} from '@fortawesome/free-solid-svg-icons';
 // Typing
-import {DevSummary, getDescription} from '../models/Dev';
-import Routes from '../constants/routes';
+import {DevSummary, getDescription} from '../../models/Dev';
+import Routes from '../../constants/routes';
 
 /**
  * Present a dev profile succintly. Redirect to dev profile on click.

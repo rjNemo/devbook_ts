@@ -3,15 +3,19 @@ import React, {FC} from 'react';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {firestoreConnect} from 'react-redux-firebase';
-import {RootState} from '../store';
+import {RootState} from '../../store';
 // Style
-import Header from '../components/Header';
-import DevProfile from '../components/DevProfile';
-import {DevSummary} from '../models/Dev';
+import DevProfile from './Profile';
+import Header from '../../components/Header';
+
+import {DevSummary} from '../../models/Dev';
+
+import Collections from '../../constants/collections';
 
 interface IProps {
   developers: DevSummary[];
 }
+
 /**
  * Developers list page
  */
@@ -31,8 +35,8 @@ const Developers: FC<IProps> = ({developers}) => (
 );
 
 export default compose<FC>(
-  firestoreConnect(() => ['users']), // or { collection: 'users' }
-  connect((state: RootState, props) => ({
+  firestoreConnect(() => [Collections.USERS]),
+  connect((state: RootState) => ({
     developers: state.firestore.ordered.users,
   })),
 )(Developers);
