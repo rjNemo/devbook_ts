@@ -4,9 +4,10 @@ import {useParams, Link} from 'react-router-dom';
 import Routes from '../constants/routes';
 // Redux
 import {compose} from '@reduxjs/toolkit';
-import {connect} from 'react-redux';
+import {connect, useSelector} from 'react-redux';
 import {firestoreConnect, WithFirestoreProps} from 'react-redux-firebase';
 import {RootState} from '../store';
+import {selectProfile} from '../store/firebase';
 import Collections from '../constants/collections';
 // Typing
 import Post from '../models/Post';
@@ -22,9 +23,10 @@ interface IProps extends WithFirestoreProps {
  * Display a Post and the related comments. Shows a form to add a comment.
  */
 const PostPage: FC<IProps> = ({post, firestore}) => {
+  const {avatarUrl, displayName} = useSelector(selectProfile);
   const newComment: Comment = {
-    name: post.name ?? 'error',
-    avatarUrl: post.avatarUrl ?? 'error',
+    name: displayName ?? 'error',
+    avatarUrl: avatarUrl ?? 'error',
     text: '',
   };
 
