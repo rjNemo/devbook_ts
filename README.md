@@ -6,6 +6,34 @@ Social App for connecting with developers & tech enthusiasts.
 
 🕸 [Check it out!](https://devbook.onrender.com/)
 
+## Getting Started
+
+Clone this repo on your local machine
+
+```sh
+https://github.com/rjNemo/devbook_ts.git
+```
+
+and start the development server using:
+
+```sh
+yarn start
+```
+
+For use in production, don't forget to build the project:
+
+```sh
+yarn build
+```
+
+### Prerequisites
+
+You will need to have Nodejs installed. You can obtain the LTS version [here](https://nodejs.org/en/download/) or using a package manager such as homebrew:
+
+```
+brew install node
+```
+
 ## Tests
 
 ### End-to-end
@@ -41,9 +69,13 @@ It watches git `master` branch and automatic deploy if the diff passes the tests
 - [Redux](https://redux.js.org/) - A predictable statea container for JavaScript apps
 - [Firebase](https://firebase.google.com/) - Firebase helps mobile and web app teams succeed
 
+## Contributing
+
+Please read [CONTRIBUTING.md](https://github.com/rjNemo/devbook_ts/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/rjNemo/devbook_ts/tags).
 
 ## Authors
 
@@ -52,7 +84,3 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-- [Inspiration](https://github.com/bradtraversy/devconnector_2.0)
