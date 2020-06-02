@@ -21,10 +21,12 @@ interface IProps extends WithFirestoreProps {
 /**
  * Display a Post and the related comments. Shows a form to add a comment.
  */
-const PostPage: FC<IProps> = ({post, firestore}) => {
+const PostPage: FC<IProps> = ({post, firestore, firebase}) => {
+  const name = firebase.auth().currentUser?.displayName;
+  const avatarUrl = firebase.auth().currentUser?.photoURL;
   const newComment: Comment = {
-    name: post.name ?? 'error',
-    avatarUrl: post.avatarUrl ?? 'error',
+    name: name ?? 'error',
+    avatarUrl: avatarUrl ?? 'error',
     text: '',
   };
 
