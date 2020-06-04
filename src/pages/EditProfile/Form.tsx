@@ -35,7 +35,7 @@ const EditProfileForm: FC<IProps> = ({
   isDisabled,
   toggleSocialLinks,
 }) => (
-  <form className="form" onSubmit={handleSubmit}>
+  <form className="form" onSubmit={handleSubmit} autoComplete="on">
     <div className="form-group">
       <select
         name="status"
@@ -60,7 +60,6 @@ const EditProfileForm: FC<IProps> = ({
         placeholder="Company"
         name="company"
         value={formData.company}
-        // value={variable}
         onChange={handleChange}
       />
       <small className="form-text">
@@ -69,7 +68,7 @@ const EditProfileForm: FC<IProps> = ({
     </div>
     <div className="form-group">
       <input
-        type="text"
+        type="url"
         placeholder="Website"
         name="website"
         value={formData.website}
@@ -142,7 +141,7 @@ const EditProfileForm: FC<IProps> = ({
         <div className="form-group social-input">
           <FontAwesomeIcon icon={faFacebook} size="2x" />
           <input
-            type="text"
+            type="url"
             placeholder="Facebook URL"
             name="facebook"
             value={formData.facebook}
@@ -153,7 +152,7 @@ const EditProfileForm: FC<IProps> = ({
         <div className="form-group social-input">
           <FontAwesomeIcon icon={faInstagram} size="2x" />
           <input
-            type="text"
+            type="url"
             placeholder="Instagram URL"
             name="instagram"
             value={formData.instagram}
@@ -164,7 +163,7 @@ const EditProfileForm: FC<IProps> = ({
         <div className="form-group social-input">
           <FontAwesomeIcon icon={faLinkedin} size="2x" />
           <input
-            type="text"
+            type="url"
             placeholder="Linkedin URL"
             name="linkedin"
             value={formData.linkedin}
@@ -175,7 +174,7 @@ const EditProfileForm: FC<IProps> = ({
         <div className="form-group social-input">
           <FontAwesomeIcon icon={faTwitter} size="2x" />
           <input
-            type="text"
+            type="url"
             placeholder="Twitter URL"
             name="twitter"
             value={formData.twitter}
@@ -186,7 +185,7 @@ const EditProfileForm: FC<IProps> = ({
         <div className="form-group social-input">
           <FontAwesomeIcon icon={faYoutube} size="2x" />
           <input
-            type="text"
+            type="url"
             placeholder="YouTube URL"
             name="youtube"
             value={formData.youtube}

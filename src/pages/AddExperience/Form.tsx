@@ -24,7 +24,7 @@ const AddExperienceForm: FC<IProps> = ({
   handleCheckboxesChange,
   isDisabled,
 }) => (
-  <form className="form" onSubmit={handleSubmit}>
+  <form className="form" onSubmit={handleSubmit} autoComplete="on">
     <div className="form-group">
       <input
         type="text"
